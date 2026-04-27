@@ -1,0 +1,261 @@
+@startuml UC27_DangNhap
+
+' ============================================================
+' UC27 – ĐĂNG NHẬP HỆ THỐNG
+' Tất cả luồng trong 1 Sequence Diagram
+' Basic Flow | Alt 1a (OTP) | Alt 1b (OAuth2) | Alt 1c (Admin 2FA)
+' ============================================================
+
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 250
+
+title **UC27 – Đăng nhập hệ thống**
+
+actor       "Người dùng"                         as User   order 1
+participant "LoginPage\n<<React>>"                as UI     order 2  #E3F2FD
+participant "AuthController\n<<Spring Security>>" as AC     order 3  #C8E6C9
+participant "AuthService"                         as AS     order 4  #C8E6C9
+participant "OAuth2Service"                       as O2S    order 5  #C8E6C9
+participant "EmailService"                        as ES     order 6  #FFF9C4
+participant "Database\n<<MySQL>>"                 as DB     order 7  #DCEDC8
+participant "Google / Facebook\n<<OAuth2>>"       as OAuth  order 8  #FFF9C4
+
+User -> UI : Truy cập trang **Đăng nhập**\nChọn phương thức
+activate UI
+
+' ###########################################################
+'      PHÂN NHÁNH THEO PHƯƠNG THỨC ĐĂNG NHẬP
+' ###########################################################
+
+alt Basic Flow: Đăng nhập bằng **Mật khẩu**
+
+    User -> UI : 1. Nhập **Email** & **Password**\n→ Nhấn "Đăng nhập"
+
+    UI -> AC : POST /api/auth/login\n{email, password}
+    activate AC
+    AC -> AS : authenticate(email, password)
+    activate AS
+
+    AS -> DB : 3. findByEmail(email)
+    activate DB
+    return User entity
+
+    AS -> AS : BCrypt.matches(rawPwd, encodedPwd)
+    note right of AS
+      **NFR27-2**: Mật khẩu
+      mã hóa BCrypt
+    end note
+
+    alt Exception 3a: Sai Email hoặc Mật khẩu
+        AS --> AC : AuthenticationException
+        deactivate AS
+        AC --> UI : 401 Unauthorized
+        deactivate AC
+        UI --> User : ⚠️ "Email hoặc mật khẩu\nkhông chính xác"
+        note over User, UI : Quay lại **Bước 2**
+
+    else Hợp lệ
+        AS -> AS : 4. generateJwtToken(userId, role)
+        note right of AS
+          **NFR27-1**: Phiên làm việc
+          quản lý bằng **JWT**
+        end note
+        return AuthResponse{accessToken, role}
+        return 200 OK
+
+        UI -> UI : Lưu JWT → LocalStorage
+
+        alt 5. role = CUSTOMER
+            UI --> User : Điều hướng → **Trang chủ**
+        else role = SELLER hoặc ADMIN
+            UI --> User : Điều hướng → **Bảng điều khiển**
+        end
+    end
+
+' ###########################################################
+else Alt 1a: Đăng nhập bằng **OTP** (Passwordless)
+' ###########################################################
+
+    User -> UI : 1a1. Nhập **Email**\n→ chọn "Đăng nhập bằng OTP"
+
+    UI -> AC : POST /api/auth/request-otp {email}
+    activate AC
+    AC -> AS : requestLoginOtp(email)
+    activate AS
+
+    AS -> DB : findByEmail(email)
+    activate DB
+    return User entity
+
+    AS -> AS : generateOtp() → 6 chữ số
+    AS -> DB : saveOtp(email, otp, expiry=5min)
+    activate DB
+    note right of DB
+      **BR27-1**: OTP hiệu lực
+      **1 lần**, tối đa **5 phút**
+    end note
+    return done
+
+    AS -> ES : 1a2. sendOtpEmail(email, otp)
+    activate ES
+    return gửi thành công
+
+    return requestSuccess
+    return 200 OK
+
+    UI --> User : Hiển thị form nhập OTP
+
+    User -> UI : 1a3. Nhập mã OTP → "Xác nhận"
+    UI -> AC : POST /api/auth/verify-otp\n{email, otp}
+    activate AC
+    AC -> AS : verifyLoginOtp(email, otp)
+    activate AS
+
+    AS -> DB : getStoredOtp(email)
+    activate DB
+    return otpRecord
+
+    alt Exception 1a3.1: Sai OTP hoặc hết hạn
+        AS --> AC : InvalidOtpException
+        deactivate AS
+        AC --> UI : 400 Bad Request
+        deactivate AC
+        UI --> User : ⚠️ "Mã OTP không hợp lệ\nhoặc đã hết hạn"
+
+    else OTP hợp lệ → Tiếp tục Bước 4
+        AS -> DB : deleteOtp(email)
+        activate DB
+        return done
+
+        AS -> AS : 1a4. generateJwtToken(userId, role)
+        return AuthResponse{accessToken, role}
+        return 200 OK
+
+        UI -> UI : Lưu JWT → LocalStorage
+        UI --> User : Đăng nhập thành công\n→ Điều hướng theo Role
+    end
+
+' ###########################################################
+else Alt 1b: Đăng nhập qua **Google / Facebook** (OAuth2)
+' ###########################################################
+
+    User -> UI : 1b1. Nhấn "Đăng nhập với Google"\n(hoặc Facebook)
+
+    UI -> OAuth : 1b2. Redirect → trang xác thực\ncủa Google/Facebook
+    activate OAuth
+    note right of OAuth
+      **NFR27-3**: Giao tiếp
+      qua giao thức **OAuth2**
+    end note
+
+    OAuth --> User : Hiển thị màn hình cấp quyền
+
+    alt Exception 1b3.1: Từ chối cấp quyền
+        User -> OAuth : Nhấn "Hủy"
+        OAuth --> UI : callback?error=access_denied
+        deactivate OAuth
+        UI --> User : ⚠️ Đăng nhập thất bại\n→ Quay về trang Đăng nhập
+
+    else 1b3. Đồng ý cấp quyền
+        User -> OAuth : Đồng ý cấp quyền\n(Email, Tên)
+        OAuth --> UI : callback?code={auth_code}
+        deactivate OAuth
+
+        UI -> AC : POST /api/auth/oauth2/callback\n{provider, authCode}
+        activate AC
+        AC -> O2S : processOAuth2Login(\nprovider, authCode)
+        activate O2S
+
+        O2S -> OAuth : Exchange code → AccessToken\n→ Fetch UserInfo
+        activate OAuth
+        return UserInfo {email, name, avatar}
+
+        O2S -> DB : findByEmail(userInfo.email)
+        activate DB
+        return User (hoặc null)
+
+        opt Email chưa tồn tại → Tạo mới
+            O2S -> DB : createCustomerAccount(userInfo)
+            activate DB
+            note right of DB
+              **BR27-2**: Mặc định
+              cấp quyền **CUSTOMER**
+            end note
+            return newUser
+        end
+
+        O2S -> O2S : 1b4. generateJwtToken(\nuserId, ROLE_CUSTOMER)
+        return AuthResponse{accessToken, role}
+        return 200 OK
+
+        UI -> UI : Lưu JWT → LocalStorage
+        UI --> User : Đăng nhập thành công\n→ Điều hướng về **Trang chủ**
+    end
+
+' ###########################################################
+else Alt 1c: Đăng nhập bảo mật **2 lớp** (Admin)
+' ###########################################################
+
+    note over User : Tác nhân: **Quản trị viên (Admin)**
+
+    User -> UI : 1c1. Truy cập đường dẫn riêng\nNhập **Email** & **Mật khẩu**
+
+    UI -> AC : POST /api/auth/admin/login\n{email, password}
+    activate AC
+    AC -> AS : authenticateAdmin(email, password)
+    activate AS
+
+    AS -> DB : findByEmail(email)
+    activate DB
+    return Admin entity
+
+    AS -> AS : checkRole(ROLE_ADMIN)\n+ BCrypt.matches()
+
+    note over AS
+      Mật khẩu đúng → Yêu cầu
+      xác thực **bước 2 (OTP)**
+    end note
+
+    AS -> AS : generateOtp() → 6 chữ số
+    AS -> DB : saveOtp(email, otp, expiry=5min)
+    activate DB
+    return done
+
+    AS -> ES : 1c2. sendOtpEmail(email, otp)
+    activate ES
+    return gửi thành công
+
+    return Require2FA
+    return 202 Accepted
+
+    UI --> User : Hiển thị form xác thực OTP bước 2
+
+    User -> UI : 1c3. Nhập mã OTP bước 2
+    UI -> AC : POST /api/auth/admin/verify-2fa\n{email, otp}
+    activate AC
+    AC -> AS : verifyAdmin2fa(email, otp)
+    activate AS
+
+    AS -> DB : getStoredOtp(email)
+    activate DB
+    return otpRecord
+
+    AS -> DB : deleteOtp(email)
+    activate DB
+    return done
+
+    AS -> AS : generateJwtToken(\nadminId, ROLE_ADMIN)
+
+    return AuthResponse{accessToken, ROLE_ADMIN}
+    return 200 OK
+
+    UI -> UI : Lưu JWT → LocalStorage
+    UI --> User : Cấp phiên → Điều hướng\nvào **Admin Dashboard**
+
+end
+
+deactivate UI
+
+@enduml
