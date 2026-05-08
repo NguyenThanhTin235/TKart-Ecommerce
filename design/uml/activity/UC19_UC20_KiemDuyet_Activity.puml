@@ -1,0 +1,75 @@
+@startuml
+title Activity Diagram - Kiểm duyệt Người bán và Sản phẩm\n(UC19 + UC20)
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 11
+
+|#F5EEF8|Admin| Quản trị viên
+|#EBF5FB|System| Hệ thống
+|#FFF5E6|Seller| Người bán
+
+|Admin|
+start
+:Truy cập Bảng điều khiển Quản trị;
+
+if (Chọn loại kiểm duyệt?) then (Kiểm duyệt Người bán)
+  :Chọn tab "Quản lý Người bán";
+
+  |System|
+  :Hiển thị danh sách Người bán\nchờ xác minh;
+
+  |Admin|
+  :Chọn một hồ sơ Người bán;
+  :Xem chi tiết thông tin:\nTên doanh nghiệp, Mã số thuế,\nĐịa chỉ kho, Tài khoản ngân hàng;
+
+  if (Quyết định của Quản trị viên?) then (Phê duyệt)
+    :Nhấn "Phê duyệt";
+    |System|
+    :Kích hoạt tài khoản Người bán;
+    :Gửi Email thông báo\nchúc mừng đến Người bán;
+    |Seller|
+    :Nhận thông báo phê duyệt\nvà bắt đầu đăng sản phẩm;
+  else (Từ chối / Đình chỉ / Cấm)
+    |Admin|
+    if (Mức độ xử lý?) then (Đình chỉ tạm thời)
+      :Nhấn "Đình chỉ";
+      |System|
+      :Tạm khóa gian hàng\nvà ẩn sản phẩm;
+    else (Cấm vĩnh viễn)
+      :Nhấn "Cấm vĩnh viễn";
+      |System|
+      :Khóa hoàn toàn tài khoản\nvà gỡ bỏ toàn bộ sản phẩm;
+    endif
+    |System|
+    :Gửi Email thông báo\nkết quả đến Người bán;
+    |Seller|
+    :Nhận thông báo xử lý;
+  endif
+
+else (Kiểm duyệt Sản phẩm)
+  |Admin|
+  :Chọn tab "Kiểm duyệt Sản phẩm";
+
+  |System|
+  :Hiển thị danh sách sản phẩm\nchờ duyệt;
+
+  |Admin|
+  :Chọn một sản phẩm cần duyệt;
+  :Xem chi tiết:\nTên, Mô tả, Giá, Hình ảnh,\nDanh mục, Thông tin Người bán;
+
+  if (Quyết định của Quản trị viên?) then (Phê duyệt)
+    :Nhấn "Phê duyệt";
+    |System|
+    :Cho phép sản phẩm\nhiển thị công khai;
+    :Gửi thông báo đến Người bán\n"Sản phẩm đã được duyệt";
+  else (Từ chối)
+    :Nhấn "Từ chối";
+    |System|
+    :Giữ sản phẩm ở trạng thái ẩn;
+    :Gửi thông báo đến Người bán\n"Sản phẩm bị từ chối, yêu cầu sửa đổi";
+  endif
+endif
+
+|Admin|
+:Tiếp tục kiểm duyệt\ncác mục tiếp theo;
+stop
+@enduml

@@ -1,0 +1,75 @@
+@startuml
+title Activity Diagram - Xử lý Đơn hàng và Vận chuyển (UC16)
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 11
+
+|#FFF5E6|Seller| Người bán
+|#EBF5FB|System| Hệ thống
+|#E8F8F5|Customer| Khách hàng
+
+|Seller|
+start
+:Truy cập tab "Quản lý Đơn hàng"\ntrên Bảng điều khiển;
+
+|System|
+:Hiển thị danh sách đơn hàng\n(Lọc theo: Mới đặt, Chờ lấy, Đang giao...);
+
+|Seller|
+:Chọn một đơn hàng mới\n(Trạng thái: Mới đặt);
+:Xem chi tiết sản phẩm,\nđịa chỉ giao và thông tin Khách hàng;
+
+if (Xác nhận đơn hàng?) then (Không)
+  :Giữ nguyên trạng thái đơn hàng;
+  stop
+else (Có)
+  :Nhấn "Xác nhận đơn";
+endif
+
+|System|
+:Cập nhật trạng thái đơn hàng\nthành "Đã xác nhận";
+
+|Seller|
+:Tiến hành đóng gói sản phẩm;
+:Nhấn "Đẩy đơn vận chuyển";
+
+|System|
+:Gửi thông tin đơn hàng\nđến Đơn vị vận chuyển;
+
+if (Kết nối vận chuyển?) then (Thất bại)
+  :Thông báo lỗi\n"Kết nối hãng vận chuyển\nthất bại. Vui lòng thử lại";
+  :Giữ nguyên trạng thái\n"Đã xác nhận";
+  stop
+else (Thành công)
+  :Nhận Mã vận đơn\ntừ Đơn vị vận chuyển;
+  :Cập nhật trạng thái đơn hàng\nthành "Đang giao";
+endif
+
+|Seller|
+:Nhấn "In phiếu giao hàng";
+
+|System|
+:Tạo phiếu giao hàng PDF\ncó mã vạch để dán lên gói hàng;
+
+|Seller|
+:In phiếu và dán lên gói hàng;
+:Giao hàng cho Shipper;
+
+|System|
+:Tự động cập nhật tiến trình\ngiao hàng theo thời gian thực;
+
+|Customer|
+:Theo dõi tiến trình giao hàng\nqua thanh tiến trình trên giao diện;
+
+|System|
+if (Kết quả giao hàng?) then (Giao thất bại)
+  :Thông báo giao hàng\nkhông thành công;
+  stop
+else (Giao thành công)
+  :Cập nhật trạng thái\nthành "Đã giao";
+  :Gửi thông báo\nđến Khách hàng và Người bán;
+endif
+
+|Customer|
+:Nhận hàng thành công;
+stop
+@enduml

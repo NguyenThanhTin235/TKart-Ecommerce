@@ -1,0 +1,87 @@
+@startuml
+title Activity Diagram - Đăng nhập hệ thống (UC27)
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 11
+
+|#E8F8F5|User| Người dùng
+|#EBF5FB|System| Hệ thống
+
+|User|
+start
+:Truy cập trang Đăng nhập;
+
+if (Chọn phương thức đăng nhập?) then (Mật khẩu)
+  :Nhập Email và Mật khẩu;
+  :Nhấn "Đăng nhập";
+
+  |System|
+  if (Thông tin đăng nhập\nhợp lệ?) then (Sai)
+    :Báo lỗi "Email hoặc\nmật khẩu không chính xác";
+    |User|
+    backward :Nhập lại thông tin;
+  else (Đúng)
+  endif
+
+  |System|
+  if (Tài khoản là Quản trị viên?) then (Đúng)
+    :Gửi mã OTP xác thực\nbước 2 về Email;
+    |User|
+    :Nhập mã OTP;
+    |System|
+    if (Mã OTP hợp lệ?) then (Sai hoặc hết hạn)
+      :Báo lỗi "Mã OTP\nkhông hợp lệ";
+      stop
+    else (Đúng)
+    endif
+  else (Không)
+  endif
+
+else if (Chọn phương thức đăng nhập?) is (Mã OTP) then
+  :Nhập Email;
+  :Nhấn "Gửi mã OTP";
+
+  |System|
+  :Gửi mã xác thực 6 số\nvề Email người dùng;
+
+  |User|
+  :Nhập mã OTP nhận được;
+  :Nhấn "Xác nhận";
+
+  |System|
+  if (Mã OTP hợp lệ?) then (Sai hoặc hết hạn)
+    :Báo lỗi "Mã OTP\nkhông hợp lệ hoặc đã hết hạn";
+    stop
+  else (Đúng)
+  endif
+
+else (Mạng xã hội\nGoogle / Facebook)
+  |System|
+  :Chuyển hướng sang trang\nxác thực Google/Facebook;
+
+  |User|
+  if (Cấp quyền truy cập?) then (Từ chối)
+    |System|
+    :Quay về trang Đăng nhập;
+    stop
+  else (Đồng ý)
+  endif
+
+  |System|
+  :Nhận thông tin xác thực\ntừ Google/Facebook;
+  note right: Nếu Email chưa tồn tại,\nhệ thống tự động tạo\ntài khoản Khách hàng mới
+endif
+
+|System|
+:Thiết lập phiên làm việc;
+if (Vai trò người dùng?) then (Khách hàng)
+  :Điều hướng về Trang chủ;
+else if (Vai trò người dùng?) is (Người bán) then
+  :Điều hướng về\nBảng điều khiển Người bán;
+else (Quản trị viên)
+  :Điều hướng về\nBảng điều khiển Quản trị;
+endif
+
+|User|
+:Bắt đầu sử dụng hệ thống;
+stop
+@enduml
