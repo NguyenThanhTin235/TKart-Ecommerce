@@ -302,7 +302,6 @@ Trong bối cảnh thương mại điện tử phát triển mạnh mẽ, việc
 
 #### Liên quan đến người dùng (Khách vãng lai, Khách hàng, Người bán, Quản trị viên)
 
-trị viên): 
 - **Tính tiến hóa (Khả năng mở rộng):
   - Hệ thống phải có kiến trúc linh hoạt, cho phép Quản trị viên (Admin) dễ dàng tùy biến giao diện trang chủ, cấu hình lưới danh mục sản phẩm, banner quảng cáo và các chương trình khuyến mãi (Deals) để phù hợp với thị hiếu thay đổi của khách hàng,.
   - Phải dễ dàng nâng cấp, mở rộng trong tương lai để đáp ứng quy mô số lượng lớn Người bán (Seller) tham gia vào sàn. Đồng thời, hệ thống được thiết kế sẵn sàng tích hợp thêm các dịch vụ giao hàng nội địa của bên thứ ba (như GHTK, GHN...) hoặc mở rộng các cổng thanh toán điện tử quốc tế mới bên cạnh Stripe và Razorpay hiện tại,. 
