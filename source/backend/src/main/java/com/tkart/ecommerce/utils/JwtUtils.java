@@ -19,4 +19,18 @@ public class JwtUtils {
                     .signWith(SignatureAlgorithm.HS512, jwtSecret)
                     .compact();
      }
+
+     public String getUsernameFromJwtToken(String token) {
+          return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+     }
+
+     public boolean validateJwtToken(String authToken) {
+          try {
+               Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+               return true;
+          } catch (Exception e) {
+               // Log exception
+          }
+          return false;
+     }
 }
