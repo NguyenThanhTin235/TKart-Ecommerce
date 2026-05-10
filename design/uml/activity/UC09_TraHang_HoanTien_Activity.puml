@@ -1,0 +1,89 @@
+@startuml
+title Activity Diagram - Trả hàng và Hoàn tiền\n(UC09 + UC17 + UC23)
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 11
+
+|#E8F8F5|Customer| Khách hàng
+|#EBF5FB|System| Hệ thống
+|#FFF5E6|Seller| Người bán
+|#F5EEF8|Admin| Quản trị viên
+
+|Customer|
+start
+:Truy cập "Đơn hàng của tôi"\nchọn một đơn hàng đã nhận;
+
+|System|
+if (Đơn hàng còn trong\nthời hạn trả hàng?) then (Quá hạn)
+  :Ẩn nút "Yêu cầu trả hàng";
+  stop
+else (Còn hạn)
+endif
+
+|Customer|
+:Nhấn "Yêu cầu trả hàng";
+:Chọn lý do trả hàng\n(Hàng lỗi, sai màu, sai kích cỡ...);
+:Tải lên hình ảnh/video minh chứng;
+:Nhấn "Gửi yêu cầu";
+
+|System|
+:Xác nhận đã tiếp nhận yêu cầu;
+:Gửi thông báo đến Người bán;
+
+|Seller|
+:Nhận thông báo "Có yêu cầu trả hàng";
+:Xem chi tiết lý do và\nhình ảnh/video minh chứng;
+
+if (Quyết định của Người bán?) then (Từ chối)
+  :Nhập lý do từ chối;
+  :Nhấn "Từ chối yêu cầu";
+
+  |System|
+  :Thông báo kết quả\ntừ chối đến Khách hàng;
+
+  |Customer|
+  :Xem lý do từ chối;
+  if (Khách hàng đồng ý\nvới kết quả?) then (Đồng ý)
+    |System|
+    :Đóng yêu cầu trả hàng;
+    stop
+  else (Không đồng ý)
+    :Nhấn "Khiếu nại lên Quản trị viên";
+
+    |System|
+    :Gửi thông báo khiếu nại\nđến Quản trị viên;
+
+    |Admin|
+    :Mở màn hình "Giải quyết Khiếu nại";
+    :Xem đối chứng từ cả hai bên:\n- Lý do từ chối của Người bán\n- Minh chứng của Khách hàng;
+
+    if (Phán quyết của Quản trị viên?) then (Bảo vệ Người bán)
+      :Nhấn "Từ chối khiếu nại";
+      |System|
+      :Thông báo kết quả\nđến cả hai bên;
+      :Đóng khiếu nại;
+      stop
+    else (Bảo vệ Khách hàng)
+      :Nhấn "Chấp nhận khiếu nại\nvà Hoàn tiền";
+    endif
+  endif
+
+else (Chấp nhận)
+  :Nhấn "Chấp nhận hoàn trả";
+
+  |System|
+  :Thông báo cho Khách hàng\ngửi trả sản phẩm về kho;
+
+  |Customer|
+  :Gửi trả sản phẩm về kho Người bán;
+
+  |Seller|
+  :Nhận lại hàng và kiểm tra;
+  :Nhấn "Xác nhận hoàn tiền";
+endif
+
+|System|
+:Thực hiện hoàn tiền\nvề tài khoản Khách hàng;
+:Cập nhật trạng thái đơn hàng\nthành "Đã hoàn tiền";
+:Gửi thông báo "Đã hoàn tiền"\nđến tất cả các bên;
+stop
+@enduml

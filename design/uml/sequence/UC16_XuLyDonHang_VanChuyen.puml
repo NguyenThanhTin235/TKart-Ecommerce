@@ -1,0 +1,205 @@
+@startuml UC16_XuLyDonHang_VanChuyen
+
+' ============================================================
+' UC16 – XỬ LÝ ĐƠN HÀNG & TÍCH HỢP VẬN CHUYỂN
+' Basic Flow + Alt 6a (Webhook) + Exception 5a
+' ============================================================
+
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 250
+
+title **UC16 – Xử lý Đơn hàng & Tích hợp Vận chuyển (Basic Flow)**
+
+actor       "Người bán\n(Seller)"             as Seller   order 1
+participant "SellerDashboard\n<<React>>"       as UI       order 2  #E3F2FD
+participant "OrderController\n<<Spring>>"      as OC       order 3  #C8E6C9
+participant "OrderService"                     as OS       order 4  #C8E6C9
+participant "ShippingService"                  as SS       order 5  #C8E6C9
+participant "PDFGenerator"                     as PDF      order 6  #C8E6C9
+participant "Database\n<<MySQL>>"              as DB       order 7  #DCEDC8
+participant "API Vận chuyển\n<<GHTK/Grab>>"    as ShipAPI  order 8  #FFF9C4
+
+' ===========================================
+' BƯỚC 1-3: XEM & XÁC NHẬN ĐƠN HÀNG
+' ===========================================
+== Bước 1–3: Xem danh sách & Xác nhận đơn hàng ==
+
+Seller -> UI : 1. Truy cập tab **"Quản lý đơn hàng"**
+activate UI
+
+UI -> OC : GET /api/seller/orders\n?status=PLACED,CONFIRMED,SHIPPED
+activate OC
+OC -> OS : getOrdersBySeller(sellerId)
+activate OS
+OS -> DB : query Orders by sellerId
+activate DB
+return List<Order>
+return List<OrderDTO>
+return 200 OK
+
+UI --> Seller : Hiển thị lưới đơn hàng\n(Bộ lọc: Mới đặt / Chờ lấy hàng / Đang giao…)
+
+Seller -> UI : 2. Chọn đơn **PLACED** → Nhấn **"Xác nhận đơn"**
+UI -> OC : PUT /api/seller/orders/{id}/confirm
+activate OC
+OC -> OS : confirmOrder(orderId, sellerId)
+activate OS
+OS -> DB : updateStatus(orderId, CONFIRMED)
+activate DB
+return done
+return OrderDTO(status=CONFIRMED)
+return 200 OK
+
+UI --> Seller : 3. Trạng thái chuyển sang **CONFIRMED** ✓
+deactivate UI
+
+' ===========================================
+' BƯỚC 4-6: ĐẨY ĐƠN VẬN CHUYỂN
+' ===========================================
+== Bước 4–6: Đóng gói & Đẩy đơn vận chuyển ==
+
+Seller -> UI : 4. Đóng gói xong → Nhấn **"Đẩy đơn vận chuyển"**
+activate UI
+
+UI -> UI : Hiển thị Loading Spinner\n(Block UI)
+note right of UI
+  **NFR16-1**: Chặn thao tác
+  tay để tránh tạo nhiều
+  mã vận đơn rác
+end note
+
+UI -> OC : POST /api/seller/orders/{id}/ship
+activate OC
+OC -> OS : shipOrder(orderId, sellerId)
+activate OS
+
+OS -> DB : getOrderWithAddresses(orderId)
+activate DB
+return Order + CustomerAddress\n+ SellerPickupAddress
+
+OS -> SS : createShipment(orderDetails)
+activate SS
+
+SS -> ShipAPI : 5. POST /api/v1/shipments\n{pickupAddr, deliveryAddr,\npackageWeight, codAmount}
+activate ShipAPI
+
+alt Exception 5a: API Vận chuyển gặp sự cố
+    ShipAPI --> SS : 503 Timeout / 400 Invalid Address
+    deactivate ShipAPI
+    SS --> OS : ShippingException
+    deactivate SS
+    OS --> OC : Error
+    deactivate OS
+    OC --> UI : 500 Error
+    deactivate OC
+    UI -> UI : Ẩn Loading Spinner
+    UI --> Seller : ⚠️ **"Kết nối hãng vận chuyển**\n**thất bại. Vui lòng thử lại sau"**
+    note over Seller, UI
+      Đơn hàng giữ nguyên trạng thái **CONFIRMED**
+    end note
+
+else Thành công
+    ShipAPI --> SS : 6. 200 OK\n{tracking_id: "GHTK-789456"}
+    deactivate ShipAPI
+
+    note right of SS
+      **BR16-1**: Tracking ID
+      sinh **tự động** từ ĐVVC.
+      Seller không tự nhập tay.
+    end note
+
+    return trackingId
+
+    OS -> DB : saveTrackingId(orderId, trackingId)
+    activate DB
+    return done
+
+    OS -> DB : updateStatus(orderId, SHIPPED)
+    activate DB
+    return done
+
+    return OrderDTO(SHIPPED, trackingId)
+    return 200 OK
+
+    UI -> UI : Ẩn Loading Spinner
+    UI --> Seller : 6. Đơn hàng → **SHIPPED**\nMã vận đơn: GHTK-789456
+end
+deactivate UI
+
+' ===========================================
+' BƯỚC 7: IN PHIẾU GIAO HÀNG (VẬN ĐƠN PDF)
+' ===========================================
+== Bước 7: Kết xuất & In phiếu giao hàng ==
+
+Seller -> UI : 7. Nhấn **"In phiếu giao hàng"**
+activate UI
+
+UI -> OC : GET /api/seller/orders/{id}/waybill
+activate OC
+OC -> OS : generateWaybill(orderId)
+activate OS
+
+OS -> DB : getOrderShippingInfo(orderId)
+activate DB
+return OrderShippingDTO
+
+OS -> PDF : generatePdf(orderInfo, trackingId)
+activate PDF
+note right of PDF
+  **BR16-2**: PDF bắt buộc
+  chứa **Barcode / QR Code**
+  của ĐVVC để Shipper
+  quét mã lấy hàng
+end note
+return byte[] pdfData
+
+return byte[] pdfData
+return 200 OK\n(Content-Type: application/pdf)
+
+UI --> Seller : Mở tab mới hiển thị PDF\n→ Seller in & dán lên gói hàng
+deactivate UI
+
+' ###########################################################
+'       ALT 6a – WEBHOOK TỪ HÃNG VẬN CHUYỂN
+' ###########################################################
+newpage **UC16 – Xử lý Đơn hàng & Tích hợp Vận chuyển**\nAlt 6a. Webhook – Shipper giao hàng thành công
+
+participant "API Vận chuyển\n<<GHTK/Grab>>"    as ShipAPI  order 1  #FFF9C4
+participant "WebhookController\n<<Spring>>"     as WC       order 2  #C8E6C9
+participant "OrderService"                      as OS       order 3  #C8E6C9
+participant "Database\n<<MySQL>>"               as DB       order 4  #DCEDC8
+
+== Alt 6a: ĐVVC giao hàng thành công → Webhook ==
+
+note over ShipAPI
+  Shipper giao hàng thành công.
+  Hệ thống ĐVVC tự động bắn Webhook
+  về máy chủ E-commerce.
+end note
+
+ShipAPI -> WC : POST /api/webhook/shipping\n{tracking_id: "GHTK-789456",\nstatus: "DELIVERED"}
+activate WC
+
+WC -> OS : handleShippingWebhook(\ntrackingId, DELIVERED)
+activate OS
+
+OS -> DB : findByTrackingId(trackingId)
+activate DB
+return Order (status=SHIPPED)
+
+OS -> DB : updateStatus(orderId, DELIVERED)
+activate DB
+return done
+
+note over OS, DB
+  Trạng thái đơn hàng tự động chuyển
+  sang **DELIVERED** mà không cần
+  Seller thao tác thủ công.
+end note
+
+return success
+return 200 OK
+
+@enduml

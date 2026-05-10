@@ -1,0 +1,86 @@
+@startuml
+title Activity Diagram - Đặt hàng và Thanh toán (UC05)
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 11
+
+|#E8F8F5|Customer| Khách hàng
+|#EBF5FB|System| Hệ thống
+
+|Customer|
+start
+:Nhấn "Đặt hàng" tại màn hình Giỏ hàng;
+
+|System|
+:Hiển thị màn hình Thanh toán\n(Địa chỉ, Phương thức, Sản phẩm, Tổng tiền);
+
+|Customer|
+:Chọn Địa chỉ giao nhận;
+note right: Nếu chưa có địa chỉ,\nKhách hàng có thể\nthêm mới tại đây
+
+:Chọn Phương thức thanh toán\n(Trực tuyến hoặc COD);
+
+|System|
+:Tự động áp dụng Mã giảm giá\ntốt nhất cho đơn hàng;
+:Hiển thị tổng tiền dự kiến;
+
+|Customer|
+if (Muốn đổi Mã giảm giá khác?) then (Có)
+  while (Mã giảm giá hợp lệ?) is (Không hợp lệ)
+    :Nhập hoặc chọn mã giảm giá;
+    |System|
+    :Báo lỗi "Mã không hợp lệ\nhoặc không đủ điều kiện";
+    |Customer|
+  endwhile (Hợp lệ)
+  |System|
+  :Áp dụng mã giảm giá mới\nvà tính lại tổng tiền;
+else (Không)
+endif
+
+|Customer|
+if (Muốn sử dụng Xu tích lũy?) then (Có)
+  |System|
+  if (Phương thức là COD?) then (Đúng)
+    :Thông báo "Đơn COD không\nđược sử dụng Xu";
+  else (Không phải COD)
+    :Trừ Xu vào tổng tiền;
+  endif
+else (Không)
+endif
+
+|System|
+:Tính toán và hiển thị\nTổng thanh toán cuối cùng;
+
+|Customer|
+:Xem lại thông tin đơn hàng;
+:Nhấn "Xác nhận và Thanh toán";
+
+|System|
+:Tách đơn hàng theo từng Người bán;
+
+if (Phương thức thanh toán?) then (Trực tuyến)
+  |System|
+  :Chuyển hướng sang trang\nCổng thanh toán;
+
+  |Customer|
+  :Thực hiện thanh toán\ntrên trang Cổng thanh toán;
+
+  if (Kết quả thanh toán?) then (Thất bại hoặc Hủy)
+    |System|
+    :Hiển thị thông báo\n"Thanh toán thất bại";
+    stop
+  else (Thành công)
+  endif
+
+else (Thanh toán khi nhận hàng - COD)
+  |System|
+  :Ghi nhận đơn hàng\nchờ thanh toán khi nhận;
+endif
+
+|System|
+:Hiển thị màn hình\n"Đặt hàng thành công";
+:Gửi thông báo đơn hàng mới\nđến Người bán;
+
+|Customer|
+:Xem xác nhận đơn hàng;
+stop
+@enduml
