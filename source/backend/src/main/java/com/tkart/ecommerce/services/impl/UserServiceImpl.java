@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService {
      private UserRepository userRepository;
 
      @Override
-     public User findByUsername(String username) {
-          return userRepository.findByUsername(username);
+     public User findByEmail(String email) {
+          return userRepository.findByEmail(email);
      }
 }

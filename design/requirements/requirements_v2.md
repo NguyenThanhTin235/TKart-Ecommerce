@@ -180,7 +180,7 @@ yêu quy định/ công thức liên quan Khách hàng
 
 ## Yêu cầu chức năng
 
- hệ thống: Môi trường: Hệ thống được xây dựng trên nền tảng Web Application, hoạt động qua mạng Internet, hỗ trợ truy cập trên máy tính và thiết bị di động. Front-end phát triển bằng React, TypeScript, Tailwind CSS, MUI và Redux Toolkit. Back-end sử dụng Java Spring Boot, MongoDB Database. Hệ thống tích hợp trực tiếp với Cloudinary để lưu trữ phương tiện và các cổng thanh toán VnPay, SePay hoặc Momo.
+ hệ thống: Môi trường: Hệ thống được xây dựng trên nền tảng Web Application, hoạt động qua mạng Internet, hỗ trợ truy cập trên máy tính và thiết bị di động. Front-end phát triển bằng React, TypeScript, Tailwind CSS, MUI và Redux Toolkit. Back-end sử dụng Java Spring Boot, MongoDB Database. Hệ thống tích hợp trực tiếp với Cloudinary để lưu trữ phương tiện và các cổng thanh toán VnPay, SePay .
 
 ## Phân quyền:
 

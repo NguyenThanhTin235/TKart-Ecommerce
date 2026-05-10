@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://admin:password@localhost:27017/tkartdb?authSource=admin
+      uri: mongodb://admin:password@127.0.0.1:27018/tkartdb?authSource=admin
   mail:
     host: smtp.gmail.com
     port: 587
