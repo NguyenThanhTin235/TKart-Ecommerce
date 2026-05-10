@@ -1,0 +1,199 @@
+@startuml UC23_GiaiQuyetKhieuNai_HoanTien
+
+' ============================================================
+' UC23 – GIẢI QUYẾT KHIẾU NẠI (DISPUTES) & HOÀN TIỀN TỰ ĐỘNG
+' Pre-condition: Đơn hàng đang ở trạng thái DISPUTED (từ UC09)
+'   → Khách hàng đã yêu cầu trả hàng
+'   → Seller đã từ chối
+'   → Khách hàng đã khiếu nại lên Admin
+' ============================================================
+
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 250
+
+title **UC23 – Giải quyết khiếu nại (Disputes) & Hoàn tiền tự động**
+
+actor       "Quản trị viên\n(Admin)"              as Admin    order 1
+participant "AdminDashboard\n<<React>>"            as UI       order 2  #E3F2FD
+participant "DisputeController\n<<Spring>>"        as DC       order 3  #C8E6C9
+participant "DisputeService"                       as DS       order 4  #C8E6C9
+participant "PaymentService"                       as PS       order 5  #C8E6C9
+participant "OrderService"                         as OS       order 6  #C8E6C9
+participant "Database\n<<MySQL>>"                  as DB       order 7  #DCEDC8
+participant "Cổng thanh toán\n<<VnPay/SePay>>"     as PG       order 8  #FFF9C4
+
+note over Admin, PG
+  **Pre-condition (từ UC09):**
+  Khách hàng đã yêu cầu trả hàng → Seller từ chối
+  → Khách hàng khiếu nại → Đơn hàng ở trạng thái **DISPUTED**
+  → Dòng tiền đối soát bị **đóng băng**
+end note
+
+' ===========================================
+' BƯỚC 1-3: XEM DANH SÁCH & ĐÁNH GIÁ
+' ===========================================
+== Bước 1–3: Xem danh sách Disputes & Đánh giá minh chứng ==
+
+Admin -> UI : 1. Truy cập tab **"Giải quyết Khiếu nại"**
+activate UI
+
+UI -> DC : GET /api/admin/disputes?status=DISPUTED
+activate DC
+DC -> DS : getDisputedOrders()
+activate DS
+DS -> DB : query Orders\nWHERE status = DISPUTED
+activate DB
+return List<DisputedOrder>
+return List<DisputeDTO>
+return 200 OK
+
+UI --> Admin : Hiển thị danh sách đơn hàng DISPUTED
+
+Admin -> UI : 2. Chọn xem chi tiết 1 đơn khiếu nại
+UI -> DC : GET /api/admin/disputes/{orderId}
+activate DC
+DC -> DS : getDisputeDetail(orderId)
+activate DS
+
+DS -> DB : getOrder + getReturnRequest\n+ getSellerRejectReason\n+ getCustomerEvidences
+activate DB
+note right of DB
+  **NFR23-1**: Tải video/ảnh
+  minh chứng trực tiếp
+  trên Dashboard Admin
+end note
+return DisputeDetailDTO
+
+return DisputeDetailDTO
+return 200 OK
+
+UI --> Admin : 2. Hiển thị **song song 2 luồng**:\n▪ Lý do từ chối của Seller\n▪ Bằng chứng (Video/Ảnh) của Khách hàng
+
+Admin -> Admin : 3. Đánh giá minh chứng\n(vai trò **trọng tài**)
+
+' ===========================================
+' BƯỚC 4-6: PHÁN QUYẾT
+' ===========================================
+== Bước 4–6: Phán quyết của Admin ==
+
+alt Basic Flow (Bước 4): Lỗi thuộc về Seller → **Chấp nhận khiếu nại - Hoàn tiền**
+
+    Admin -> UI : 4. Chọn **"Chấp nhận khiếu nại\n– Hoàn tiền"**
+
+    UI -> DC : POST /api/admin/disputes/{orderId}/approve
+    activate DC
+    DC -> DS : approveDispute(orderId, adminId)
+    activate DS
+
+    note over DS
+      **BR23-1 (QĐ_AD6):** Phán quyết
+      của Admin là **quyết định cao nhất**
+      và bắt buộc thực thi.
+    end note
+
+    DS -> PS : 5. initiateRefund(paymentOrderId, amount)
+    activate PS
+
+    note right of PS
+      **BR23-2 (QĐ_AD7):** Tuyệt đối
+      **không hoàn tiền thủ công**.
+      Phải qua Automated Refund API.
+    end note
+
+    PS -> PG : POST /api/refund\n{transactionId, amount}
+    activate PG
+
+    alt Exception 5a: Lỗi API Cổng thanh toán
+        PG --> PS : 503 Timeout / Refund Rejected
+        deactivate PG
+        PS --> DS : RefundException
+        deactivate PS
+        DS --> DC : Error
+        deactivate DS
+        DC --> UI : 500 Error
+        deactivate DC
+        UI --> Admin : ⚠️ **"Hoàn tiền thất bại**\n**do lỗi cổng thanh toán"**
+        note over Admin, UI
+          Giữ nguyên trạng thái **DISPUTED**
+          để Admin **thử lại sau**
+        end note
+
+    else Hoàn tiền thành công
+        PG --> PS : 200 OK {refundId, status: SUCCESS}
+        deactivate PG
+
+        PS -> DB : saveRefundTransaction(\nrefundId, amount, SUCCESS)
+        activate DB
+        return done
+
+        return RefundResult(SUCCESS)
+
+        DS -> OS : updateOrderStatus(\norderId, REFUNDED)
+        activate OS
+        OS -> DB : updateStatus(REFUNDED)
+        activate DB
+        return done
+
+        OS -> DB : updateSellerDashboard(\nsellerId, totalRefund += amount)
+        activate DB
+        note right of DB
+          Cập nhật thống kê
+          **Total Refund** trên
+          Seller Dashboard (CT_SL2)
+        end note
+        return done
+
+        return done
+
+        DS -> DB : closeDispute(orderId)
+        activate DB
+        return done
+
+        return DisputeResult(APPROVED, REFUNDED)
+        return 200 OK
+
+        UI --> Admin : 6. ✅ **Hoàn tiền thành công**\nĐơn hàng → **REFUNDED**\nKhiếu nại → **CLOSED**
+    end
+
+' ###########################################################
+else Alt 4a: Bằng chứng không hợp lý → **Từ chối khiếu nại**
+' ###########################################################
+
+    Admin -> UI : 4a2. Chọn **"Từ chối khiếu nại"**
+
+    UI -> DC : POST /api/admin/disputes/{orderId}/reject
+    activate DC
+    DC -> DS : rejectDispute(orderId, adminId)
+    activate DS
+
+    DS -> DB : closeDispute(orderId,\nresolution=REJECTED)
+    activate DB
+    return done
+
+    DS -> OS : unlockSellerRevenue(\norderId, sellerId)
+    activate OS
+
+    OS -> DB : 4a3. Mở khóa dòng tiền đối soát\n→ Chuyển doanh thu vào ví Seller
+    activate DB
+    return done
+
+    return done
+
+    return DisputeResult(REJECTED)
+    return 200 OK
+
+    UI --> Admin : ✅ **Từ chối khiếu nại**\nDòng tiền → **Mở khóa cho Seller**\nKhiếu nại → **CLOSED**
+
+    note over Admin, UI
+      **BR23-1**: Sau phán quyết, cả Khách hàng
+      và Seller **không được phép** khiếu nại lại
+      đối với đơn hàng này.
+    end note
+
+end
+
+deactivate UI
+
+@enduml

@@ -1,0 +1,217 @@
+@startuml UC09_YeuCauTraHang_HoanTien
+
+' ============================================================
+' UC09 – YÊU CẦU TRẢ HÀNG & HOÀN TIỀN
+' Luồng đa tác nhân: Khách hàng → Seller → (Admin nếu Dispute)
+' Kết hợp UC09 (Khách tạo yêu cầu) + UC17 (Seller xử lý)
+' ============================================================
+
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 250
+
+title **UC09 – Yêu cầu Trả hàng & Hoàn tiền**
+
+actor       "Khách hàng\n(Customer)"             as Customer  order 1
+participant "OrderPage\n<<React>>"                as CUI       order 2  #E3F2FD
+participant "ReturnController\n<<Spring>>"        as RC        order 3  #C8E6C9
+participant "ReturnService"                       as RS        order 4  #C8E6C9
+participant "Cloudinary\n<<Media Storage>>"       as Cloud     order 5  #FFF9C4
+participant "PaymentService"                      as PS        order 6  #C8E6C9
+participant "Database\n<<MySQL>>"                 as DB        order 7  #DCEDC8
+participant "Cổng thanh toán\n<<VnPay/SePay>>"    as PG        order 8  #FFF9C4
+participant "SellerDashboard\n<<React>>"           as SUI       order 9  #E3F2FD
+actor       "Người bán\n(Seller)"                 as Seller    order 10
+
+' ===========================================
+' BƯỚC 1-5: KHÁCH HÀNG TẠO YÊU CẦU TRẢ HÀNG
+' ===========================================
+== Bước 1–5: Khách hàng tạo yêu cầu trả hàng ==
+
+note over Customer, CUI
+  **Pre-condition:** Đơn hàng ở trạng thái **DELIVERED**
+  và nằm trong thời hạn **7 ngày** (BR09-1)
+end note
+
+Customer -> CUI : 1. Truy cập Lịch sử mua hàng\nChọn đơn hàng → **"Yêu cầu trả hàng"**
+activate CUI
+
+alt Exception 1a: Quá hạn 7 ngày
+    CUI --> Customer : Nút "Yêu cầu trả hàng" **bị ẩn**\n→ Không thể thao tác
+    note over Customer, CUI
+      **BR09-1**: Qua ngày thứ 8, hệ thống
+      tự động khóa tính năng này.
+    end note
+else Trong thời hạn
+    CUI --> Customer : 2. Hiển thị biểu mẫu\nyêu cầu cung cấp minh chứng
+
+    Customer -> CUI : 3. Điền **lý do** (Hàng lỗi, sai màu…)\nTải lên **hình ảnh/video** khui hàng
+
+    CUI -> RC : POST /api/returns\n{orderId, reason, mediaFiles}
+    activate RC
+    RC -> RS : createReturnRequest(...)
+    activate RS
+
+    RS -> Cloud : uploadEvidences(mediaFiles)
+    activate Cloud
+    note right of Cloud
+      **NFR09-1**: Tối ưu nén
+      trên Cloudinary
+    end note
+    return List<mediaUrls>
+
+    RS -> DB : saveReturnRequest(\norderId, reason, mediaUrls)
+    activate DB
+    return returnRequestId
+
+    RS -> DB : 5. updateOrderStatus(\norderId, RETURN_REQUESTED)
+    activate DB
+    return done
+
+    RS -> DB : freezeSettlement(orderId)
+    activate DB
+    note right of DB
+      Đóng băng dòng tiền
+      đối soát của đơn hàng
+    end note
+    return done
+
+    RS -> RS : notifySeller(sellerId,\nreturnRequestId)
+
+    return ReturnRequestDTO
+    return 201 Created
+
+    CUI --> Customer : 5. ✅ Yêu cầu đã gửi thành công\nĐang chờ Seller xử lý
+
+    ' ===========================================
+    ' BƯỚC 6: SELLER XỬ LÝ YÊU CẦU (UC17)
+    ' ===========================================
+    == Bước 6: Seller xử lý yêu cầu (UC17) ==
+
+    SUI --> Seller : 🔔 Thông báo yêu cầu trả hàng mới
+    Seller -> SUI : Truy cập tab **"Yêu cầu hoàn trả"**
+    activate SUI
+
+    note over SUI, Seller
+      **BR17-1**: Seller có tối đa **3 ngày**
+      để phản hồi yêu cầu
+    end note
+
+    SUI --> Seller : Hiển thị lý do + Ảnh/Video\nminh chứng từ Khách hàng
+
+    Seller -> Seller : Xem xét minh chứng
+
+    alt Basic Flow (Bước 6): Seller **Chấp nhận** (Accept)
+
+        Seller -> SUI : Nhấn **"Chấp nhận"**
+
+        SUI -> RC : PUT /api/returns/{id}/accept
+        activate RC
+        RC -> RS : acceptReturn(returnId, sellerId)
+        activate RS
+
+        RS -> DB : updateReturnStatus(ACCEPTED)
+        activate DB
+        return done
+
+        RS -> RS : notifyCustomer(\n"Vui lòng gửi trả hàng về kho")
+
+        return accepted
+        return 200 OK
+
+        SUI --> Seller : Chờ nhận lại hàng từ Khách
+        CUI --> Customer : 📦 Thông báo: "Gửi trả hàng về kho Seller"
+
+        == Seller nhận lại hàng & Xác nhận hoàn tiền ==
+
+        Seller -> SUI : Nhận hàng xong → Nhấn\n**"Xác nhận hoàn tiền"**
+
+        SUI -> RC : PUT /api/returns/{id}/confirm-refund
+        activate RC
+        RC -> RS : confirmRefund(returnId)
+        activate RS
+
+        RS -> PS : initiateRefund(\npaymentOrderId, amount)
+        activate PS
+        PS -> PG : POST /api/refund\n{transactionId, amount}
+        activate PG
+        return 200 OK {refundId}
+        return RefundResult(SUCCESS)
+
+        RS -> DB : updateOrderStatus(REFUNDED)
+        activate DB
+        return done
+
+        RS -> DB : updateSellerStats(\ntotalRefund += amount)
+        activate DB
+        return done
+
+        return RefundConfirmDTO
+        return 200 OK
+
+        SUI --> Seller : ✅ Hoàn tiền thành công
+        CUI --> Customer : ✅ Đơn hàng → **REFUNDED**\nTiền đã được hoàn về tài khoản
+
+    ' ###########################################################
+    else Alt 6a: Seller **Từ chối** (Reject) → Khách Khiếu nại
+    ' ###########################################################
+
+        Seller -> SUI : Nhấn **"Từ chối"**
+
+        SUI --> Seller : Hiển thị khung nhập **lý do từ chối**
+
+        Seller -> SUI : Điền lý do → Xác nhận
+        note right of Seller
+          **BR17-1**: Bắt buộc
+          ghi rõ lý do từ chối
+        end note
+
+        SUI -> RC : PUT /api/returns/{id}/reject\n{rejectReason}
+        activate RC
+        RC -> RS : rejectReturn(returnId,\nsellerId, reason)
+        activate RS
+
+        RS -> DB : updateReturnStatus(\nREJECTED, rejectReason)
+        activate DB
+        return done
+
+        RS -> RS : notifyCustomer(\n"Yêu cầu bị từ chối")
+
+        return rejected
+        return 200 OK
+
+        SUI --> Seller : ✅ Đã từ chối yêu cầu
+
+        == Alt 6a: Khách hàng Khiếu nại lên Admin ==
+
+        CUI --> Customer : 6a1. Thông báo: "Seller đã từ chối"\nHiển thị nút **"Khiếu nại lên Admin"**
+
+        Customer -> CUI : 6a2. Nhấn **"Khiếu nại lên Admin"**
+
+        CUI -> RC : POST /api/returns/{id}/dispute
+        activate RC
+        RC -> RS : escalateToAdmin(returnId)
+        activate RS
+
+        RS -> DB : 6a3. updateOrderStatus(DISPUTED)
+        activate DB
+        return done
+
+        return DisputeDTO
+        return 201 Created
+
+        CUI --> Customer : ✅ Khiếu nại đã được ghi nhận\nChờ Admin phán quyết
+
+        note over Customer, Seller
+          **BR09-2**: Đơn hàng chuyển sang **DISPUTED**
+          Quyết định của Admin là **kết quả cuối cùng**
+          → Xử lý tiếp tại **UC23**
+        end note
+
+    end
+    deactivate SUI
+end
+deactivate CUI
+
+@enduml

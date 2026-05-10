@@ -1,0 +1,189 @@
+@startuml UC07_ChatbotAI
+
+' ============================================================
+' UC07 – TƯƠNG TÁC CHATBOT AI
+' Basic Flow + Alt 2a (Ngữ cảnh sản phẩm)
+' + Exception 5a (Guest hỏi dữ liệu cá nhân)
+' + Exception 5b (Câu hỏi ngoài phạm vi)
+' ============================================================
+
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 250
+
+title **UC07 – Tương tác Chatbot AI**
+
+actor       "Người dùng\n(Guest / Customer)"     as User    order 1
+participant "ChatbotWidget\n<<React>>"            as UI      order 2  #E3F2FD
+participant "ChatController\n<<Spring>>"          as CC      order 3  #C8E6C9
+participant "ChatService"                         as CS      order 4  #C8E6C9
+participant "AI Server\n<<NLP Engine>>"           as AI      order 5  #FFF9C4
+participant "Database\n<<MySQL>>"                 as DB      order 6  #DCEDC8
+
+== Basic Flow: Hỏi đáp tự động bằng ngôn ngữ tự nhiên ==
+
+User -> UI : 1. Nhấp vào biểu tượng\n**Chatbot** nổi ở góc màn hình
+activate UI
+UI --> User : Mở khung chat
+
+User -> UI : 2. Nhập câu hỏi bằng ngôn ngữ tự nhiên\n(VD: "Nền tảng này bán gì?",\n"Sản phẩm nào đang hot nhất?")
+
+User -> UI : 3. Nhấn **Gửi**
+
+UI -> CC : POST /api/chatbot/message\n{message, productId?, JWT?}
+activate CC
+
+CC -> CS : processMessage(message,\nuserContext)
+activate CS
+
+CS -> CS : 4. Xác định trạng thái\nđăng nhập (JWT)
+
+CS -> AI : analyzeIntent(message,\nuserContext)
+activate AI
+note right of AI
+  **NFR07-1**: Thời gian xử lý
+  AI **không quá 3 giây**
+end note
+
+AI -> AI : Phân tích ý định (intent)\n+ Trích xuất entities
+
+' ===========================================
+'      PHÂN NHÁNH THEO KẾT QUẢ PHÂN TÍCH
+' ===========================================
+
+alt Exception 5a: Guest hỏi dữ liệu cá nhân
+
+    note over AI
+      Intent = **PRIVATE_DATA**
+      (Giỏ hàng, Đơn hàng, Ví xu)
+      nhưng User = **Guest**
+    end note
+
+    AI --> CS : IntentResult(\nintent=PRIVATE, authRequired=true)
+    deactivate AI
+
+    CS --> CC : ChatResponse(\n"Vui lòng đăng nhập\nđể xem thông tin cá nhân",\nshowLoginButton=true)
+    deactivate CS
+
+    CC --> UI : 200 OK
+    deactivate CC
+
+    UI --> User : 5a2. 🔒 "Bạn cần **Đăng nhập**\nđể xem thông tin này"\n[Đi đến trang Đăng nhập]
+
+' ###########################################################
+else Exception 5b: Câu hỏi ngoài phạm vi
+
+    note over AI
+      Intent = **OUT_OF_SCOPE**
+      (VD: "Thời tiết hôm nay?")
+    end note
+
+    AI --> CS : IntentResult(\nintent=OUT_OF_SCOPE)
+    deactivate AI
+
+    CS --> CC : ChatResponse(\n"Xin lỗi, tôi chỉ hỗ trợ\ncác vấn đề mua sắm...")
+    deactivate CS
+
+    CC --> UI : 200 OK
+    deactivate CC
+
+    UI --> User : 5b2. 💬 "Tôi là trợ lý mua sắm.\nHãy hỏi tôi về sản phẩm,\nđơn hàng hoặc khuyến mãi nhé!"
+
+' ###########################################################
+else Basic Flow: Truy xuất dữ liệu **Public** (Guest hoặc Customer)
+
+    note over AI
+      Intent = **PUBLIC_QUERY**
+      (FAQ, Sản phẩm hot, Khuyến mãi)
+    end note
+
+    AI --> CS : IntentResult(\nintent=PUBLIC, query=...)
+    deactivate AI
+
+    note right of CS
+      **BR07-1**: Guest → chỉ
+      truy xuất dữ liệu **Public**
+    end note
+
+    CS -> DB : 5. queryPublicData(query)\n(Products, Deals, FAQ...)
+    activate DB
+    return resultData
+
+    CS --> CC : ChatResponse(answer,\nproductLinks?)
+    deactivate CS
+
+    CC --> UI : 200 OK
+    deactivate CC
+
+    UI --> User : 6. 💬 Chatbot phản hồi\nkèm thông tin chi tiết
+
+' ###########################################################
+else Basic Flow: Truy xuất dữ liệu **Private** (Customer đã đăng nhập)
+
+    note over AI
+      Intent = **PRIVATE_QUERY**
+      (VD: "Đơn hàng của tôi đâu?")
+      User = **Customer** (có JWT)
+    end note
+
+    AI --> CS : IntentResult(\nintent=PRIVATE, query=...)
+    deactivate AI
+
+    note right of CS
+      **BR07-2**: Customer
+      → truy xuất **Private data**
+      thuộc sở hữu chính User đó
+    end note
+
+    CS -> DB : 5. queryPrivateData(\ncustomerId, query)\n(Orders, Cart, Coins...)
+    activate DB
+    return resultData
+
+    CS --> CC : ChatResponse(answer)
+    deactivate CS
+
+    CC --> UI : 200 OK
+    deactivate CC
+
+    UI --> User : 6. 💬 "Đơn hàng #12345\nđang ở trạng thái **Đang giao**\nDự kiến nhận ngày 28/04"
+
+end
+
+' ===========================================
+'   ALT 2a: NGỮ CẢNH TRANG SẢN PHẨM
+' ===========================================
+== Alt 2a: Hỏi trong trang Chi tiết Sản phẩm ==
+
+note over User, UI
+  Người dùng đang ở trang **Chi tiết Sản phẩm**
+  (productId đã được bắt sẵn từ URL)
+end note
+
+User -> UI : 2a. "Sản phẩm này tôi\nđược giảm giá bao nhiêu?"
+UI -> CC : POST /api/chatbot/message\n{message, **productId=SP-001**}
+activate CC
+
+CC -> CS : processMessage(message,\nproductContext=SP-001)
+activate CS
+
+CS -> AI : analyzeIntent(message,\nproductId=SP-001)
+activate AI
+AI --> CS : IntentResult(\nintent=PRODUCT_CONTEXT)
+deactivate AI
+
+CS -> DB : 2a1. getProductDetails(SP-001)\n(price, discount, colors...)
+activate DB
+return ProductDTO
+
+CS --> CC : ChatResponse(\n"Sản phẩm này đang giảm **30%**,\ncó 3 màu: Đen, Trắng, Xanh")
+deactivate CS
+
+CC --> UI : 200 OK
+deactivate CC
+
+UI --> User : 💬 Trả về đúng thông số\ncủa sản phẩm đang xem
+
+deactivate UI
+
+@enduml

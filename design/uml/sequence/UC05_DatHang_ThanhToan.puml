@@ -1,0 +1,337 @@
+@startuml UC05_DatHang_ThanhToan
+
+' ============================================================
+' UC05 - ĐẶT HÀNG VÀ THANH TOÁN (có COD)
+' ============================================================
+
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam maxMessageSize 220
+
+title **UC05 – Đặt hàng và Thanh toán (Basic Flow)**
+
+' --- Ép thứ tự cứng bằng "order" ---
+actor       "Khách hàng"                        as Customer  order 1
+participant "CheckoutPage\n<<React>>"            as UI        order 2  #E3F2FD
+participant "OrderController\n<<Spring>>"        as OC        order 3  #C8E6C9
+participant "OrderService"                       as OS        order 4  #C8E6C9
+participant "VoucherEngine"                      as VE        order 5  #C8E6C9
+participant "CoinService"                        as CS        order 6  #C8E6C9
+participant "PaymentService"                     as PS        order 7  #C8E6C9
+participant "Database\n<<MySQL>>"                as DB        order 8  #DCEDC8
+participant "API Vận chuyển\n<<GHTK/Grab>>"      as ShipAPI   order 9  #FFF9C4
+participant "Cổng thanh toán\n<<VnPay/SePay>>"   as PG        order 10 #FFF9C4
+
+' ===========================================
+' BƯỚC 1-2: KHỞI TẠO CHECKOUT
+' ===========================================
+== Bước 1–2: Khởi tạo Checkout ==
+
+Customer -> UI : 1. Nhấn **"Checkout"**
+activate UI
+
+UI -> OC : GET /api/checkout/init [JWT]
+activate OC
+OC -> OS : initCheckout(customerId)
+activate OS
+OS -> DB : getCartItems(customerId)
+activate DB
+return List<CartItem>
+OS -> DB : getSavedAddresses(customerId)
+activate DB
+return List<Address>
+return CheckoutDataDTO
+return CheckoutDataDTO
+
+UI --> Customer : 2. Hiển thị màn hình Checkout\n(Địa chỉ, PTTT, Sản phẩm, Tóm tắt)\n**PTTT: VNPay / SePay / Momo / COD**
+
+' ===========================================
+' BƯỚC 3-4: CHỌN ĐỊA CHỈ + VOUCHER ENGINE
+' ===========================================
+== Bước 3–4: Chọn Địa chỉ & PTTT → Voucher Engine ==
+
+Customer -> UI : 3. Chọn **Địa chỉ** + **PTTT**\n(VNPay/SePay/Momo hoặc **COD**)
+UI -> OC : POST /api/checkout/calculate\n{addressId, paymentMethod}
+activate OC
+OC -> OS : calculateOrder(...)
+activate OS
+
+OS -> ShipAPI : Tính phí vận chuyển\n(pickup → destination)
+activate ShipAPI
+return Map<SellerId, ShipFee>
+
+OS -> VE : autoApplyBestCoupon(\ntotalAmount, paymentMethod)
+activate VE
+note right of VE
+  **BR05-1**: Quét Coupon
+  hợp lệ → chọn chiết
+  khấu **cao nhất**
+  (Lọc theo PTTT: một số
+  Coupon chỉ cho Online)
+end note
+VE -> VE : scan → filter → selectBest
+return BestCouponDTO
+
+OS -> OS : computeFinalPayment()
+note right of OS
+  **CT_KH1**: FinalPayment
+  = Total − Coupon
+  − Xu + ShipFee
+end note
+
+return OrderSummaryDTO
+return OrderSummaryDTO
+
+UI --> Customer : 4. Hiển thị Coupon tốt nhất\nđã tự động áp dụng
+
+' ===========================================
+' BƯỚC 5-6: ÁP DỤNG XU (TÙY CHỌN)
+' ===========================================
+== Bước 5–6: Áp dụng Xu (tùy chọn) ==
+
+opt Khách hàng muốn dùng Xu **VÀ** PTTT ≠ COD
+    Customer -> UI : 5. Nhập số **Xu** sử dụng
+    UI -> OC : POST /api/checkout/apply-coins
+    activate OC
+    OC -> CS : validateAndApplyCoins(...)
+    activate CS
+    note right of CS
+      **BR05-4**: COD không
+      được dùng Xu
+      **QĐ_KH12**: Max **50%**
+    end note
+    CS -> CS : checkBalance + checkLimit
+    return CoinApplyResult
+    return Updated OrderSummary
+    UI --> Customer : 6. Cập nhật **Final Payment**
+end
+
+' ===========================================
+' BƯỚC 7-8: XÁC NHẬN + TÁCH ĐƠN
+' ===========================================
+== Bước 7–8: Xác nhận & Tách đơn ==
+
+Customer -> UI : 7. Nhấn **"Xác nhận và Thanh toán"**
+UI -> OC : POST /api/orders/place\n{addressId, paymentMethod,\ncouponCode, coinsUsed}
+activate OC
+OC -> OS : placeOrder(orderRequest)
+activate OS
+
+OS -> OS : splitOrderBySeller(cartItems)
+note right of OS
+  **BR05-2**: Gom theo
+  **Seller_ID** → N Orders
+  → 1 PaymentOrder
+end note
+
+OS -> DB : checkStock(List<CartItem>)
+activate DB
+return StockOK
+
+OS -> DB : saveOrders + savePaymentOrder
+activate DB
+return paymentOrderId
+
+' ===========================================
+' BƯỚC 9-10: PHÂN NHÁNH THEO PTTT
+' ===========================================
+== Bước 9–10: Thanh toán ==
+
+alt PTTT = Thanh toán trực tuyến (VNPay/SePay/Momo)
+
+    OS -> PS : initiatePayment(paymentOrderId, amount)
+    activate PS
+    PS -> PG : POST /api/payment/create\n{orderId, amount, returnUrl}
+    activate PG
+    return paymentUrl + transactionId
+    return paymentUrl
+    return paymentUrl
+    return paymentUrl
+
+    UI --> Customer : 9. **Redirect** → Cổng thanh toán
+
+    Customer -> PG : Nhập thông tin & thanh toán
+    activate PG
+    note right of PG
+      **NFR05-2**: Thông tin thẻ
+      **KHÔNG** lưu trên DB
+    end note
+
+    PG -> OC : POST /api/payment/webhook\n{status: **SUCCESS**}
+    deactivate PG
+    activate OC
+    OC -> PS : handleCallback(SUCCESS)
+    activate PS
+    PS -> DB : updatePaymentStatus(SUCCESS)
+    activate DB
+    return done
+    PS -> OS : onPaymentSuccess(paymentOrderId)
+    activate OS
+    OS -> DB : updateOrdersStatus(PLACED)
+    activate DB
+    return done
+    OS -> DB : decreaseStock(cartItems)
+    activate DB
+    return done
+    opt Đã dùng Xu
+        OS -> CS : deductCoins(customerId)
+        activate CS
+        return done
+    end
+    OS -> DB : clearCart(customerId)
+    activate DB
+    return done
+    OS -> OS : notifySellers(List<Order>)
+    return complete
+    return SUCCESS
+    return SUCCESS
+
+    UI --> Customer : 10. ✅ **"Giao dịch thành công"**
+
+else PTTT = COD (Thanh toán khi nhận hàng)
+
+    note right of OS
+      **Alt 9b**: Không redirect
+      cổng thanh toán.
+      PaymentOrder = **COD_PENDING**
+    end note
+
+    OS -> DB : updatePaymentStatus(COD_PENDING)
+    activate DB
+    return done
+    OS -> DB : updateOrdersStatus(PLACED)
+    activate DB
+    return done
+    OS -> DB : decreaseStock(cartItems)
+    activate DB
+    return done
+    OS -> DB : clearCart(customerId)
+    activate DB
+    return done
+    OS -> OS : notifySellers(List<Order>)
+
+    return orderConfirmation
+    return orderConfirmation
+
+    UI --> Customer : 9b3. ✅ **"Đặt hàng thành công"**\n(Thanh toán khi nhận hàng)
+
+    note over Customer, UI
+      Khi Shipper giao + thu tiền mặt →
+      ĐVVC Webhook cập nhật trạng thái
+      PaymentOrder → **COD_COLLECTED**
+    end note
+
+end
+
+' ###########################################################
+'                    ALTERNATIVE FLOW
+' ###########################################################
+newpage **UC05 – Alternative Flow**\n3a. Thêm địa chỉ mới | 4a. Đổi mã giảm giá
+
+actor       "Khách hàng"                        as Customer  order 1
+participant "CheckoutPage\n<<React>>"            as UI        order 2  #E3F2FD
+participant "OrderController\n<<Spring>>"        as OC        order 3  #C8E6C9
+participant "AddressService"                     as AS        order 4  #C8E6C9
+participant "VoucherEngine"                      as VE        order 5  #C8E6C9
+participant "Database\n<<MySQL>>"                as DB        order 6  #DCEDC8
+
+== Alt 3a: Thêm địa chỉ mới ==
+
+Customer -> UI : Nhấn **"Thêm địa chỉ mới"**
+UI --> Customer : Hiển thị form nhập địa chỉ
+
+Customer -> UI : Điền thông tin và xác nhận
+UI -> OC : POST /api/addresses {data}
+activate OC
+OC -> AS : createAddress(customerId, data)
+activate AS
+AS -> DB : save(address)
+activate DB
+return saved
+return newAddressDTO
+return 201 Created
+
+UI --> Customer : Tự động chọn địa chỉ mới
+
+note over UI
+  Quay lại **Bước 3** Basic Flow
+  → Voucher Engine **quét lại**
+end note
+
+== Alt 4a: Đổi mã giảm giá thủ công ==
+
+Customer -> UI : Nhấn **"Chọn mã giảm giá"**
+UI --> Customer : Hiển thị Kho Voucher
+
+Customer -> UI : Nhập mã → **"Áp dụng"**
+UI -> OC : POST /api/checkout/apply-coupon\n{couponCode}
+activate OC
+OC -> VE : validateAndApply(\ncouponCode, totalAmount)
+activate VE
+VE -> VE : checkExists + checkExpiry\n+ checkMinValue
+
+alt ✅ Mã hợp lệ
+    return CouponApplyResult
+    return 200 OK
+    UI --> Customer : Cập nhật tóm tắt đơn hàng
+
+else ❌ Mã KHÔNG hợp lệ (4a2.1)
+    VE --> OC : CouponError
+    deactivate VE
+    OC --> UI : 400 Bad Request
+    deactivate OC
+    UI --> Customer : ⚠️ **"Mã không hợp lệ"**
+    note over Customer, UI
+      Quay lại **Bước 4**
+    end note
+end
+
+' ###########################################################
+'                    EXCEPTION FLOW
+' ###########################################################
+newpage **UC05 – Exception Flow**\n9a. Thanh toán trực tuyến thất bại
+
+actor       "Khách hàng"                        as Customer  order 1
+participant "CheckoutPage\n<<React>>"            as UI        order 2  #E3F2FD
+participant "OrderController\n<<Spring>>"        as OC        order 3  #C8E6C9
+participant "PaymentService"                     as PS        order 4  #C8E6C9
+participant "OrderService"                       as OS        order 5  #C8E6C9
+participant "Database\n<<MySQL>>"                as DB        order 6  #DCEDC8
+participant "Cổng thanh toán\n<<VnPay/SePay>>"   as PG        order 7  #FFF9C4
+
+== Exception 9a: Thanh toán trực tuyến thất bại ==
+
+Customer -> PG : Hủy hoặc lỗi tại cổng
+activate PG
+
+PG -> OC : POST /api/payment/webhook\n{status: **FAILED**}
+deactivate PG
+activate OC
+
+OC -> PS : handleCallback(FAILED)
+activate PS
+PS -> DB : updatePaymentStatus(FAILED)
+activate DB
+return done
+
+PS -> OS : onPaymentFailed(paymentOrderId)
+activate OS
+OS -> DB : updateOrdersStatus(PAYMENT_FAILED)
+activate DB
+return done
+
+note right of OS
+  **Rollback:**
+  ✗ KHÔNG trừ kho
+  ✗ KHÔNG trừ Xu
+  ✗ KHÔNG tạo đơn
+end note
+
+return rollbackComplete
+return PaymentResult(FAILED)
+return FAILED
+
+UI --> Customer : ⚠️ **"Thanh toán thất bại"**\n[Thử lại] [Quay về giỏ hàng]
+
+@enduml

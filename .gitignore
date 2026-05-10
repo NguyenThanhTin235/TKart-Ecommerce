@@ -1,0 +1,28 @@
+# Antigravity
+.antigravity/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Build & Output
+dist/
+build/
+target/
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Project Specific
+requirements_2/
