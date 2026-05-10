@@ -18,6 +18,7 @@ public class Product extends BaseDocument {
     private String sellerId; // Reference to Seller
 
     private String title;
+    private String slug;
     private String description;
 
     @Indexed
