@@ -1,6 +1,28 @@
-requirements_2/CauTruc.md
-requirements_2/FormatUserStory.md
-requirements_2/INVEST.md
-requirements_2/loTrinh.md
-requirements_2/Overview_short.md
-requirements_2/Overview.md
+# Antigravity
+.antigravity/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Build & Output
+dist/
+build/
+target/
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Project Specific
+requirements_2/
