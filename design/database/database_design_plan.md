@@ -305,3 +305,6 @@ Bước 8: DataSeeder (CommandLineRunner) — nạp dữ liệu mẫu
 | Hệ thống Xu | Tích/Tiêu xu | coin_wallets + platform_configs | ☐ |
 | Return/Dispute | Luồng hoàn trả 3 bên | return_requests (7 status) | ☐ |
 | Audit Log | Read-only, Async | audit_logs (no update/delete API) | ☐ |
+ 
+---
+> **Người thực hiện**: Nguyễn Thành Tin (Database Architect)

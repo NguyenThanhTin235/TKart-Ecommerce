@@ -24,8 +24,11 @@ database/
 | Phase | Tên | Trạng thái |
 |-------|-----|-----------|
 | 1 | Requirements | ✅ Hoàn thành |
-| 2 | Modeling | ☐ Chưa bắt đầu |
-| 3 | Schema | ☐ Chưa bắt đầu |
-| 4 | Indexes | ☐ Chưa bắt đầu |
-| 5 | Migration | ☐ Chưa bắt đầu |
-| 6 | Review | ☐ Chưa bắt đầu |
+| 2 | Modeling | ✅ Hoàn thành |
+| 3 | Schema | ✅ Hoàn thành |
+| 4 | Indexes | ✅ Hoàn thành |
+| 5 | Migration | ✅ Hoàn thành |
+| 6 | Review | ✅ Hoàn thành |
+
+---
+> **Người thực hiện**: Nguyễn Thành Tin (Database Architect)

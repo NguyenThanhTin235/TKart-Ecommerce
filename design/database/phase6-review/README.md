@@ -2,12 +2,13 @@
 
 > Đảm bảo schema đáp ứng đúng yêu cầu SRS ban đầu.
 
-## Trạng thái: ☐ Chưa bắt đầu
+## Trạng thái: ✅ Hoàn thành
 
 ## Nội dung
-- Checklist toàn vẹn dữ liệu (10 tiêu chí)
-- Benchmark truy vấn thực tế (8 queries)
-- Đối chiếu với SRS (29 Use Cases)
+- Đã kiểm tra 10 tiêu chí toàn vẹn dữ liệu (Data Integrity).
+- Đã đánh giá hiệu suất truy vấn dựa trên chỉ mục.
+- Đã đối chiếu và bao phủ toàn bộ 29 Use Cases từ SRS.
 
 ## Tham chiếu
 - [database_design_plan.md](../database_design_plan.md) — Giai đoạn 6
+- [review_report.md](./review_report.md) — Báo cáo chi tiết Review
