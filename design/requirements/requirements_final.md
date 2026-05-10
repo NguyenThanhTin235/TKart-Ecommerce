@@ -275,8 +275,8 @@ Trong bối cảnh thương mại điện tử phát triển mạnh mẽ, việc
 |---|---|---|
 | 1 | Nền tảng | Ứng dụng Web nhiều lớp (Client-Server 3-tier), hoạt động qua mạng Internet. Hỗ trợ truy cập trên máy tính và thiết bị di động thông qua thiết kế Responsive. |
 | 2 | Front-end | React, TypeScript, Tailwind CSS, Material UI (MUI), Redux Toolkit. |
-| 3 | Back-end | Java Spring Boot (RESTful API), Spring Security, Spring Data JPA. |
-| 4 | Cơ sở dữ liệu | MySQL. |
+| 3 | Back-end | Java Spring Boot (RESTful API), Spring Security, Spring Data MongoDB. |
+| 4 | Cơ sở dữ liệu | MongoDB. |
 | 5 | Lưu trữ phương tiện | Cloudinary (hình ảnh sản phẩm, video minh chứng hoàn trả). |
 | 6 | Cổng thanh toán | VnPay, SePay hoặc Momo. |
 | 7 | Vận chuyển | API GHTK / Grab Express + Webhook tự động cập nhật trạng thái. |
@@ -323,7 +323,7 @@ Trong bối cảnh thương mại điện tử phát triển mạnh mẽ, việc
   - Ứng dụng Front-end (React) cần được xây dựng theo kiến trúc Component (ví dụ: tái sử dụng các component ProductCard, OrderTable, AddressForm, DrawerList ở nhiều màn hình khác nhau),.
   - Cấu trúc Back-end (Spring Boot RESTful APIs) cần được tách biệt độc lập,, tuân thủ các chuẩn lập trình API giúp hệ thống dễ dàng được tái sử dụng để giao tiếp khi phát triển thêm nền tảng Ứng dụng di động (Mobile App) sau này. 
 - **Tính bảo trì:
-  - Mã nguồn dự án và cơ sở dữ liệu MySQL phải được phân tách theo các miền nghiệp vụ rõ ràng (Module Sản phẩm, Module Đơn hàng, Module Thanh toán, Module Tài khoản...),,. Cấu trúc này cho phép đội ngũ bảo trì dễ dàng sửa lỗi hoặc mở rộng tính năng mới ở một phân hệ mà không gây đổ vỡ (Crash) tới các module khác của hệ thống. 
+  - Mã nguồn dự án và cơ sở dữ liệu MongoDB phải được phân tách theo các miền nghiệp vụ rõ ràng (Module Sản phẩm, Module Đơn hàng, Module Thanh toán, Module Tài khoản...),,. Cấu trúc này cho phép đội ngũ bảo trì dễ dàng sửa lỗi hoặc mở rộng tính năng mới ở một phân hệ mà không gây đổ vỡ (Crash) tới các module khác của hệ thống. 
 - **Tính bảo mật:
   - Mật khẩu của người dùng bắt buộc phải được mã hóa một chiều an toàn bằng thuật toán BCrypt trước khi lưu trữ vào Cơ sở dữ liệu,.
   - Hệ thống phải áp dụng cơ chế xác thực phiên làm việc chặt chẽ bằng chuẩn JSON Web Token (JWT) thông qua bộ lọc Spring Security,,.
@@ -356,7 +356,7 @@ Trong bối cảnh thương mại điện tử phát triển mạnh mẽ, việc
 
 | # | Ràng buộc |
 |---|---|
-| C1 | **Kiến trúc:** Hệ thống bắt buộc sử dụng kiến trúc Client-Server 3-tier (React + Spring Boot + MySQL). |
+| C1 | **Kiến trúc:** Hệ thống bắt buộc sử dụng kiến trúc Client-Server 3-tier (React + Spring Boot + MongoDB). |
 | C2 | **Bảo mật:** Mật khẩu mã hóa BCrypt, phiên làm việc quản lý bằng JWT, phân quyền RBAC qua Spring Security. |
 | C3 | **Thanh toán:** Thông tin thẻ tuyệt đối không lưu trên DB hệ thống — truyền 100% qua cổng thanh toán bên thứ 3. |
 | C4 | **Vận chuyển:** Mã vận đơn (Tracking ID) phải được sinh tự động từ API ĐVVC, Seller không được nhập tay (BR16-1). |
@@ -1054,7 +1054,7 @@ Hệ thống TKart E-commerce Platform được coi là **đạt yêu cầu nghi
 | # | Hạng mục bàn giao | Yêu cầu |
 |---|---|---|
 | D-01 | Mã nguồn (Source Code) | Đầy đủ Front-end (React) + Back-end (Spring Boot), đã build thành công |
-| D-02 | Cơ sở dữ liệu | Script khởi tạo MySQL + dữ liệu mẫu (Seed Data) |
+| D-02 | Cơ sở dữ liệu | Script khởi tạo MongoDB + dữ liệu mẫu (Seed Data) |
 | D-03 | Tài liệu SRS | Bản cập nhật cuối cùng (requirements_v3_update.md) |
 | D-04 | Sơ đồ UML | Use Case Diagram + 6 Sequence Diagrams (PlantUML) |
 | D-05 | Hướng dẫn triển khai | README.md với hướng dẫn cài đặt và chạy hệ thống |

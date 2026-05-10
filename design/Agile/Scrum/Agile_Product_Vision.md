@@ -100,7 +100,7 @@ Sản phẩm sẽ được chia thành 4 Giai đoạn phát hành (Releases) the
 - **Tính tiện dụng (Usability):** Giao diện Responsive 100% (Tailwind CSS, MUI), hiển thị tốt trên Desktop, Tablet, Mobile.
 
 ### 5.2 Ràng buộc kỹ thuật (Constraints)
-- **Stack công nghệ:** Client-Server 3-tier. Front-end: React, TypeScript, Redux Toolkit. Back-end: Java Spring Boot. Database: MySQL.
+- **Stack công nghệ:** Client-Server 3-tier. Front-end: React, TypeScript, Redux Toolkit. Back-end: Java Spring Boot. Database: MongoDB.
 - **Tích hợp bên thứ ba:** Cloudinary (Lưu trữ ảnh/video), Stripe/VnPay/SePay (Thanh toán), GHTK/Grab (Vận chuyển).
 - **Quy tắc Nghiệp vụ cốt lõi (Business Rules Core):** 
   - KHÔNG áp dụng hồi tố kế toán (Cập nhật phí sàn không làm thay đổi các giao dịch cũ).

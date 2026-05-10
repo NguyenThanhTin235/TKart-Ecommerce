@@ -19,7 +19,7 @@ participant "OrderService"                       as OS        order 4  #C8E6C9
 participant "VoucherEngine"                      as VE        order 5  #C8E6C9
 participant "CoinService"                        as CS        order 6  #C8E6C9
 participant "PaymentService"                     as PS        order 7  #C8E6C9
-participant "Database\n<<MySQL>>"                as DB        order 8  #DCEDC8
+participant "Database\n<<MongoDB>>"              as DB        order 8  #DCEDC8
 participant "API Vận chuyển\n<<GHTK/Grab>>"      as ShipAPI   order 9  #FFF9C4
 participant "Cổng thanh toán\n<<VnPay/SePay>>"   as PG        order 10 #FFF9C4
 

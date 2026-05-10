@@ -18,7 +18,7 @@ participant "OrderController\n<<Spring>>"      as OC       order 3  #C8E6C9
 participant "OrderService"                     as OS       order 4  #C8E6C9
 participant "ShippingService"                  as SS       order 5  #C8E6C9
 participant "PDFGenerator"                     as PDF      order 6  #C8E6C9
-participant "Database\n<<MySQL>>"              as DB       order 7  #DCEDC8
+participant "Database\n<<MongoDB>>"            as DB       order 7  #DCEDC8
 participant "API Vận chuyển\n<<GHTK/Grab>>"    as ShipAPI  order 8  #FFF9C4
 
 ' ===========================================
@@ -169,7 +169,7 @@ newpage **UC16 – Xử lý Đơn hàng & Tích hợp Vận chuyển**\nAlt 6a. 
 participant "API Vận chuyển\n<<GHTK/Grab>>"    as ShipAPI  order 1  #FFF9C4
 participant "WebhookController\n<<Spring>>"     as WC       order 2  #C8E6C9
 participant "OrderService"                      as OS       order 3  #C8E6C9
-participant "Database\n<<MySQL>>"               as DB       order 4  #DCEDC8
+participant "Database\n<<MongoDB>>"             as DB       order 4  #DCEDC8
 
 == Alt 6a: ĐVVC giao hàng thành công → Webhook ==
 

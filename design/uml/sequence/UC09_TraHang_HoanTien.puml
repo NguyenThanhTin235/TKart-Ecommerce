@@ -19,7 +19,7 @@ participant "ReturnController\n<<Spring>>"        as RC        order 3  #C8E6C9
 participant "ReturnService"                       as RS        order 4  #C8E6C9
 participant "Cloudinary\n<<Media Storage>>"       as Cloud     order 5  #FFF9C4
 participant "PaymentService"                      as PS        order 6  #C8E6C9
-participant "Database\n<<MySQL>>"                 as DB        order 7  #DCEDC8
+participant "Database\n<<MongoDB>>"               as DB        order 7  #DCEDC8
 participant "Cổng thanh toán\n<<VnPay/SePay>>"    as PG        order 8  #FFF9C4
 participant "SellerDashboard\n<<React>>"           as SUI       order 9  #E3F2FD
 actor       "Người bán\n(Seller)"                 as Seller    order 10

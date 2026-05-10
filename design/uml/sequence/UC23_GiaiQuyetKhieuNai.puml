@@ -21,7 +21,7 @@ participant "DisputeController\n<<Spring>>"        as DC       order 3  #C8E6C9
 participant "DisputeService"                       as DS       order 4  #C8E6C9
 participant "PaymentService"                       as PS       order 5  #C8E6C9
 participant "OrderService"                         as OS       order 6  #C8E6C9
-participant "Database\n<<MySQL>>"                  as DB       order 7  #DCEDC8
+participant "Database\n<<MongoDB>>"                as DB       order 7  #DCEDC8
 participant "Cổng thanh toán\n<<VnPay/SePay>>"     as PG       order 8  #FFF9C4
 
 note over Admin, PG

@@ -180,7 +180,7 @@ yêu quy định/ công thức liên quan Khách hàng
 
 ## Yêu cầu chức năng
 
- hệ thống: Môi trường: Hệ thống được xây dựng trên nền tảng Web Application, hoạt động qua mạng Internet, hỗ trợ truy cập trên máy tính và thiết bị di động. Front-end phát triển bằng React, TypeScript, Tailwind CSS, MUI và Redux Toolkit. Back-end sử dụng Java Spring Boot, MySQL Database. Hệ thống tích hợp trực tiếp với Cloudinary để lưu trữ phương tiện và các cổng thanh toán VnPay, SePay hoặc Momo.
+ hệ thống: Môi trường: Hệ thống được xây dựng trên nền tảng Web Application, hoạt động qua mạng Internet, hỗ trợ truy cập trên máy tính và thiết bị di động. Front-end phát triển bằng React, TypeScript, Tailwind CSS, MUI và Redux Toolkit. Back-end sử dụng Java Spring Boot, MongoDB Database. Hệ thống tích hợp trực tiếp với Cloudinary để lưu trữ phương tiện và các cổng thanh toán VnPay, SePay hoặc Momo.
 
 ## Phân quyền:
 
@@ -230,7 +230,7 @@ yêu quy định/ công thức liên quan Khách hàng
 
 ## Tính bảo trì
 
-: Mã nguồn dự án và cơ sở dữ liệu MySQL phải được phân tách theo các miền nghiệp vụ rõ ràng (Module Sản phẩm, Module Đơn hàng, Module Thanh toán, Module Tài khoản...).Cấu trúc này cho phép đội ngũ bảo trì dễ dàng sửa lỗi hoặc mở rộng tính năng mới ở một phân hệ mà không gây đổ vỡ (Crash) tới các module khác của hệ thống.
+: Mã nguồn dự án và cơ sở dữ liệu MongoDB phải được phân tách theo các miền nghiệp vụ rõ ràng (Module Sản phẩm, Module Đơn hàng, Module Thanh toán, Module Tài khoản...).Cấu trúc này cho phép đội ngũ bảo trì dễ dàng sửa lỗi hoặc mở rộng tính năng mới ở một phân hệ mà không gây đổ vỡ (Crash) tới các module khác của hệ thống.
 
 ## Tính bảo mật
 
@@ -255,7 +255,7 @@ Giao diện thân thiện, hiển thị Responsive hoàn hảo trên Mobile, Tab
 
 ## Tính hiệu quả
 
- (Hiệu năng)Thời gian tải trang (Homepage, Product details) dưới 2 giây. Hệ thống hoạt động ổn định khi có lưu lượng truy cập đột biến (Flash Sale, Deals).Tối ưu hóa truy vấn MySQL và lưu trữ media qua Cloudinary. 5Hiển thị đa trình duyệt & Đồng bộ dữ liệu
+ (Hiệu năng)Thời gian tải trang (Homepage, Product details) dưới 2 giây. Hệ thống hoạt động ổn định khi có lưu lượng truy cập đột biến (Flash Sale, Deals).Tối ưu hóa truy vấn MongoDB và lưu trữ media qua Cloudinary. 5Hiển thị đa trình duyệt & Đồng bộ dữ liệu
 
 ## Tính tương thích
 
