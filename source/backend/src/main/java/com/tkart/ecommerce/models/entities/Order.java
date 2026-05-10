@@ -33,6 +33,7 @@ public class Order extends BaseDocument {
     private Long totalSellingPrice;
     private Long shippingFee;
 
+    @Indexed
     private String trackingId;
     private String shippingProvider;
     private List<TrackingEvent> trackingEvents;

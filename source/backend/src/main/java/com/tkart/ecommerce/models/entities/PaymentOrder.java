@@ -29,5 +29,6 @@ public class PaymentOrder extends BaseDocument {
     @Indexed
     private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
+    @Indexed
     private String transactionId; // ID from payment gateway (e.g. VNPay)
 }

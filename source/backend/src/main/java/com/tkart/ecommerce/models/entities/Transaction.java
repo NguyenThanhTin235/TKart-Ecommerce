@@ -18,7 +18,9 @@ public class Transaction extends BaseDocument {
     private TransactionType type;
     private Long amount;
 
+    @Indexed
     private String paymentOrderId;
+    
     private PaymentMethod paymentMethod;
     private String gatewayTransactionId;
 }

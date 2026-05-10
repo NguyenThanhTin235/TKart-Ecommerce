@@ -2,6 +2,7 @@ package com.tkart.ecommerce.models.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @EqualsAndHashCode(callSuper = true)
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ShippingProvider extends BaseDocument {
 
     private String name;
+    @Indexed(unique = true)
     private String code; // GHTK, GRAB
     private String apiEndpoint;
     private String apiKey; // Should be encrypted

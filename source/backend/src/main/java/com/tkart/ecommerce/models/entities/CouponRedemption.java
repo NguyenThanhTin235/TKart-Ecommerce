@@ -15,7 +15,7 @@ public class CouponRedemption extends BaseDocument {
 
     private String couponId;
     private String userId;
-    private String orderId; // Ref -> PaymentOrder
+    private String orderId;
     
     private LocalDateTime usedAt = LocalDateTime.now();
 }

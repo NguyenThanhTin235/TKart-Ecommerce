@@ -2,12 +2,14 @@
 
 > Tối ưu hiệu suất dựa trên query patterns từ 29 Use Cases.
 
-## Trạng thái: ☐ Chưa bắt đầu
+## Trạng thái: ✅ Hoàn thành
 
 ## Nội dung
-- Danh sách 28 indexes (unique, compound, TTL)
-- Query patterns và kỳ vọng hiệu suất
-- Cân bằng Read vs Write performance
+- Đã thiết lập Single Indexes (Unique cho Email, Slug, Cart).
+- Đã thiết lập Compound Indexes cho Review, ChatRoom, CouponRedemption.
+- Đã cấu hình TTL Index tự dọn rác cho OtpToken.
+- Quản lý tự động qua Annotation của Spring Boot.
 
 ## Tham chiếu
 - [database_design_plan.md](../database_design_plan.md) — Giai đoạn 4
+- [indexes.md](./indexes.md) — Tài liệu chi tiết Indexes

@@ -2,6 +2,7 @@ package com.tkart.ecommerce.models.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -16,5 +17,6 @@ public class HomepageConfig extends BaseDocument {
     private List<Map<String, Object>> banners;
     private List<Map<String, Object>> gridCategories;
     
+    @Indexed
     private boolean isActive = true;
 }

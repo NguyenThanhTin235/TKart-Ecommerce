@@ -15,10 +15,12 @@ public class AuditLog extends BaseDocument {
     private String actorId;
     private Role actorRole;
 
-    private String action; // e.g. "BAN_SELLER"
+    private String action;
 
     @Indexed
-    private String targetType; // e.g. "SELLER"
+    private String targetType;
+    
+    @Indexed
     private String targetId;
 
     private String details;

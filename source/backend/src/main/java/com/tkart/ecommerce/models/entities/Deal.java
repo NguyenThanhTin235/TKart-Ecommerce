@@ -22,5 +22,6 @@ public class Deal extends BaseDocument {
     private LocalDateTime validTo;
 
     private Long viewCount = 0L;
+    @Indexed
     private boolean isActive;
 }

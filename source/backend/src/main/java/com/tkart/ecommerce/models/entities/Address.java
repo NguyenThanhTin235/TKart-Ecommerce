@@ -11,13 +11,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Address extends BaseDocument {
 
     @Indexed
-    private String userId; // Reference to User
+    private String userId;
 
-    private String recipientName;
+    private String fullName;
     private String phone;
-    private String province;
-    private String district;
+    private String street;
     private String ward;
-    private String detail;
-    private boolean isDefault;
+    private String district;
+    private String city;
+    private String country = "Vietnam";
+    private boolean isDefault = false;
 }
