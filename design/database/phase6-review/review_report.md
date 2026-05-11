@@ -48,5 +48,5 @@ Thiết kế Database đã hoàn thành và đạt tiêu chuẩn để đưa và
 - **Ưu điểm**: Linh hoạt (NoSQL), tránh được các phép Join phức tạp nhờ kỹ thuật Embedding (nhúng dữ liệu), đảm bảo tính toàn vẹn bằng các ràng buộc Index cấp Database.
 - **Hướng phát triển**: Khi dữ liệu lớn lên (Scale), có thể triển khai thêm Sharding dựa trên `userId` hoặc `sellerId`.
 
-> **Người thực hiện**: Nguyễn Thành Tin (Database Architect)  
+> **Người thực hiện**: Nguyễn Thành Tin 
 > **Ngày hoàn tất**: 10/05/2026

@@ -307,4 +307,4 @@ Bước 8: DataSeeder (CommandLineRunner) — nạp dữ liệu mẫu
 | Audit Log | Read-only, Async | audit_logs (no update/delete API) | ☐ |
  
 ---
-> **Người thực hiện**: Nguyễn Thành Tin (Database Architect)
+> **Người thực hiện**: Nguyễn Thành Tin

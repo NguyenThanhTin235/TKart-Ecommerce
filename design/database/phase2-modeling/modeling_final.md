@@ -115,4 +115,4 @@ Sử dụng khi dữ liệu lớn (Unbound array), thay đổi độc lập, ho�
 > **Tiếp theo**: Chuyển sang **Phase 3: Schema** để định nghĩa Java Class (Entities).
  
 ---
-> **Người thực hiện**: Nguyễn Thành Tin (Database Architect)
+> **Người thực hiện**: Nguyễn Thành Tin 

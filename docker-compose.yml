@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   db:
-    image: mongo:6.0
+    image: mongo:7.0
     container_name: tkart-mongodb
     restart: always
     environment:
@@ -12,5 +12,13 @@ services:
       - "27018:27017"
     volumes:
       - db_data:/data/db
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: tkart-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
 volumes:
   db_data:

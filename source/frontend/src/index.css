@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #000000;
+  --color-secondary: #ffffff;
+  --color-accent-red: #ff3b30;
+  --color-accent-blue: #007aff;
+  --color-accent-green: #34c759;
+  --color-soft-grey: #f3f4f6;
+  
+  --shadow-brutal: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  
+  --border-width-brutal: 2px;
+}
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #000000;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.neo-brutal-card {
+  @apply border-2 border-black bg-white shadow-brutal p-4 transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-lg;
+}
+
+.neo-brutal-button {
+  @apply border-2 border-black bg-accent-blue text-white font-bold py-2 px-4 shadow-brutal active:shadow-none active:translate-x-[4px] active:translate-y-[4px];
+}
