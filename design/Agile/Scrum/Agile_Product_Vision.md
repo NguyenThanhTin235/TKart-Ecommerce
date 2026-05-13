@@ -52,14 +52,15 @@ Xây dựng **TKart E-commerce Platform** trở thành một sàn thương mại
 
 ## 3. HIGH-LEVEL ROADMAP (Lộ trình phát hành)
 
-Sản phẩm sẽ được chia thành 4 Giai đoạn phát hành (Releases) theo nguyên tắc MVP, ưu tiên xây dựng "bộ xương sống" trước khi mở rộng các tính năng nâng cao và tích hợp bên thứ ba:
+Sản phẩm sẽ được chia thành **5 Giai đoạn phát hành (Releases)** theo nguyên tắc MVP, ưu tiên xây dựng nền tảng cốt lõi trước khi mở rộng các tính năng nâng cao và tích hợp bên thứ ba.
 
 | Giai đoạn | Mục tiêu cốt lõi | Các Epics / Tính năng chính |
 |---|---|---|
 | **Release 1: MVP (Cốt lõi TMĐT)** | Xây dựng luồng End-to-End cơ bản. Khách tìm sản phẩm, đặt hàng COD. Người bán đăng sản phẩm. Admin kiểm duyệt. | **Epic 1**: Trang chủ, Tìm kiếm/Lọc, Chi tiết SP.<br>**Epic 2**: Đăng nhập/ký Email, Cập nhật Hồ sơ.<br>**Epic 3**: Giỏ hàng, Checkout COD, Theo dõi đơn tĩnh.<br>**Epic 4**: Đăng SP, Quản lý tồn kho.<br>**Epic 6**: Duyệt Seller/Sản phẩm. |
-| **Release 2: Tích hợp & Tối ưu** | Tích hợp dịch vụ bên thứ ba (APIs). Giải quyết bài toán tách đơn phức tạp của mô hình đa nhà cung cấp. | **Epic 2**: Đăng nhập OTP/Passwordless, Quên MK.<br>**Epic 3**: Thanh toán VNPay, Split Order, Voucher & Ví Xu, Wishlist.<br>**Epic 4**: Đẩy đơn API GHTK/Grab, In PDF, Webhook. |
-| **Release 3: Real-time & Hậu mãi** | Nâng tầm trải nghiệm bằng AI/Real-time. Xây dựng quy trình xử lý sau bán hàng (Hoàn trả/Khiếu nại). | **Epic 1**: Chatbot AI, Chat 1-1 Real-time (WebSockets).<br>**Epic 5**: Đánh giá sao, Yêu cầu hoàn trả, Seller xử lý hoàn trả, Admin can thiệp tranh chấp (Dispute). |
-| **Release 4: Quản trị & Bảo mật** | Hoàn thiện công cụ Admin, báo cáo tài chính (Excel) và gia cố các lỗ hổng bảo mật trước khi nghiệm thu. | **Epic 2**: OAuth2 Google/Facebook, Admin 2FA, Lịch sử Xu.<br>**Epic 4**: Dashboard Doanh thu, Xuất Excel.<br>**Epic 6**: Cấu hình UI, Coupon/Deal, Quản lý User, Phí sàn, Audit Log. |
+| **Release 2: Multi-vendor Checkout + Khuyến mãi cơ bản** | Hoàn thiện checkout theo hướng “sàn thật”: wishlist, voucher/coin mức cơ bản, và tách đơn theo seller. | **Epic 3**: Wishlist, Voucher Engine, Ví Xu, Split Order. |
+| **Release 3: Thanh toán online + Webhook + Seller fulfillment** | Tích hợp thanh toán online và đóng vòng đời giao dịch: success/fail → cập nhật đơn; sau đó nối sang seller fulfillment + vận chuyển thực tế. | **Epic 3**: VNPay (hoặc cổng online) + webhook success/fail.<br>**Epic 4**: Seller xác nhận/từ chối đơn, đẩy đơn vận chuyển, in vận đơn, cập nhật tracking. |
+| **Release 4: Real-time & After-sales** | Tăng trải nghiệm (AI/real-time) và hoàn thiện hậu mãi: review → return → dispute. | **Epic 1**: Chatbot AI, Chat 1-1 Real-time (WebSockets).<br>**Epic 5**: Review, Return request, Dispute (Seller + Admin). |
+| **Release 5: Admin Ops & Growth** | Hoàn thiện công cụ vận hành sàn, marketing, báo cáo và gia cố bảo mật để nghiệm thu. | **Epic 6**: Homepage config, Coupon/Deal, Quản lý User, Phí sàn, Audit Log.<br>**Epic 4**: Dashboard doanh thu, Transactions, Export Excel.<br>**Epic 2**: OAuth/OTP login/Admin 2FA (nếu chưa làm). |
 
 ---
 
