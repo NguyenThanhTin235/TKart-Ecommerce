@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Campaigns & Promotions - Tkart Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#004ac6",
+                        "on-surface": "#131b2e",
+                        secondary: "#434655",
+                        background: "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-variant": "#dae2fd",
+                        "on-surface-variant": "#434655",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        error: "#ba1a1a",
+                        success: "#2e7d32",
+                        warning: "#f59e0b",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-high": "#e2e7ff",
+                    },
+                    borderRadius: {
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                    },
+                    fontFamily: {
+                        sans: ["Manrope", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .shadow-level-1 { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d7; border-radius: 10px; }
+        
+        .admin-sidebar-item.active {
+            background-color: #E8EFFF;
+            color: #004ac6;
+            font-weight: 700;
+        }
+
+        .coupon-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .coupon-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -10px rgba(0, 74, 198, 0.15); }
+        
+        .dashed-divider { background-image: linear-gradient(to right, #c3c6d7 50%, transparent 50%); background-size: 8px 1px; background-repeat: repeat-x; }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-900 min-h-screen flex font-sans overflow-hidden">
+
+    <!-- Admin Sidebar -->
+    <aside class="w-72 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0 z-50">
+        <!-- Brand Identity -->
+        <div class="p-8">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-200">
+                    UA
+                </div>
+                <div>
+                    <h2 class="font-black text-slate-900 text-lg leading-tight tracking-tighter">Admin CMS</h2>
+                    <p class="text-[10px] text-primary font-black uppercase tracking-widest">Platform Authority</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Navigation -->
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+            <a href="admin_dashboard.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">dashboard</span>
+                <span>Dashboard Overview</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Management</p>
+            </div>
+            <a href="admin_users.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">group</span>
+                <span>User Management</span>
+            </a>
+            <a href="admin_promotions.html" class="admin-sidebar-item active flex items-center gap-4 px-4 py-3 rounded-2xl transition-all group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">campaign</span>
+                <span class="text-sm font-bold">Promotions</span>
+            </a>
+            <a href="admin_support.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">support_agent</span>
+                <span>User Support</span>
+            </a>
+            <a href="admin_finance_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">account_balance</span>
+                <span>Finance Settings</span>
+            </a>
+            <a href="admin_finance_withdrawals.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">payments</span>
+                <span>Withdrawal Approval</span>
+            </a>
+            <a href="admin_logistics_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">local_shipping</span>
+                <span>Logistics Partners</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Security</p>
+            </div>
+            <a href="admin_rbac.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">admin_panel_settings</span>
+                <span>Access Control</span>
+            </a>
+            <a href="admin_security_logs.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">security</span>
+                <span>Security Logs</span>
+            </a>
+
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Appearance</p>
+            </div>
+            <a href="admin_ui_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">palette</span>
+                <span>UI/UX Settings</span>
+            </a>
+            <a href="admin_platform_settings.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">settings</span>
+                <span>Platform Settings</span>
+            </a>
+        </nav>
+
+        <!-- System Status -->
+        <div class="p-6 border-t border-slate-100">
+            <div class="bg-slate-50 rounded-2xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase">Server Health</span>
+                    <span class="size-2 bg-success rounded-full animate-pulse"></span>
+                </div>
+                <div class="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-success" style="width: 94%"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 font-medium">Latent: 12ms | Load: 0.45</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto bg-[#F8FAFC] custom-scrollbar">
+        <!-- Top Header -->
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-10 sticky top-0 z-40 shrink-0">
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-2xl">campaign</span>
+                <h1 class="text-xl font-black text-slate-900 tracking-tighter">Campaigns & Promotions</h1>
+                
+                <div class="ml-8 hidden md:flex items-center bg-[#F1F5F9] rounded-2xl px-4 py-2.5 w-96 group focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                    <span class="material-symbols-outlined text-slate-400 text-xl group-focus-within:text-primary">search</span>
+                    <input type="text" placeholder="Search campaigns or coupons..." class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400 font-medium ml-2">
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 flex items-center justify-center text-slate-500 hover:bg-slate-50 rounded-xl transition-all relative">
+                    <span class="material-symbols-outlined text-2xl">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+                </button>
+                <div class="h-8 w-px bg-slate-200 mx-2"></div>
+                <div class="flex items-center gap-3 bg-[#F1F5F9] pl-1 pr-4 py-1 rounded-full border border-slate-100 cursor-pointer hover:bg-slate-200 transition-all group">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-black shadow-md shadow-blue-200">AD</div>
+                    <span class="text-sm font-bold text-slate-700">System Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-10 space-y-10 max-w-7xl mx-auto w-full">
+            <!-- Actions & Tabs Row -->
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                <div class="flex gap-8">
+                    <button class="px-2 py-4 text-sm font-black text-primary border-b-2 border-primary tracking-tight transition-all uppercase">Global Coupons</button>
+                    <button class="px-2 py-4 text-sm font-bold text-slate-400 hover:text-slate-600 tracking-tight transition-all uppercase">Mass Discounts</button>
+                    <button class="px-2 py-4 text-sm font-bold text-slate-400 hover:text-slate-600 tracking-tight transition-all uppercase">Flash Deals</button>
+                </div>
+                <a href="admin_promotion_coupon_editor.html" class="flex items-center gap-2 px-6 py-3 bg-primary text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-blue-200 hover:brightness-110 transition-all">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    Create New Voucher
+                </a>
+            </div>
+
+            <!-- Summary Stats -->
+            <div class="grid grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="size-12 rounded-2xl bg-blue-50 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-2xl">confirmation_number</span>
+                        </div>
+                        <span class="text-xs font-black text-success">+12% vs LW</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Active Coupons</p>
+                        <h4 class="text-3xl font-black text-slate-900">24</h4>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="size-12 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600">
+                            <span class="material-symbols-outlined text-2xl">event_available</span>
+                        </div>
+                        <span class="text-xs font-black text-slate-400">Live now</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Ongoing Campaigns</p>
+                        <h4 class="text-3xl font-black text-slate-900">08</h4>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="size-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600">
+                            <span class="material-symbols-outlined text-2xl">payments</span>
+                        </div>
+                        <span class="text-xs font-black text-slate-400">Total Applied</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Discount Volume</p>
+                        <h4 class="text-2xl font-black text-slate-900">12.4M <span class="text-xs font-bold text-slate-400 ml-1">VND</span></h4>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="size-12 rounded-2xl bg-green-50 flex items-center justify-center text-green-600">
+                            <span class="material-symbols-outlined text-2xl">trending_up</span>
+                        </div>
+                        <span class="text-xs font-black text-success">8.4% Conversion</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">ROI Efficiency</p>
+                        <h4 class="text-3xl font-black text-slate-900">3.2x</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Coupons Grid -->
+            <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-black text-slate-900 uppercase tracking-tighter">Global Platform Coupons</h2>
+                    <div class="flex items-center gap-3">
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400">search</span>
+                            <input type="text" placeholder="Search coupon code..." class="bg-white border-slate-200 rounded-2xl pl-12 pr-4 py-2.5 text-sm focus:ring-primary w-64 transition-all">
+                        </div>
+                        <button class="p-2.5 bg-white border border-slate-200 rounded-xl text-slate-400 hover:text-primary transition-all">
+                            <span class="material-symbols-outlined">filter_list</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-6">
+                    <!-- Coupon Card 1 -->
+                    <div class="coupon-card bg-white rounded-3xl border border-slate-200 shadow-level-1 overflow-hidden flex flex-col">
+                        <div class="p-6 bg-primary/5 border-b border-dashed border-primary/20 relative">
+                            <div class="absolute -left-3 top-full -translate-y-1/2 w-6 h-6 rounded-full bg-[#F8FAFC]"></div>
+                            <div class="absolute -right-3 top-full -translate-y-1/2 w-6 h-6 rounded-full bg-[#F8FAFC]"></div>
+                            
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="bg-primary text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Voucher Toàn Sàn</div>
+                                <div class="relative inline-block w-8 h-4 align-middle select-none">
+                                    <input type="checkbox" checked class="sr-only peer" id="c1">
+                                    <label for="c1" class="block overflow-hidden h-4 rounded-full bg-slate-200 peer-checked:bg-success cursor-pointer transition-all after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-4"></label>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-black text-primary mb-1">TKARTSUMMER24</h3>
+                            <p class="text-sm font-bold text-slate-600">Giảm 15% - Tối đa 50k</p>
+                        </div>
+                        <div class="p-6 flex-1 space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Min Spend</p>
+                                    <p class="text-xs font-black text-slate-700">250.000đ</p>
+                                </div>
+                                <div>
+                                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Max Uses</p>
+                                    <p class="text-xs font-black text-slate-700">1,000 Users</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center text-[10px]">
+                                    <span class="font-bold text-slate-500 uppercase tracking-widest">Usage Progress</span>
+                                    <span class="font-black text-primary">642 / 1,000</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary" style="width: 64.2%"></div>
+                                </div>
+                            </div>
+                            <div class="pt-2 flex items-center justify-between border-t border-slate-50">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-slate-300 text-sm">schedule</span>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Expires in 12 days</span>
+                                </div>
+                                <button class="text-primary text-xs font-black hover:underline transition-all">Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coupon Card 2 -->
+                    <div class="coupon-card bg-white rounded-3xl border border-slate-200 shadow-level-1 overflow-hidden flex flex-col opacity-60 grayscale">
+                        <div class="p-6 bg-slate-50 border-b border-dashed border-slate-200 relative">
+                            <div class="absolute -left-3 top-full -translate-y-1/2 w-6 h-6 rounded-full bg-[#F8FAFC]"></div>
+                            <div class="absolute -right-3 top-full -translate-y-1/2 w-6 h-6 rounded-full bg-[#F8FAFC]"></div>
+                            
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="bg-slate-400 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Expired</div>
+                                <div class="relative inline-block w-8 h-4 align-middle select-none">
+                                    <input type="checkbox" class="sr-only peer" id="c2">
+                                    <label for="c2" class="block overflow-hidden h-4 rounded-full bg-slate-200 peer-checked:bg-success cursor-pointer transition-all after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-4"></label>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-black text-slate-500 mb-1">WELCOME2024</h3>
+                            <p class="text-sm font-bold text-slate-400">Giảm 20k - Đơn từ 0đ</p>
+                        </div>
+                        <div class="p-6 flex-1 space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Min Spend</p>
+                                    <p class="text-xs font-black text-slate-400">0đ</p>
+                                </div>
+                                <div>
+                                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Max Uses</p>
+                                    <p class="text-xs font-black text-slate-400">Unlimited</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center text-[10px]">
+                                    <span class="font-bold text-slate-300 uppercase tracking-widest">Usage Progress</span>
+                                    <span class="font-black text-slate-400">8,421 Redeemed</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-slate-300" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="pt-2 flex items-center justify-between border-t border-slate-50">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-slate-300 text-sm">event_busy</span>
+                                    <span class="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Ended Jan 31</span>
+                                </div>
+                                <button class="text-slate-400 text-xs font-black hover:underline transition-all">Restore</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add New Placeholder -->
+                    <button class="rounded-3xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center p-10 hover:border-primary hover:bg-blue-50/30 transition-all group">
+                        <div class="size-14 rounded-full bg-slate-100 group-hover:bg-primary/10 flex items-center justify-center text-slate-400 group-hover:text-primary transition-all mb-4">
+                            <span class="material-symbols-outlined text-3xl">add_circle</span>
+                        </div>
+                        <span class="text-sm font-black text-slate-500 group-hover:text-primary tracking-tight">Generate Coupon Code</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mass Discounts & Campaigns -->
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-level-1 overflow-hidden">
+                <div class="p-8 border-b border-slate-100 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-black text-slate-900 tracking-tight">Mass Discount Programs</h2>
+                        <p class="text-sm text-slate-500 font-medium">Platform-wide price reductions by category or product tags.</p>
+                    </div>
+                    <a href="admin_promotion_campaign_editor.html" class="px-5 py-2.5 bg-slate-900 text-white text-xs font-black uppercase tracking-widest rounded-xl hover:brightness-110 transition-all shadow-lg shadow-slate-200">
+                        New Campaign
+                    </a>
+                </div>
+
+                <div class="p-0">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100">
+                                <th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Campaign Name</th>
+                                <th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Applied To</th>
+                                <th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Discount</th>
+                                <th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Time Range</th>
+                                <th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</th>
+                                <th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr class="hover:bg-slate-50/50 transition-all group">
+                                <td class="px-8 py-5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="size-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-xl">bolt</span>
+                                        </div>
+                                        <span class="text-sm font-black text-slate-700">6.6 Super Flash Sale</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Electronics +3 categories</span>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-black text-error">Up to 40% OFF</span>
+                                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Direct Price Reduction</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-black text-slate-700">Jun 06 - Jun 08</span>
+                                        <span class="text-[10px] text-success font-black uppercase tracking-widest">Scheduled</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-success/10 text-success w-fit">
+                                        <span class="size-1.5 bg-success rounded-full animate-pulse"></span>
+                                        <span class="text-[10px] font-black uppercase tracking-widest">Pending</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <a href="admin_promotion_campaign_editor.html" class="p-2 text-slate-400 hover:text-primary transition-all inline-block">
+                                        <span class="material-symbols-outlined">edit</span>
+                                    </a>
+                                    <button class="p-2 text-slate-400 hover:text-error transition-all">
+                                        <span class="material-symbols-outlined">delete</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 transition-all group">
+                                <td class="px-8 py-5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="size-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-xl">checkroom</span>
+                                        </div>
+                                        <span class="text-sm font-black text-slate-700">Mid-Year Fashion Clear</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Fashion & Apparel</span>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-black text-primary">Flat 20% OFF</span>
+                                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Mass Mark-down</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-black text-slate-700">May 15 - May 30</span>
+                                        <span class="text-[10px] text-primary font-black uppercase tracking-widest">Active</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5">
+                                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary w-fit">
+                                        <span class="size-1.5 bg-primary rounded-full animate-pulse"></span>
+                                        <span class="text-[10px] font-black uppercase tracking-widest">Running</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <a href="admin_promotion_campaign_editor.html" class="p-2 text-slate-400 hover:text-primary transition-all inline-block">
+                                        <span class="material-symbols-outlined">edit</span>
+                                    </a>
+                                    <button class="p-2 text-slate-400 hover:text-error transition-all">
+                                        <span class="material-symbols-outlined">delete</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="p-6 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                    <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest italic">Total 12 Campaigns | Next scheduled: Jun 06</p>
+                    <div class="flex gap-1">
+                        <button class="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-primary transition-all"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+                        <button class="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-primary transition-all"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Buttons Stack -->
+    <div class="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+        <!-- AI Assistant FAB -->
+        <button onclick="toggleAI()" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+    <!-- AI Chat Window -->
+    <div id="ai-chat-window" class="fixed bottom-28 right-8 w-96 h-[550px] bg-surface-container-lowest rounded-[2rem] shadow-2xl border border-outline-variant/30 hidden flex-col z-50 overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+        <!-- Header -->
+        <div class="p-6 bg-primary text-white flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="size-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                </div>
+                <div>
+                    <h3 class="font-black text-sm tracking-tight">AI Assistant</h3>
+                    <p class="text-[10px] opacity-70 font-bold uppercase tracking-widest">Always Online</p>
+                </div>
+            </div>
+            <button onclick="toggleAI()" class="size-8 rounded-lg hover:bg-white/20 flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <!-- Messages Area -->
+        <div class="flex-1 p-6 overflow-y-auto space-y-4 custom-scrollbar bg-surface-container-low/30 flex flex-col">
+            <div class="flex gap-3">
+                <div class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-sm">smart_toy</span>
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/20 text-sm font-bold text-on-surface leading-relaxed">
+                    Hello John! I'm your Tkart AI Assistant. How can I help you manage the platform today?
+                </div>
+            </div>
+            <div class="flex-1"></div>
+        </div>
+        
+        <!-- Input Area (Pinned to bottom) -->
+        <div class="p-4 bg-white border-t border-outline-variant/30 shrink-0">
+            <div class="flex gap-2 p-2 bg-surface-container-low rounded-2xl border border-outline-variant/20">
+                <input type="text" placeholder="Ask AI anything..." class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-bold px-2">
+                <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function toggleAI() {
+        const aiWin = document.getElementById('ai-chat-window');
+        if (aiWin.classList.contains('hidden')) {
+            aiWin.classList.remove('hidden');
+            aiWin.classList.add('flex');
+        } else {
+            aiWin.classList.add('hidden');
+            aiWin.classList.remove('flex');
+        }
+    }
+</script>
+</body>
+</html>

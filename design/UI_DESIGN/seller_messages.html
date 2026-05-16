@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Customer Messages - Tkart Seller Center</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts: Manrope -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#004ac6",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary-container": "#eeefff",
+                        "secondary": "#505f76",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d0e1fb",
+                        "on-secondary-container": "#54647a",
+                        "surface": "#faf8ff",
+                        "on-surface": "#131b2e",
+                        "surface-variant": "#dae2fd",
+                        "on-surface-variant": "#434655",
+                        "outline": "#737686",
+                        "outline-variant": "#c3c6d7",
+                        "background": "#faf8ff",
+                        "on-background": "#131b2e",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container": "#eaedff",
+                        "surface-container-high": "#e2e7ff",
+                        "surface-container-highest": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "4xl": "2rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "sans": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d7; border-radius: 10px; }
+        
+        .message-bubble-in {
+            background: #ffffff;
+            border-radius: 4px 20px 20px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .message-bubble-out {
+            background: #004ac6;
+            color: #ffffff;
+            border-radius: 20px 20px 4px 20px;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-sans antialiased overflow-hidden">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0 z-50">
+            <!-- Seller Identity -->
+            <div class="p-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-[#0052CC] flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-200">
+                        US
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-900 text-lg leading-tight">Seller Center</h2>
+                        <p class="text-xs text-slate-500 font-medium">Premium Merchant</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 px-4 space-y-1">
+                <a href="seller_dashboard.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all font-medium group">
+                    <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="seller_products.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all font-medium group">
+                    <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">inventory_2</span>
+                    <span>Products</span>
+                </a>
+                <a href="seller_orders.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all font-medium group">
+                    <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">shopping_cart</span>
+                    <span>Orders</span>
+                </a>
+                <a href="seller_cancellations.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all font-medium group">
+                    <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">cancel</span>
+                    <span>Cancellations</span>
+                </a>
+                <a href="seller_analytics.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all font-medium group">
+                    <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">analytics</span>
+                    <span>Analytics</span>
+                </a>
+                <a href="seller_reviews.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all font-medium group">
+                    <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">star</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="seller_messages.html" class="flex items-center gap-4 px-4 py-3 bg-[#E8EFFF] text-[#0052CC] rounded-2xl transition-all font-bold group shadow-sm shadow-blue-100">
+                    <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+                    <span>Messages</span>
+                </a>
+
+                <div class="pt-4 mt-4 border-t border-slate-100">
+                    <a href="seller_settings.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all font-medium group">
+                        <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">settings</span>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Revenue Card -->
+        <div class="px-6 py-4 mt-auto">
+            <div class="bg-[#0052CC] rounded-[24px] p-5 text-white relative overflow-hidden shadow-lg shadow-blue-200/50">
+                <div class="absolute top-0 right-0 p-3 opacity-10">
+                    <span class="material-symbols-outlined text-4xl">account_balance_wallet</span>
+                </div>
+                <div class="relative z-10">
+                    <p class="text-[9px] font-black uppercase tracking-widest opacity-60 mb-1">Total Balance</p>
+                    <h3 class="text-lg font-black mb-4 flex items-baseline gap-1">
+                        45,820,000 <span class="text-[10px] font-medium opacity-80">₫</span>
+                    </h3>
+                    <a href="seller_wallet.html" class="flex items-center justify-center w-full bg-white text-[#0052CC] py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm">Access Wallet</a>
+                </div>
+            </div>
+        </div></aside>
+
+        <!-- Main Content Area: Messaging Interface -->
+        <main class="flex-1 flex flex-col min-w-0 bg-surface">
+            <!-- Header -->
+            <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-10 sticky top-0 z-40 shrink-0">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-[#0052CC] text-2xl">chat_bubble</span>
+                    <h1 class="text-xl font-bold text-slate-900 tracking-tight">Customer Conversations</h1>
+                    
+                    <div class="ml-8 hidden md:flex items-center bg-[#F1F5F9] rounded-2xl px-4 py-2.5 w-80 group focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                        <span class="material-symbols-outlined text-slate-400 text-xl group-focus-within:text-[#0052CC]">search</span>
+                        <input type="text" placeholder="Search conversations..." class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400 placeholder:font-medium ml-2">
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button class="w-10 h-10 flex items-center justify-center text-slate-500 hover:bg-slate-50 rounded-xl transition-all relative">
+                        <span class="material-symbols-outlined text-2xl">notifications</span>
+                        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                    </button>
+                    
+                    <div class="flex items-center gap-3 bg-[#F1F5F9] pl-1 pr-4 py-1 rounded-full border border-slate-100 cursor-pointer hover:bg-slate-200 transition-all group">
+                        <div class="w-8 h-8 rounded-full bg-[#0052CC] flex items-center justify-center text-white text-xs font-bold shadow-md shadow-blue-200">
+                            JD
+                        </div>
+                        <span class="text-sm font-bold text-slate-700">John Doe</span>
+                        <span class="material-symbols-outlined text-slate-400 text-lg group-hover:translate-y-0.5 transition-transform">expand_more</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Messaging Content Split Screen -->
+            <div class="flex-1 flex overflow-hidden">
+                <!-- Left: Conversation List -->
+                <aside class="w-80 border-r border-outline-variant/30 flex flex-col bg-surface-container-lowest shrink-0">
+                    <div class="p-4 flex gap-2 border-b border-outline-variant/20 shrink-0">
+                        <button class="flex-1 px-3 py-2 bg-primary text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20">All Chats</button>
+                        <button class="flex-1 px-3 py-2 bg-surface-container-low text-secondary rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-surface-container-high transition-all">Order Status</button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto custom-scrollbar">
+                        <!-- Active Conversation -->
+                        <div class="p-5 bg-primary/5 border-l-4 border-primary flex gap-4 cursor-pointer">
+                            <div class="relative shrink-0">
+                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100" class="size-12 rounded-2xl object-cover shadow-sm">
+                                <span class="absolute -bottom-1 -right-1 size-4 bg-green-500 border-2 border-white rounded-full"></span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start mb-0.5">
+                                    <h3 class="text-xs font-black text-on-surface truncate">Nguyen Van A</h3>
+                                    <span class="text-[9px] font-black text-primary whitespace-nowrap">2m ago</span>
+                                </div>
+                                <p class="text-[11px] font-bold text-primary truncate mb-1">Has this item been shipped yet?</p>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="px-1.5 py-0.5 bg-surface-container-high text-secondary rounded-md text-[8px] font-black uppercase tracking-widest border border-outline-variant/20">#ORD-99283</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Other Conversations -->
+                        <div class="p-5 hover:bg-surface-container-low transition-all flex gap-4 cursor-pointer border-b border-outline-variant/10">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="size-12 rounded-2xl object-cover shrink-0 opacity-80">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start mb-0.5">
+                                    <h3 class="text-xs font-black text-secondary/80 truncate">Tran Thi B</h3>
+                                    <span class="text-[9px] font-bold text-secondary/50">10:45 AM</span>
+                                </div>
+                                <p class="text-[11px] font-bold text-secondary/60 truncate">Thank you for the fast response!</p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 hover:bg-surface-container-low transition-all flex gap-4 cursor-pointer border-b border-outline-variant/10">
+                            <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100" class="size-12 rounded-2xl object-cover shrink-0 opacity-80">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start mb-0.5">
+                                    <h3 class="text-xs font-black text-secondary/80 truncate">Lê Minh C</h3>
+                                    <span class="text-[9px] font-bold text-secondary/50">Yesterday</span>
+                                </div>
+                                <p class="text-[11px] font-bold text-secondary/60 truncate">Can I change the shipping address?</p>
+                                <div class="flex items-center gap-1.5 mt-1">
+                                    <span class="px-1.5 py-0.5 bg-error/10 text-error rounded-md text-[8px] font-black uppercase tracking-widest">Pending</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-5 hover:bg-surface-container-low transition-all flex gap-4 cursor-pointer border-b border-outline-variant/10">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" class="size-12 rounded-2xl object-cover shrink-0 opacity-80">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start mb-0.5">
+                                    <h3 class="text-xs font-black text-secondary/80 truncate">Hoang Long</h3>
+                                    <span class="text-[9px] font-bold text-secondary/50">Oct 24</span>
+                                </div>
+                                <p class="text-[11px] font-bold text-secondary/60 truncate">The size 42 fits perfectly, thanks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Middle: Chat Window -->
+                <section class="flex-1 flex flex-col bg-white">
+                    <!-- Chat Header -->
+                    <header class="p-4 px-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest shrink-0">
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100" class="size-10 rounded-xl object-cover shadow-sm">
+                            <div>
+                                <h2 class="text-sm font-black text-on-surface">Nguyen Van A</h2>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="size-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                                    <span class="text-[9px] font-black text-green-600 uppercase tracking-widest">Customer Online</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="p-2 rounded-xl border border-outline-variant/30 text-secondary hover:bg-surface-container-low transition-all" title="Call Customer">
+                                <span class="material-symbols-outlined text-[20px]">call</span>
+                            </button>
+                            <button class="p-2 rounded-xl border border-outline-variant/30 text-secondary hover:bg-surface-container-low transition-all" title="More Options">
+                                <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                            </button>
+                        </div>
+                    </header>
+
+                    <!-- Chat Messages Area -->
+                    <div class="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar bg-surface/30">
+                        <!-- Date Separator -->
+                        <div class="flex justify-center">
+                            <span class="px-4 py-1.5 bg-surface-container-high text-secondary text-[9px] font-black uppercase tracking-[0.2em] rounded-full border border-outline-variant/20">October 25, 2024</span>
+                        </div>
+
+                        <!-- Customer Message -->
+                        <div class="flex gap-4 max-w-[80%]">
+                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100" class="size-8 rounded-lg object-cover shrink-0 self-end">
+                            <div class="space-y-1">
+                                <div class="message-bubble-in p-4 border border-outline-variant/20">
+                                    <p class="text-sm text-on-surface leading-relaxed">Chào shop, đơn hàng #ORD-99283 của mình đã được gửi đi chưa ạ?</p>
+                                </div>
+                                <span class="text-[9px] font-bold text-secondary/50 ml-1">14:20</span>
+                            </div>
+                        </div>
+
+                        <!-- Seller Response -->
+                        <div class="flex flex-row-reverse gap-4 max-w-[80%] ml-auto">
+                            <div class="space-y-1">
+                                <div class="message-bubble-out p-4 shadow-lg shadow-primary/10">
+                                    <p class="text-sm leading-relaxed">Dạ chào bạn A, đơn hàng của bạn đã được xác nhận và đang được đóng gói, dự kiến chiều nay đơn vị vận chuyển sẽ đến lấy hàng ạ.</p>
+                                </div>
+                                <div class="flex justify-end gap-1.5 items-center mr-1">
+                                    <span class="text-[9px] font-bold text-secondary/50">14:22</span>
+                                    <span class="material-symbols-outlined text-[14px] text-primary">done_all</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer Message (Image/Attachment Mockup) -->
+                        <div class="flex gap-4 max-w-[80%]">
+                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100" class="size-8 rounded-lg object-cover shrink-0 self-end">
+                            <div class="space-y-2">
+                                <div class="message-bubble-in p-4 border border-outline-variant/20">
+                                    <p class="text-sm text-on-surface leading-relaxed">Vâng ạ, mình đang cần gấp để tặng sinh nhật. Nhờ shop bọc kỹ giúp mình nhé.</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-2xl border border-outline-variant/20 shadow-sm w-48 group cursor-pointer">
+                                    <div class="aspect-square rounded-xl overflow-hidden mb-2">
+                                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" class="size-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    </div>
+                                    <p class="text-[10px] font-black text-secondary truncate">Ref_Product_01.jpg</p>
+                                </div>
+                                <span class="text-[9px] font-bold text-secondary/50 ml-1">14:25</span>
+                            </div>
+                        </div>
+
+                        <!-- Seller Response -->
+                        <div class="flex flex-row-reverse gap-4 max-w-[80%] ml-auto">
+                            <div class="space-y-1">
+                                <div class="message-bubble-out p-4 shadow-lg shadow-primary/10">
+                                    <p class="text-sm leading-relaxed">Shop đã ghi chú bọc quà và chống sốc kỹ cho bạn rồi ạ. Cảm ơn bạn đã ủng hộ shop!</p>
+                                </div>
+                                <div class="flex justify-end gap-1.5 items-center mr-1">
+                                    <span class="text-[9px] font-bold text-secondary/50">14:26</span>
+                                    <span class="material-symbols-outlined text-[14px] text-primary">done_all</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input Area -->
+                    <footer class="p-6 bg-white border-t border-outline-variant/20 shrink-0">
+                        <div class="flex items-center gap-4 bg-surface-container-low rounded-3xl p-2 pl-4 border border-outline-variant/20">
+                            <div class="flex gap-1 shrink-0">
+                                <button class="p-2 text-secondary hover:bg-surface-container rounded-xl transition-all" title="Add Attachment">
+                                    <span class="material-symbols-outlined text-[20px]">add_circle</span>
+                                </button>
+                                <button class="p-2 text-secondary hover:bg-surface-container rounded-xl transition-all" title="Send Image">
+                                    <span class="material-symbols-outlined text-[20px]">image</span>
+                                </button>
+                                <button class="p-2 text-secondary hover:bg-surface-container rounded-xl transition-all" title="Emoji">
+                                    <span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
+                                </button>
+                            </div>
+                            <input type="text" placeholder="Type your message to customer..." class="flex-grow bg-transparent border-none focus:ring-0 text-sm font-medium py-3">
+                            <button class="bg-primary text-white px-6 py-3 rounded-2xl flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20">
+                                <span class="text-xs font-black uppercase tracking-widest">Send</span>
+                                <span class="material-symbols-outlined text-lg">send</span>
+                            </button>
+                        </div>
+                    </footer>
+                </section>
+
+                <!-- Right: Context Sidebar -->
+                <aside class="w-72 bg-surface-container-low border-l border-outline-variant/30 flex flex-col shrink-0 overflow-y-auto custom-scrollbar">
+                    <div class="p-6 space-y-8">
+                        <!-- Buyer Profile -->
+                        <div class="text-center space-y-3">
+                            <div class="relative inline-block">
+                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200" class="size-24 rounded-3xl object-cover shadow-xl border-4 border-white mx-auto">
+                                <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary text-white rounded-full text-[8px] font-black uppercase tracking-[0.2em] whitespace-nowrap shadow-md">Loyal Customer</div>
+                            </div>
+                            <div class="pt-2">
+                                <h3 class="text-base font-black text-on-surface">Nguyen Van A</h3>
+                                <p class="text-[10px] font-bold text-secondary uppercase tracking-widest">Joined Jan 2023</p>
+                            </div>
+                            <div class="flex justify-center gap-2">
+                                <button class="px-4 py-2 bg-surface-container-highest text-secondary rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-on-surface hover:text-white transition-all">View Profile</button>
+                                <button class="px-4 py-2 bg-surface-container-highest text-secondary rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-on-surface hover:text-white transition-all">Report</button>
+                            </div>
+                        </div>
+
+                        <!-- Buyer Stats -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-2xl border border-outline-variant/20 text-center shadow-sm">
+                                <span class="text-lg font-black text-primary">12</span>
+                                <p class="text-[8px] font-black text-secondary/60 uppercase tracking-widest mt-1">Total Orders</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-2xl border border-outline-variant/20 text-center shadow-sm">
+                                <span class="text-lg font-black text-primary">1.2%</span>
+                                <p class="text-[8px] font-black text-secondary/60 uppercase tracking-widest mt-1">Cancel Rate</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Related Orders -->
+                        <div class="space-y-4">
+                            <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-secondary/60">Recent Order Details</h4>
+                            <div class="bg-white rounded-2xl border border-outline-variant/20 overflow-hidden shadow-sm">
+                                <div class="p-4 border-b border-outline-variant/10 flex justify-between items-center">
+                                    <span class="text-[10px] font-black text-primary">#ORD-99283-JD</span>
+                                    <span class="px-2 py-0.5 bg-yellow-500/10 text-yellow-600 rounded-md text-[8px] font-black uppercase tracking-widest border border-yellow-500/10">To Ship</span>
+                                </div>
+                                <div class="p-4 space-y-3">
+                                    <div class="flex gap-3">
+                                        <div class="size-10 bg-surface-container rounded-lg overflow-hidden shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100" class="size-full object-cover">
+                                        </div>
+                                        <div class="min-w-0">
+                                            <p class="text-[10px] font-black text-on-surface truncate">Pro Runner V1 Elite</p>
+                                            <p class="text-[9px] font-bold text-secondary">Qty: 01 • Red Rush</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-2">
+                                        <span class="text-[10px] font-bold text-secondary">Total:</span>
+                                        <span class="text-[11px] font-black text-primary">2,450,000 ₫</span>
+                                    </div>
+                                    <a href="seller_order_detail.html" class="block w-full py-2.5 bg-primary/5 hover:bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest text-center rounded-xl transition-all border border-primary/10">Manage Order</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buyer Notes (Seller Only) -->
+                        <div class="space-y-3">
+                            <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-secondary/60">Seller Notes</h4>
+                            <textarea placeholder="Add a private note about this customer..." class="w-full bg-white border border-outline-variant/20 rounded-2xl p-4 text-[11px] font-medium focus:ring-2 focus:ring-primary/20 min-h-[100px] shadow-inner"></textarea>
+                            <button class="w-full py-3 bg-secondary/10 text-secondary rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-secondary/20 transition-all">Save Notes</button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <!-- AI Agent Notification (Subtle Toast) -->
+    <div id="ai-toast" class="fixed bottom-8 right-8 flex items-center gap-4 bg-on-surface text-white p-4 rounded-3xl shadow-2xl z-[100] translate-y-24 opacity-0 transition-all duration-500 pointer-events-none">
+        <div class="size-10 bg-primary rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">smart_toy</span>
+        </div>
+        <div class="pr-4">
+            <p class="text-[10px] font-black uppercase tracking-widest text-white/50">Logistics AI Suggestion</p>
+            <p class="text-xs font-bold">This buyer typically re-orders every 3 months.</p>
+        </div>
+    </div>
+
+    <script>
+        // Interactive Elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show AI Toast after delay
+            setTimeout(() => {
+                const toast = document.getElementById('ai-toast');
+                if(toast) {
+                    toast.classList.remove('translate-y-24', 'opacity-0');
+                    toast.classList.add('translate-y-0', 'opacity-100');
+                    
+                    setTimeout(() => {
+                        toast.classList.add('translate-y-24', 'opacity-0');
+                    }, 5000);
+                }
+            }, 2000);
+        });
+
+    function toggleAI() {
+        const aiWin = document.getElementById('ai-chat-window');
+        if (aiWin.classList.contains('hidden')) {
+            aiWin.classList.remove('hidden');
+            aiWin.classList.add('flex');
+        } else {
+            aiWin.classList.add('hidden');
+            aiWin.classList.remove('flex');
+        }
+    }
+    </script>
+
+    <!-- Floating Buttons Stack -->
+    <div class="fixed bottom-8 right-8 z-[110] flex flex-col gap-4">
+        <!-- AI Assistant FAB -->
+        <button onclick="toggleAI()" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+    <!-- AI Chat Window -->
+    <div id="ai-chat-window" class="fixed bottom-28 right-8 w-96 h-[550px] bg-surface-container-lowest rounded-[2rem] shadow-2xl border border-outline-variant/30 hidden flex-col z-[120] overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+        <!-- Header -->
+        <div class="p-6 bg-primary text-white flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="size-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                </div>
+                <div>
+                    <h3 class="font-black text-sm tracking-tight">AI Assistant</h3>
+                    <p class="text-[10px] opacity-70 font-bold uppercase tracking-widest">Always Online</p>
+                </div>
+            </div>
+            <button onclick="toggleAI()" class="size-8 rounded-lg hover:bg-white/20 flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <!-- Messages Area -->
+        <div class="flex-1 p-6 overflow-y-auto space-y-4 custom-scrollbar bg-surface-container-low/30 flex flex-col">
+            <div class="flex gap-3">
+                <div class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-sm">smart_toy</span>
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/20 text-sm font-bold text-on-surface leading-relaxed">
+                    Hello John! I'm your Tkart AI Assistant. How can I help you manage your messages today?
+                </div>
+            </div>
+            <div class="flex-1"></div>
+        </div>
+        
+        <!-- Input Area (Pinned to bottom) -->
+        <div class="p-4 bg-white border-t border-outline-variant/30 shrink-0">
+            <div class="flex gap-2 p-2 bg-surface-container-low rounded-2xl border border-outline-variant/20">
+                <input type="text" placeholder="Ask AI anything..." class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-bold px-2">
+                <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

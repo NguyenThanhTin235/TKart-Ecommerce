@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>RBAC Management - Tkart Admin CMS</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#004ac6",
+                        "on-surface": "#131b2e",
+                        "secondary": "#434655",
+                        "background": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-variant": "#dae2fd",
+                        "on-surface-variant": "#434655",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "success": "#2e7d32",
+                        "warning": "#f59e0b",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-high": "#e2e7ff",
+                    },
+                    "borderRadius": {
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "4xl": "2rem",
+                        "8px": "8px",
+                        "12px": "12px",
+                    },
+                    "fontFamily": {
+                        "sans": ["Manrope", "sans-serif"],
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .shadow-level-1 { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d7; border-radius: 10px; }
+        .permission-checkbox:checked + label { background-color: #004ac6; color: white; border-color: #004ac6; }
+        .rbac-tab.active { border-bottom: 3px solid #004ac6; color: #004ac6; font-weight: 800; }
+        .admin-sidebar-item.active {
+            background-color: #E8EFFF;
+            color: #004ac6;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-900 min-h-screen flex font-sans overflow-hidden">
+
+    <!-- Admin Sidebar -->
+    <aside class="w-72 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0 z-50">
+        <!-- Brand Identity -->
+        <div class="p-8">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-200">
+                    UA
+                </div>
+                <div>
+                    <h2 class="font-black text-slate-900 text-lg leading-tight tracking-tighter">Admin CMS</h2>
+                    <p class="text-[10px] text-primary font-black uppercase tracking-widest">Platform Authority</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Navigation -->
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+            <a href="admin_dashboard.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">dashboard</span>
+                <span>Dashboard Overview</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Management</p>
+            </div>
+            <a href="admin_users.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">group</span>
+                <span>User Management</span>
+            </a>
+            <a href="admin_promotions.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">campaign</span>
+                <span>Promotions</span>
+            </a>
+            <a href="admin_support.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">support_agent</span>
+                <span>User Support</span>
+            </a>
+            <a href="admin_finance_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">account_balance</span>
+                <span>Finance Settings</span>
+            </a>
+            <a href="admin_finance_withdrawals.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">payments</span>
+                <span>Withdrawal Approval</span>
+            </a>
+            <a href="admin_logistics_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">local_shipping</span>
+                <span>Logistics Partners</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Security</p>
+            </div>
+            <a href="admin_rbac.html" class="admin-sidebar-item active flex items-center gap-4 px-4 py-3 rounded-2xl transition-all group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+                <span class="text-sm">Access Control</span>
+            </a>
+            <a href="admin_security_logs.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">security</span>
+                <span>Security Logs</span>
+            </a>
+
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Appearance</p>
+            </div>
+            <a href="admin_ui_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">palette</span>
+                <span>UI/UX Settings</span>
+            </a>
+            <a href="admin_platform_settings.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">settings</span>
+                <span>Platform Settings</span>
+            </a>
+        </nav>
+
+        <!-- System Status -->
+        <div class="p-6 border-t border-slate-100">
+            <div class="bg-slate-50 rounded-2xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase">Server Health</span>
+                    <span class="size-2 bg-success rounded-full animate-pulse"></span>
+                </div>
+                <div class="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-success" style="width: 94%"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 font-medium">Latent: 12ms | Load: 0.45</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto bg-[#F8FAFC]">
+        <!-- Top Header -->
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-10 sticky top-0 z-40 shrink-0">
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-2xl">admin_panel_settings</span>
+                <h1 class="text-xl font-black text-slate-900 tracking-tighter">Access Control Center</h1>
+                
+                <div class="ml-8 hidden md:flex items-center bg-[#F1F5F9] rounded-2xl px-4 py-2.5 w-96 group focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                    <span class="material-symbols-outlined text-slate-400 text-xl group-focus-within:text-primary">search</span>
+                    <input type="text" placeholder="Search roles or permissions..." class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400 font-medium ml-2">
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="px-5 py-2.5 bg-primary text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg shadow-blue-200 hover:brightness-110 transition-all flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    Create New Role
+                </button>
+                <div class="h-8 w-px bg-slate-200 mx-2"></div>
+                <button class="w-10 h-10 flex items-center justify-center text-slate-500 hover:bg-slate-50 rounded-xl transition-all relative">
+                    <span class="material-symbols-outlined text-2xl">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+                </button>
+                <div class="flex items-center gap-3 bg-[#F1F5F9] pl-1 pr-4 py-1 rounded-full border border-slate-100 cursor-pointer hover:bg-slate-200 transition-all group">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-black shadow-md shadow-blue-200">AD</div>
+                    <span class="text-sm font-bold text-slate-700">System Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-10 max-w-7xl mx-auto w-full space-y-8">
+            <!-- Header Section -->
+
+
+            <!-- Tabs -->
+            <div class="flex gap-8 border-b border-slate-200">
+                <button class="rbac-tab active px-2 py-4 text-sm font-bold tracking-tight transition-all">Role Management</button>
+                <button class="rbac-tab px-2 py-4 text-sm font-bold tracking-tight text-slate-400 hover:text-slate-600 transition-all">Permission Matrix</button>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8">
+                <!-- Roles Table -->
+                <section class="bg-surface-container-lowest rounded-3xl border border-outline-variant/20 shadow-level-1 overflow-hidden">
+                    <div class="p-6 border-b border-outline-variant/10 bg-slate-50/50 flex justify-between items-center">
+                        <h3 class="font-black text-on-surface uppercase tracking-widest text-[11px]">System Roles</h3>
+                        <div class="flex gap-2">
+                            <input type="text" placeholder="Search roles..." class="text-xs border-slate-200 rounded-lg px-3 py-1.5 focus:ring-primary/20">
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="text-[10px] font-black text-secondary uppercase tracking-widest border-b border-outline-variant/10">
+                                    <th class="px-8 py-4">Role Name</th>
+                                    <th class="px-8 py-4">Description</th>
+                                    <th class="px-8 py-4">Members</th>
+                                    <th class="px-8 py-4">Status</th>
+                                    <th class="px-8 py-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-outline-variant/10">
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-8 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-2 bg-primary rounded-full"></div>
+                                            <span class="text-sm font-black text-on-surface">Platform Admin</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-5 text-sm text-secondary font-medium">Full root access to all system configurations and security.</td>
+                                    <td class="px-8 py-5 text-sm font-bold text-on-surface">2 <span class="text-[10px] text-slate-400 font-medium">Users</span></td>
+                                    <td class="px-8 py-5">
+                                        <span class="px-2.5 py-1 bg-primary/10 text-primary text-[10px] font-black rounded-full uppercase">System</span>
+                                    </td>
+                                    <td class="px-8 py-5 text-right">
+                                        <button class="text-primary text-[11px] font-black uppercase hover:underline">Manage</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-8 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-2 bg-success rounded-full"></div>
+                                            <span class="text-sm font-black text-on-surface">Platform Manager</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-5 text-sm text-secondary font-medium">Operational management, moderation, and support oversight.</td>
+                                    <td class="px-8 py-5 text-sm font-bold text-on-surface">15 <span class="text-[10px] text-slate-400 font-medium">Users</span></td>
+                                    <td class="px-8 py-5">
+                                        <span class="px-2.5 py-1 bg-success/10 text-success text-[10px] font-black rounded-full uppercase">Active</span>
+                                    </td>
+                                    <td class="px-8 py-5 text-right">
+                                        <button class="text-primary text-[11px] font-black uppercase hover:underline">Manage</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-8 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-2 bg-amber-500 rounded-full"></div>
+                                            <span class="text-sm font-black text-on-surface">Verified Seller</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-5 text-sm text-secondary font-medium">Merchant access to store management, products, and wallet.</td>
+                                    <td class="px-8 py-5 text-sm font-bold text-on-surface">1,240 <span class="text-[10px] text-slate-400 font-medium">Users</span></td>
+                                    <td class="px-8 py-5">
+                                        <span class="px-2.5 py-1 bg-amber-100 text-amber-700 text-[10px] font-black rounded-full uppercase">Active</span>
+                                    </td>
+                                    <td class="px-8 py-5 text-right">
+                                        <button class="text-primary text-[11px] font-black uppercase hover:underline">Manage</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-8 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-2 bg-slate-400 rounded-full"></div>
+                                            <span class="text-sm font-black text-on-surface">Customer</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-5 text-sm text-secondary font-medium">Standard consumer access to browse, buy, and review.</td>
+                                    <td class="px-8 py-5 text-sm font-bold text-on-surface">85,420 <span class="text-[10px] text-slate-400 font-medium">Users</span></td>
+                                    <td class="px-8 py-5">
+                                        <span class="px-2.5 py-1 bg-slate-100 text-slate-500 text-[10px] font-black rounded-full uppercase">Active</span>
+                                    </td>
+                                    <td class="px-8 py-5 text-right">
+                                        <button class="text-primary text-[11px] font-black uppercase hover:underline">Manage</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Permission Matrix -->
+                <section class="bg-surface-container-lowest rounded-3xl border border-outline-variant/20 shadow-level-1 overflow-hidden">
+                    <div class="p-8 border-b border-outline-variant/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <h3 class="text-xl font-black text-on-surface tracking-tight">Permission Matrix</h3>
+                            <p class="text-secondary text-sm font-medium">High-level mapping of roles to platform modules.</p>
+                        </div>
+                        <button class="px-6 py-2 bg-on-surface text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-800 transition-all">Save Matrix Changes</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-center">
+                            <thead>
+                                <tr class="text-[10px] font-black text-secondary uppercase tracking-widest border-b border-outline-variant/10">
+                                    <th class="px-8 py-6 text-left bg-slate-50/50 sticky left-0 z-10">Role \ Module</th>
+                                    <th class="px-4 py-6">Users</th>
+                                    <th class="px-4 py-6">Shops</th>
+                                    <th class="px-4 py-6">Products</th>
+                                    <th class="px-4 py-6">Orders</th>
+                                    <th class="px-4 py-6">Wallet</th>
+                                    <th class="px-4 py-6">Reports</th>
+                                    <th class="px-4 py-6">Settings</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-outline-variant/10">
+                                <!-- Platform Admin -->
+                                <tr>
+                                    <td class="px-8 py-6 text-left sticky left-0 z-10 bg-white border-r border-slate-100">
+                                        <p class="text-sm font-black text-on-surface">Platform Admin</p>
+                                    </td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked disabled class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked disabled class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked disabled class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked disabled class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked disabled class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked disabled class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked disabled class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                </tr>
+                                <!-- Platform Manager -->
+                                <tr>
+                                    <td class="px-8 py-6 text-left sticky left-0 z-10 bg-white border-r border-slate-100">
+                                        <p class="text-sm font-black text-on-surface">Platform Manager</p>
+                                    </td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                </tr>
+                                <!-- Verified Seller -->
+                                <tr>
+                                    <td class="px-8 py-6 text-left sticky left-0 z-10 bg-white border-r border-slate-100">
+                                        <p class="text-sm font-black text-on-surface">Verified Seller</p>
+                                    </td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                </tr>
+                                <!-- Customer -->
+                                <tr>
+                                    <td class="px-8 py-6 text-left sticky left-0 z-10 bg-white border-r border-slate-100">
+                                        <p class="text-sm font-black text-on-surface">Customer</p>
+                                    </td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" checked class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                    <td class="px-4 py-6"><div class="flex justify-center"><input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary/20 size-5"></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Detailed Permission Modal (Simulated) -->
+    <div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-[60] flex items-center justify-center p-8 hidden" id="editRoleModal">
+        <div class="bg-white rounded-[32px] w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+            <div class="p-10 border-b border-slate-100">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-black text-primary uppercase tracking-[0.2em] block mb-2">Access Config</span>
+                        <h4 class="text-3xl font-black tracking-tight">Edit Role: Compliance Manager</h4>
+                    </div>
+                    <button class="p-2 hover:bg-slate-50 rounded-full text-slate-400">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                
+                <div class="space-y-8 mt-10">
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3">Role Name</label>
+                            <input type="text" value="Compliance Manager" class="w-full border-slate-200 rounded-xl px-4 py-3 text-sm font-bold">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3">Role Key</label>
+                            <input type="text" value="role_compliance_mgr" disabled class="w-full border-slate-100 bg-slate-50 rounded-xl px-4 py-3 text-sm text-slate-400 font-mono italic">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Module-specific Actions</label>
+                        <div class="space-y-4">
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-black text-on-surface">Product Moderation</p>
+                                    <p class="text-[10px] text-slate-400 font-medium">Ability to approve, reject or ban products.</p>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" id="view" checked class="rounded text-primary">
+                                        <label for="view" class="text-[10px] font-bold uppercase">View</label>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" id="edit" checked class="rounded text-primary">
+                                        <label for="edit" class="text-[10px] font-bold uppercase">Edit</label>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" id="delete" class="rounded text-primary">
+                                        <label for="delete" class="text-[10px] font-bold uppercase">Delete</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 mt-12">
+                    <button class="px-8 py-3 text-slate-400 text-xs font-black uppercase tracking-widest hover:text-slate-600 transition-all">Cancel</button>
+                    <button class="px-10 py-3 bg-primary text-white text-xs font-black uppercase tracking-widest rounded-xl shadow-lg shadow-blue-200 hover:brightness-110 transition-all">Save Role Config</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Buttons Stack -->
+    <div class="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+        <!-- AI Assistant FAB -->
+        <button onclick="toggleAI()" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+    <!-- AI Chat Window -->
+    <div id="ai-chat-window" class="fixed bottom-28 right-8 w-96 h-[550px] bg-surface-container-lowest rounded-[2rem] shadow-2xl border border-outline-variant/30 hidden flex-col z-50 overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+        <!-- Header -->
+        <div class="p-6 bg-primary text-white flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="size-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                </div>
+                <div>
+                    <h3 class="font-black text-sm tracking-tight">AI Assistant</h3>
+                    <p class="text-[10px] opacity-70 font-bold uppercase tracking-widest">Always Online</p>
+                </div>
+            </div>
+            <button onclick="toggleAI()" class="size-8 rounded-lg hover:bg-white/20 flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <!-- Messages Area -->
+        <div class="flex-1 p-6 overflow-y-auto space-y-4 custom-scrollbar bg-surface-container-low/30 flex flex-col">
+            <div class="flex gap-3">
+                <div class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-sm">smart_toy</span>
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/20 text-sm font-bold text-on-surface leading-relaxed">
+                    Hello John! I'm your Tkart AI Assistant. How can I help you manage the platform today?
+                </div>
+            </div>
+            <div class="flex-1"></div>
+        </div>
+        
+        <!-- Input Area (Pinned to bottom) -->
+        <div class="p-4 bg-white border-t border-outline-variant/30 shrink-0">
+            <div class="flex gap-2 p-2 bg-surface-container-low rounded-2xl border border-outline-variant/20">
+                <input type="text" placeholder="Ask AI anything..." class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-bold px-2">
+                <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function toggleAI() {
+        const aiWin = document.getElementById('ai-chat-window');
+        if (aiWin.classList.contains('hidden')) {
+            aiWin.classList.remove('hidden');
+            aiWin.classList.add('flex');
+        } else {
+            aiWin.classList.add('hidden');
+            aiWin.classList.remove('flex');
+        }
+    }
+</script>
+</body>
+</html>

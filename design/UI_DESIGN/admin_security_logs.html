@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Security Logs - Tkart Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#004ac6",
+                        "on-surface": "#131b2e",
+                        secondary: "#434655",
+                        background: "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-variant": "#dae2fd",
+                        "on-surface-variant": "#434655",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        error: "#ba1a1a",
+                        success: "#2e7d32",
+                        warning: "#f59e0b",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-high": "#e2e7ff",
+                    },
+                    borderRadius: {
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "4xl": "2rem",
+                    },
+                    fontFamily: {
+                        sans: ["Manrope", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .shadow-level-1 { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d7; border-radius: 10px; }
+        
+        .admin-sidebar-item.active {
+            background-color: #E8EFFF;
+            color: #004ac6;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-900 min-h-screen flex font-sans overflow-hidden">
+
+    <!-- Admin Sidebar -->
+    <aside class="w-72 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0 z-50">
+        <div class="p-8">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-200">UA</div>
+                <div>
+                    <h2 class="font-black text-slate-900 text-lg leading-tight tracking-tighter">Admin CMS</h2>
+                    <p class="text-[10px] text-primary font-black uppercase tracking-widest">Platform Authority</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+            <a href="admin_dashboard.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">dashboard</span>
+                <span>Dashboard Overview</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Management</p>
+            </div>
+            <a href="admin_users.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">group</span>
+                <span>User Management</span>
+            </a>
+            <a href="admin_promotions.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">campaign</span>
+                <span>Promotions</span>
+            </a>
+            <a href="admin_support.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">support_agent</span>
+                <span>User Support</span>
+            </a>
+            <a href="admin_finance_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">account_balance</span>
+                <span>Finance Settings</span>
+            </a>
+            <a href="admin_finance_withdrawals.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">payments</span>
+                <span>Withdrawal Approval</span>
+            </a>
+            <a href="admin_logistics_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">local_shipping</span>
+                <span>Logistics Partners</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Security</p>
+            </div>
+            <a href="admin_rbac.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">admin_panel_settings</span>
+                <span>Access Control</span>
+            </a>
+            <a href="admin_security_logs.html" class="admin-sidebar-item active flex items-center gap-4 px-4 py-3 rounded-2xl transition-all group text-primary font-bold">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">security</span>
+                <span class="text-sm">Security Logs</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Appearance</p>
+            </div>
+            <a href="admin_ui_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">palette</span>
+                <span>UI/UX Settings</span>
+            </a>
+            <a href="admin_platform_settings.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">settings</span>
+                <span>Platform Settings</span>
+            </a>
+        </nav>
+
+        <!-- System Status -->
+        <div class="p-6 border-t border-slate-100">
+            <div class="bg-slate-50 rounded-2xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase">Server Health</span>
+                    <span class="size-2 bg-success rounded-full animate-pulse"></span>
+                </div>
+                <div class="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-success" style="width: 94%"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 font-medium">Latent: 12ms | Load: 0.45</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto bg-[#F8FAFC] custom-scrollbar">
+        <!-- Top Header -->
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-10 sticky top-0 z-40 shrink-0">
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-2xl">security</span>
+                <h1 class="text-xl font-black text-slate-900 tracking-tighter">Security Logs</h1>
+                
+                <div class="ml-8 hidden md:flex items-center bg-[#F1F5F9] rounded-2xl px-4 py-2.5 w-96 group focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                    <span class="material-symbols-outlined text-slate-400 text-xl group-focus-within:text-primary">search</span>
+                    <input type="text" placeholder="Search by Admin, Action or Entity..." class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400 font-medium ml-2">
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 flex items-center justify-center text-slate-500 hover:bg-slate-50 rounded-xl transition-all relative">
+                    <span class="material-symbols-outlined text-2xl">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+                </button>
+                <div class="h-8 w-px bg-slate-200 mx-2"></div>
+                <div class="flex items-center gap-3 bg-[#F1F5F9] pl-1 pr-4 py-1 rounded-full border border-slate-100 cursor-pointer hover:bg-slate-200 transition-all group">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-black shadow-md shadow-blue-200">AD</div>
+                    <span class="text-sm font-bold text-slate-700">System Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-10 space-y-8">
+            <!-- Filter Bar -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1 flex flex-wrap items-center gap-4">
+                <div class="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                    <span class="material-symbols-outlined text-slate-400 text-sm">calendar_today</span>
+                    <select class="bg-transparent border-none focus:ring-0 text-xs font-bold text-slate-600">
+                        <option>Last 24 Hours</option>
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Custom Range</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                    <span class="material-symbols-outlined text-slate-400 text-sm">badge</span>
+                    <select class="bg-transparent border-none focus:ring-0 text-xs font-bold text-slate-600">
+                        <option>All Roles</option>
+                        <option>Super Admin</option>
+                        <option>Manager</option>
+                        <option>Moderator</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                    <span class="material-symbols-outlined text-slate-400 text-sm">category</span>
+                    <select class="bg-transparent border-none focus:ring-0 text-xs font-bold text-slate-600">
+                        <option>All Action Types</option>
+                        <option>Data Update</option>
+                        <option>Access Grant</option>
+                        <option>Deletion</option>
+                        <option>Security Alert</option>
+                    </select>
+                </div>
+                <div class="flex-1"></div>
+                <button class="px-5 py-2.5 text-primary text-xs font-black uppercase tracking-widest hover:bg-blue-50 rounded-xl transition-all">Clear Filters</button>
+            </div>
+
+            <!-- Audit Logs Table -->
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-level-1 overflow-x-auto custom-scrollbar">
+                <table class="w-full text-left border-collapse min-w-[1000px]">
+                    <colgroup>
+                        <col style="width: 15%">
+                        <col style="width: 25%">
+                        <col style="width: 25%">
+                        <col style="width: 25%">
+                        <col style="width: 10%">
+                    </colgroup>
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100">
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Timestamp</th>
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Administrator</th>
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Action</th>
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Target Entity</th>
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <!-- Log Entry 1 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Oct 26, 2024</p>
+                                <p class="text-[11px] text-slate-400 font-medium">15:42:12 PM</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-black">AD</div>
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">System Admin</p>
+                                        <p class="text-[10px] text-primary font-black uppercase tracking-tight">Super User</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="size-2 bg-error rounded-full"></span>
+                                    <p class="text-sm font-bold text-slate-700">Banned User Account</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">User: #84729</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Email: john.doe@... </p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <button onclick="toggleLogDetail('log-1')" class="p-2 text-slate-400 hover:text-primary transition-all">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Hidden Detail Row 1 -->
+                        <tr id="log-1" class="hidden bg-slate-50/50 border-t border-slate-100">
+                            <td colspan="5" class="px-6 py-8">
+                                <div class="grid grid-cols-2 gap-8">
+                                    <div>
+                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Original Data</p>
+                                        <div class="bg-white p-4 rounded-xl border border-slate-200 text-[11px] font-mono text-slate-600">
+                                            { "status": "active", "ban_reason": null }
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Updated Data</p>
+                                        <div class="bg-white p-4 rounded-xl border border-slate-200 text-[11px] font-mono text-error">
+                                            { "status": "banned", "ban_reason": "Policy violation: Spamming" }
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Log Entry 2 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Oct 26, 2024</p>
+                                <p class="text-[11px] text-slate-400 font-medium">14:15:00 PM</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 text-[10px] font-black">MN</div>
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">Finance Manager</p>
+                                        <p class="text-[10px] text-slate-400 font-black uppercase tracking-tight">Manager</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="size-2 bg-success rounded-full"></span>
+                                    <p class="text-sm font-bold text-slate-700">Approved Withdrawal</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Trans: #WTH-29384</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Amount: 5.000.000₫</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <button onclick="toggleLogDetail('log-2')" class="p-2 text-slate-400 hover:text-primary transition-all">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Hidden Detail Row 2 -->
+                        <tr id="log-2" class="hidden bg-slate-50/50 border-t border-slate-100">
+                            <td colspan="5" class="px-6 py-8">
+                                <div class="grid grid-cols-1 gap-8">
+                                    <div>
+                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Transaction Update</p>
+                                        <div class="bg-white p-4 rounded-xl border border-slate-200 text-[11px] font-mono text-slate-600">
+                                            { "status": "approved", "processor": "Finance_Manager_ID", "timestamp": "2024-10-26T14:15:00Z" }
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Log Entry 3 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Oct 26, 2024</p>
+                                <p class="text-[11px] text-slate-400 font-medium">12:30:45 PM</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 text-[10px] font-black">MD</div>
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">Product Moderator</p>
+                                        <p class="text-[10px] text-slate-400 font-black uppercase tracking-tight">Moderator</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="size-2 bg-warning rounded-full"></span>
+                                    <p class="text-sm font-bold text-slate-700">Modified Product Info</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Product: #PRD-1029</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Type: Scholarly Kit</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <button onclick="toggleLogDetail('log-3')" class="p-2 text-slate-400 hover:text-primary transition-all">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Hidden Detail Row 3 -->
+                        <tr id="log-3" class="hidden bg-slate-50/50 border-t border-slate-100">
+                            <td colspan="5" class="px-6 py-8">
+                                <div class="grid grid-cols-2 gap-8">
+                                    <div>
+                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Old Price</p>
+                                        <div class="bg-white p-4 rounded-xl border border-slate-200 text-[11px] font-mono text-slate-600">
+                                            { "price": "1.250.000₫" }
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">New Price</p>
+                                        <div class="bg-white p-4 rounded-xl border border-slate-200 text-[11px] font-mono text-primary">
+                                            { "price": "1.450.000₫" }
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Log Entry 4 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Oct 26, 2024</p>
+                                <p class="text-[11px] text-slate-400 font-medium">10:05:22 AM</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-black">AD</div>
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">System Admin</p>
+                                        <p class="text-[10px] text-primary font-black uppercase tracking-tight">Super User</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="size-2 bg-error rounded-full"></span>
+                                    <p class="text-sm font-bold text-slate-700">Deleted Shop Account</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Shop: Academic Store</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Reason: Policy violation</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <button onclick="toggleLogDetail('log-4')" class="p-2 text-slate-400 hover:text-primary transition-all">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Hidden Detail Row 4 -->
+                        <tr id="log-4" class="hidden bg-slate-50/50 border-t border-slate-100">
+                            <td colspan="5" class="px-6 py-8">
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 text-[11px] font-mono text-error">
+                                    { "action": "HARD_DELETE", "target": "SHOP_ID_4829", "timestamp": "2024-10-26T10:05:22Z" }
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Log Entry 5 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Oct 26, 2024</p>
+                                <p class="text-[11px] text-slate-400 font-medium">09:00:10 AM</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 text-[10px] font-black">MD</div>
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">Content Moderator</p>
+                                        <p class="text-[10px] text-slate-400 font-black uppercase tracking-tight">Moderator</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="size-2 bg-success rounded-full"></span>
+                                    <p class="text-sm font-bold text-slate-700">Updated Banner UI</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Entity: Homepage Banner</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Campaign: Fall 2024</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <button onclick="toggleLogDetail('log-5')" class="p-2 text-slate-400 hover:text-primary transition-all">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Hidden Detail Row 5 -->
+                        <tr id="log-5" class="hidden bg-slate-50/50 border-t border-slate-100">
+                            <td colspan="5" class="px-6 py-8">
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 text-[11px] font-mono text-slate-600">
+                                    { "update": "UI_BANNER_IMAGE", "new_url": "https://tkart.vn/banners/fall-2024.png" }
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="px-8 py-5 bg-white border border-slate-200 rounded-3xl flex items-center justify-between shadow-level-1">
+                <p class="text-[11px] text-slate-500 font-bold">Audit trail covering <span class="text-slate-900">48.291</span> total actions</p>
+                <div class="flex items-center gap-2">
+                    <button class="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400 hover:bg-white hover:text-primary transition-all">
+                        <span class="material-symbols-outlined text-sm">chevron_left</span>
+                    </button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded-xl bg-primary text-white text-[11px] font-black shadow-lg shadow-blue-100">1</button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400 hover:bg-white hover:text-primary transition-all">
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleLogDetail(id) {
+            const row = document.getElementById(id);
+            if (row.classList.contains('hidden')) {
+                row.classList.remove('hidden');
+                row.classList.add('animate-in', 'fade-in', 'slide-in-from-top-4', 'duration-300');
+            } else {
+                row.classList.add('hidden');
+            }
+        }
+    </script>
+
+    <!-- Floating Buttons Stack -->
+    <div class="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+        <!-- AI Assistant FAB -->
+        <button onclick="toggleAI()" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+    <!-- AI Chat Window -->
+    <div id="ai-chat-window" class="fixed bottom-28 right-8 w-80 h-[500px] bg-surface-container-lowest rounded-[2rem] shadow-2xl border border-outline-variant/30 hidden flex-col z-[60] overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+        <!-- Header -->
+        <div class="p-6 bg-primary text-white flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="size-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                </div>
+                <div>
+                    <h3 class="font-black text-sm tracking-tight">AI Assistant</h3>
+                    <p class="text-[10px] opacity-70 font-bold uppercase tracking-widest">Always Online</p>
+                </div>
+            </div>
+            <button onclick="toggleAI()" class="size-8 rounded-lg hover:bg-white/20 flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <!-- Messages Area -->
+        <div class="flex-1 p-6 overflow-y-auto space-y-4 custom-scrollbar bg-surface-container-low/30 flex flex-col">
+            <div class="flex gap-3">
+                <div class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-sm">smart_toy</span>
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/20 text-sm font-bold text-on-surface leading-relaxed">
+                    Hello John! I'm your Tkart AI Assistant. How can I help you manage the platform today?
+                </div>
+            </div>
+            <div class="flex-1"></div>
+        </div>
+        
+        <!-- Input Area (Pinned to bottom) -->
+        <div class="p-4 bg-white border-t border-outline-variant/30 shrink-0">
+            <div class="flex gap-2 p-2 bg-surface-container-low rounded-2xl border border-outline-variant/20">
+                <input type="text" placeholder="Ask AI anything..." class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-bold px-2">
+                <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function toggleAI() {
+        const aiWin = document.getElementById('ai-chat-window');
+        if (aiWin.classList.contains('hidden')) {
+            aiWin.classList.remove('hidden');
+            aiWin.classList.add('flex');
+        } else {
+            aiWin.classList.add('hidden');
+            aiWin.classList.remove('flex');
+        }
+    }
+    
+    // Ensure AI window is hidden by default and handles clicks outside
+    document.addEventListener('DOMContentLoaded', () => {
+        const aiWin = document.getElementById('ai-chat-window');
+        if (aiWin) aiWin.classList.add('hidden');
+    });
+</script>
+</body>
+</html>

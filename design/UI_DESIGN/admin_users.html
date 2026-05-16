@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>User Management - Tkart Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#004ac6",
+                        "on-surface": "#131b2e",
+                        secondary: "#434655",
+                        background: "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-variant": "#dae2fd",
+                        "on-surface-variant": "#434655",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        error: "#ba1a1a",
+                        success: "#2e7d32",
+                        warning: "#f59e0b",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-high": "#e2e7ff",
+                    },
+                    borderRadius: {
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "4xl": "2rem",
+                    },
+                    fontFamily: {
+                        sans: ["Manrope", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .shadow-level-1 { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d7; border-radius: 10px; }
+        
+        .admin-sidebar-item.active {
+            background-color: #E8EFFF;
+            color: #004ac6;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-900 min-h-screen flex font-sans overflow-hidden">
+
+    <!-- Admin Sidebar -->
+    <aside class="w-72 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0 z-50">
+        <div class="p-8">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-200">UA</div>
+                <div>
+                    <h2 class="font-black text-slate-900 text-lg leading-tight tracking-tighter">Admin CMS</h2>
+                    <p class="text-[10px] text-primary font-black uppercase tracking-widest">Platform Authority</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+            <a href="admin_dashboard.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">dashboard</span>
+                <span>Dashboard Overview</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Management</p>
+            </div>
+            <a href="admin_users.html" class="admin-sidebar-item active flex items-center gap-4 px-4 py-3 rounded-2xl transition-all group text-primary font-bold">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">group</span>
+                <span class="text-sm">User Management</span>
+            </a>
+            <a href="admin_promotions.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">campaign</span>
+                <span>Promotions</span>
+            </a>
+            <a href="admin_support.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">support_agent</span>
+                <span>User Support</span>
+            </a>
+            <a href="admin_finance_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">account_balance</span>
+                <span>Finance Settings</span>
+            </a>
+            <a href="admin_finance_withdrawals.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">payments</span>
+                <span>Withdrawal Approval</span>
+            </a>
+            <a href="admin_logistics_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">local_shipping</span>
+                <span>Logistics Partners</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Security</p>
+            </div>
+            <a href="admin_rbac.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">admin_panel_settings</span>
+                <span>Access Control</span>
+            </a>
+            <a href="admin_security_logs.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">security</span>
+                <span>Security Logs</span>
+            </a>
+            <div class="pt-4 pb-2 px-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Appearance</p>
+            </div>
+            <a href="admin_ui_config.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">palette</span>
+                <span>UI/UX Settings</span>
+            </a>
+            <a href="admin_platform_settings.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl transition-all text-sm font-medium group">
+                <span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform">settings</span>
+                <span>Platform Settings</span>
+            </a>
+        </nav>
+
+        <!-- System Status -->
+        <div class="p-6 border-t border-slate-100">
+            <div class="bg-slate-50 rounded-2xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase">Server Health</span>
+                    <span class="size-2 bg-success rounded-full animate-pulse"></span>
+                </div>
+                <div class="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-success" style="width: 94%"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 font-medium">Latent: 12ms | Load: 0.45</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto bg-[#F8FAFC] custom-scrollbar">
+        <!-- Top Header -->
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-10 sticky top-0 z-40 shrink-0">
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-2xl">group</span>
+                <h1 class="text-xl font-black text-slate-900 tracking-tighter">User Management</h1>
+                
+                <div class="ml-8 hidden md:flex items-center bg-[#F1F5F9] rounded-2xl px-4 py-2.5 w-96 group focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                    <span class="material-symbols-outlined text-slate-400 text-xl group-focus-within:text-primary">search</span>
+                    <input type="text" placeholder="Search by Email or Phone..." class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400 font-medium ml-2">
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 flex items-center justify-center text-slate-500 hover:bg-slate-50 rounded-xl transition-all relative">
+                    <span class="material-symbols-outlined text-2xl">notifications</span>
+                    <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+                </button>
+                <div class="h-8 w-px bg-slate-200 mx-2"></div>
+                <div class="flex items-center gap-3 bg-[#F1F5F9] pl-1 pr-4 py-1 rounded-full border border-slate-100 cursor-pointer hover:bg-slate-200 transition-all group">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-black shadow-md shadow-blue-200">AD</div>
+                    <span class="text-sm font-bold text-slate-700">System Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-10 space-y-8">
+            <!-- Stats Overview -->
+            <div class="grid grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Total Users</p>
+                    <h3 class="text-2xl font-black text-slate-900">124.842</h3>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Active Today</p>
+                    <h3 class="text-2xl font-black text-primary">12.450</h3>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">New This Week</p>
+                    <h3 class="text-2xl font-black text-success">+1.240</h3>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-level-1">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Banned Users</p>
+                    <h3 class="text-2xl font-black text-error">42</h3>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button class="px-5 py-2.5 bg-white border border-slate-200 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">filter_list</span>
+                        Filter by Status
+                    </button>
+                    <button class="px-5 py-2.5 bg-white border border-slate-200 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">sort</span>
+                        Sort: Newest First
+                    </button>
+                </div>
+                <button class="px-6 py-3 bg-primary text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-blue-200 hover:brightness-110 transition-all flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    Export User Data
+                </button>
+            </div>
+
+            <!-- Users Table -->
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-level-1 overflow-x-auto custom-scrollbar">
+                <table class="w-full text-left border-collapse min-w-[1000px]">
+                    <colgroup>
+                        <col style="width: 25%">
+                        <col style="width: 25%">
+                        <col style="width: 20%">
+                        <col style="width: 15%">
+                        <col style="width: 15%">
+                    </colgroup>
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100">
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">User Details</th>
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Contact Info</th>
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Join Date</th>
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Status</th>
+                            <th class="px-6 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <!-- Row 1 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" class="w-10 h-10 rounded-full object-cover border border-slate-100">
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">John Doe</p>
+                                        <p class="text-[11px] text-slate-400 font-bold">UID: #84729</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">john.doe@academic.edu</p>
+                                <p class="text-[11px] text-slate-400 font-medium">+84 902 482 155</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Oct 12, 2023</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Joined via Google</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <span class="px-3 py-1 bg-success/10 text-success text-[10px] font-black uppercase tracking-widest rounded-full border border-success/20">Active</span>
+                            </td>
+                            <td class="px-6 py-6 text-center space-x-2">
+                                <button onclick="openDetailsModal('John Doe', 'john.doe@academic.edu', '+84 902 482 155', 'Active')" class="p-2 text-slate-400 hover:text-primary transition-all" title="View Details">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                                <button onclick="openHistoryModal('John Doe')" class="p-2 text-slate-400 hover:text-primary transition-all" title="Purchase History">
+                                    <span class="material-symbols-outlined">shopping_bag</span>
+                                </button>
+                                <button class="p-2 text-slate-400 hover:text-error transition-all" title="Ban User">
+                                    <span class="material-symbols-outlined">block</span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-black text-xs">AS</div>
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">Alice Smith</p>
+                                        <p class="text-[11px] text-slate-400 font-bold">UID: #84730</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">alice.smith@university.vn</p>
+                                <p class="text-[11px] text-slate-400 font-medium">+84 918 221 004</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Nov 04, 2023</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Direct Registration</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <span class="px-3 py-1 bg-success/10 text-success text-[10px] font-black uppercase tracking-widest rounded-full border border-success/20">Active</span>
+                            </td>
+                            <td class="px-6 py-6 text-center space-x-2">
+                                <button onclick="openDetailsModal('Alice Smith', 'alice.smith@university.vn', '+84 918 221 004', 'Active')" class="p-2 text-slate-400 hover:text-primary transition-all" title="View Details">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                                <button onclick="openHistoryModal('Alice Smith')" class="p-2 text-slate-400 hover:text-primary transition-all" title="Purchase History">
+                                    <span class="material-symbols-outlined">shopping_bag</span>
+                                </button>
+                                <button class="p-2 text-slate-400 hover:text-error transition-all" title="Ban User">
+                                    <span class="material-symbols-outlined">block</span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" class="w-10 h-10 rounded-full object-cover border border-slate-100">
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">Robert Chen</p>
+                                        <p class="text-[11px] text-slate-400 font-bold">UID: #84731</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">robert.chen@tech.com</p>
+                                <p class="text-[11px] text-slate-400 font-medium">+84 905 112 334</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Dec 15, 2023</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Joined via Facebook</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <span class="px-3 py-1 bg-success/10 text-success text-[10px] font-black uppercase tracking-widest rounded-full border border-success/20">Active</span>
+                            </td>
+                            <td class="px-6 py-6 text-center space-x-2">
+                                <button onclick="openDetailsModal('Robert Chen', 'robert.chen@tech.com', '+84 905 112 334', 'Active')" class="p-2 text-slate-400 hover:text-primary transition-all" title="View Details">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                                <button onclick="openHistoryModal('Robert Chen')" class="p-2 text-slate-400 hover:text-primary transition-all" title="Purchase History">
+                                    <span class="material-symbols-outlined">shopping_bag</span>
+                                </button>
+                                <button class="p-2 text-slate-400 hover:text-error transition-all" title="Ban User">
+                                    <span class="material-symbols-outlined">block</span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 4 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-black text-xs">ML</div>
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">Maria Lopez</p>
+                                        <p class="text-[11px] text-slate-400 font-bold">UID: #84732</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">m.lopez@global.net</p>
+                                <p class="text-[11px] text-slate-400 font-medium">+84 932 554 112</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Jan 02, 2024</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Direct Registration</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <span class="px-3 py-1 bg-error/10 text-error text-[10px] font-black uppercase tracking-widest rounded-full border border-error/20">Banned</span>
+                            </td>
+                            <td class="px-6 py-6 text-center space-x-2">
+                                <button onclick="openDetailsModal('Maria Lopez', 'm.lopez@global.net', '+84 932 554 112', 'Banned')" class="p-2 text-slate-400 hover:text-primary transition-all" title="View Details">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                                <button onclick="openHistoryModal('Maria Lopez')" class="p-2 text-slate-400 hover:text-primary transition-all" title="Purchase History">
+                                    <span class="material-symbols-outlined">shopping_bag</span>
+                                </button>
+                                <button class="p-2 text-error hover:brightness-110 transition-all" title="Unban User">
+                                    <span class="material-symbols-outlined">check_circle</span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 5 -->
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-6">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100" class="w-10 h-10 rounded-full object-cover border border-slate-100">
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">David Wilson</p>
+                                        <p class="text-[11px] text-slate-400 font-bold">UID: #84733</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">david.w@edu.vn</p>
+                                <p class="text-[11px] text-slate-400 font-medium">+84 911 223 344</p>
+                            </td>
+                            <td class="px-6 py-6">
+                                <p class="text-sm font-bold text-slate-700">Feb 14, 2024</p>
+                                <p class="text-[11px] text-slate-400 font-medium">Joined via Google</p>
+                            </td>
+                            <td class="px-6 py-6 text-center">
+                                <span class="px-3 py-1 bg-success/10 text-success text-[10px] font-black uppercase tracking-widest rounded-full border border-success/20">Active</span>
+                            </td>
+                            <td class="px-6 py-6 text-center space-x-2">
+                                <button onclick="openDetailsModal('David Wilson', 'david.w@edu.vn', '+84 911 223 344', 'Active')" class="p-2 text-slate-400 hover:text-primary transition-all" title="View Details">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                                <button onclick="openHistoryModal('David Wilson')" class="p-2 text-slate-400 hover:text-primary transition-all" title="Purchase History">
+                                    <span class="material-symbols-outlined">shopping_bag</span>
+                                </button>
+                                <button class="p-2 text-slate-400 hover:text-error transition-all" title="Ban User">
+                                    <span class="material-symbols-outlined">block</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="px-8 py-5 bg-white border border-slate-200 rounded-3xl flex items-center justify-between shadow-level-1">
+                <p class="text-[11px] text-slate-500 font-bold">Showing <span class="text-slate-900">1</span> to <span class="text-slate-900">10</span> of <span class="text-slate-900">124.842</span> users</p>
+                <div class="flex items-center gap-2">
+                    <button class="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400 hover:bg-white hover:text-primary transition-all">
+                        <span class="material-symbols-outlined text-sm">chevron_left</span>
+                    </button>
+                    <div class="flex items-center gap-1">
+                        <button class="w-8 h-8 flex items-center justify-center rounded-xl bg-primary text-white text-[11px] font-black shadow-lg shadow-blue-100">1</button>
+                        <button class="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white border border-transparent hover:border-slate-200 text-slate-500 text-[11px] font-bold transition-all">2</button>
+                        <button class="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white border border-transparent hover:border-slate-200 text-slate-500 text-[11px] font-bold transition-all">3</button>
+                    </div>
+                    <button class="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400 hover:bg-white hover:text-primary transition-all">
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- User Details Modal -->
+    <div id="detailsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300" id="detailsModalContent">
+            <div class="p-8 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-black text-slate-900 tracking-tight">Full User Profile</h3>
+                    <p class="text-[11px] text-primary font-black uppercase tracking-widest mt-1">Identity Information</p>
+                </div>
+                <button onclick="closeDetailsModal()" class="w-10 h-10 rounded-full hover:bg-slate-50 flex items-center justify-center text-slate-400">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="p-8 space-y-6">
+                <div class="flex items-center gap-6">
+                    <div class="size-20 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 text-2xl font-black border border-slate-200" id="detailAvatar">JD</div>
+                    <div class="space-y-1">
+                        <h4 class="text-xl font-black text-slate-900" id="detailName">John Doe</h4>
+                        <p class="text-sm font-bold text-slate-400" id="detailUID">UID: #84729</p>
+                        <span class="inline-block px-2 py-0.5 bg-success/10 text-success text-[10px] font-black uppercase rounded-full border border-success/20" id="detailStatus">Active</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6 pt-6 border-t border-slate-100">
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Email Address</p>
+                        <p class="text-sm font-bold text-slate-700" id="detailEmail">john.doe@academic.edu</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Phone Number</p>
+                        <p class="text-sm font-bold text-slate-700" id="detailPhone">+84 902 482 155</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Orders</p>
+                        <p class="text-sm font-bold text-slate-700">24 Orders</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Wallet Balance</p>
+                        <p class="text-sm font-bold text-primary">1.240.000₫</p>
+                    </div>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4 space-y-2">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Account Security</p>
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-600">
+                        <span>Identity Verified</span>
+                        <span class="text-success">Yes</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-600">
+                        <span>Two-Factor Auth</span>
+                        <span class="text-slate-400 italic">Disabled</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-8 border-t border-slate-100 bg-slate-50/30 flex gap-4">
+                <button onclick="closeDetailsModal()" class="flex-1 py-4 bg-white border border-slate-200 text-slate-600 text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all">Close</button>
+                <button class="flex-1 py-4 bg-primary text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-blue-200 hover:brightness-110 transition-all">Message User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase History Modal -->
+    <div id="historyModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
+            <div class="p-8 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-black text-slate-900 tracking-tight" id="modalUserName">Purchase History</h3>
+                    <p class="text-[11px] text-primary font-black uppercase tracking-widest mt-1">Transaction Insight</p>
+                </div>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full hover:bg-slate-50 flex items-center justify-center text-slate-400">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <div class="p-8 space-y-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                <!-- Order 1 -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-sm font-black text-slate-900">Order #ORD-93842</p>
+                            <p class="text-[11px] text-slate-400 font-bold">Oct 24, 2024 • 14:22 PM</p>
+                        </div>
+                        <span class="px-2.5 py-1 bg-success/10 text-success text-[10px] font-black uppercase tracking-widest rounded-full border border-success/20">Delivered</span>
+                    </div>
+                    <div class="flex items-center gap-4 py-4 border-y border-slate-200/50">
+                        <div class="w-12 h-12 bg-white rounded-lg border border-slate-200 p-1">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBndMnQskSz3dRztn6UfeTfN_94u1DmY1AbEv4sBBhf8J0XRb7dU-XICFvaz9KfKkxjVduD247GSTLhsya4f_O7JJgBORd3mfxftXTO8yhaJZqUs7EUFmH-O-5L6xEOfw7MjnW07KOX9IIsZvykoUH7Y651Jy42emV8Vk2KbgmIzlpsDgRRbiz3pQHIwJusz8nk6CGYdEEr5I7mcfKU2_76sP8hCbN6QqSkqIs2mngJ2cNcIb8F23gWT-hsadu4PE7hL2Xt5KUxQrA" class="w-full h-full object-cover rounded-md">
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-xs font-bold text-slate-700">Precision Series 9 | Scholar Slate Edition</p>
+                            <p class="text-[10px] text-slate-400">Qty: 1 • Color: Graphite</p>
+                        </div>
+                        <p class="text-sm font-black text-slate-900">1.450.000₫</p>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Investment</span>
+                        <span class="text-sm font-black text-primary uppercase">1.450.000₫</span>
+                    </div>
+                </div>
+
+                <!-- Order 2 -->
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 space-y-4 opacity-70">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-sm font-black text-slate-900">Order #ORD-92100</p>
+                            <p class="text-[11px] text-slate-400 font-bold">Sep 15, 2024 • 09:12 AM</p>
+                        </div>
+                        <span class="px-2.5 py-1 bg-slate-200 text-slate-500 text-[10px] font-black uppercase tracking-widest rounded-full border border-slate-300">Completed</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Investment</span>
+                        <span class="text-sm font-black text-slate-900 uppercase">840.000₫</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8 border-t border-slate-100 bg-slate-50/30">
+                <button onclick="closeModal()" class="w-full py-4 bg-white border border-slate-200 text-slate-600 text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-slate-50 transition-all">Close History</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openDetailsModal(name, email, phone, status) {
+            const modal = document.getElementById('detailsModal');
+            const content = document.getElementById('detailsModalContent');
+            document.getElementById('detailName').innerText = name;
+            document.getElementById('detailEmail').innerText = email;
+            document.getElementById('detailPhone').innerText = phone;
+            document.getElementById('detailStatus').innerText = status;
+            document.getElementById('detailAvatar').innerText = name.split(' ').map(n => n[0]).join('');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeDetailsModal() {
+            const modal = document.getElementById('detailsModal');
+            const content = document.getElementById('detailsModalContent');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function openHistoryModal(name) {
+            const modal = document.getElementById('historyModal');
+            const content = document.getElementById('modalContent');
+            document.getElementById('modalUserName').innerText = name + "'s Purchase History";
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('historyModal');
+            const content = document.getElementById('modalContent');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+
+    <!-- Floating Buttons Stack -->
+    <div class="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+        <!-- AI Assistant FAB -->
+        <button onclick="toggleAI()" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+    <!-- AI Chat Window -->
+    <div id="ai-chat-window" class="fixed bottom-28 right-8 w-80 h-[500px] bg-surface-container-lowest rounded-[2rem] shadow-2xl border border-outline-variant/30 hidden flex-col z-[60] overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+        <!-- Header -->
+        <div class="p-6 bg-primary text-white flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="size-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                </div>
+                <div>
+                    <h3 class="font-black text-sm tracking-tight">AI Assistant</h3>
+                    <p class="text-[10px] opacity-70 font-bold uppercase tracking-widest">Always Online</p>
+                </div>
+            </div>
+            <button onclick="toggleAI()" class="size-8 rounded-lg hover:bg-white/20 flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <!-- Messages Area -->
+        <div class="flex-1 p-6 overflow-y-auto space-y-4 custom-scrollbar bg-surface-container-low/30 flex flex-col">
+            <div class="flex gap-3">
+                <div class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-sm">smart_toy</span>
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/20 text-sm font-bold text-on-surface leading-relaxed">
+                    Hello John! I'm your Tkart AI Assistant. How can I help you manage the platform today?
+                </div>
+            </div>
+            <div class="flex-1"></div>
+        </div>
+        
+        <!-- Input Area (Pinned to bottom) -->
+        <div class="p-4 bg-white border-t border-outline-variant/30 shrink-0">
+            <div class="flex gap-2 p-2 bg-surface-container-low rounded-2xl border border-outline-variant/20">
+                <input type="text" placeholder="Ask AI anything..." class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-bold px-2">
+                <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function toggleAI() {
+        const aiWin = document.getElementById('ai-chat-window');
+        if (aiWin.classList.contains('hidden')) {
+            aiWin.classList.remove('hidden');
+            aiWin.classList.add('flex');
+        } else {
+            aiWin.classList.add('hidden');
+            aiWin.classList.remove('flex');
+        }
+    }
+    
+    // Ensure AI window is hidden by default and handles clicks outside
+    document.addEventListener('DOMContentLoaded', () => {
+        const aiWin = document.getElementById('ai-chat-window');
+        if (aiWin) aiWin.classList.add('hidden');
+    });
+</script>
+</body>
+</html>

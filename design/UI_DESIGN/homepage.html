@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tkart | Academic Modernism Marketplace</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#004ac6",
+                        "error": "#ba1a1a",
+                        "on-surface": "#131b2e",
+                        "on-surface-variant": "#434655",
+                        "background": "#faf8ff",
+                        "surface": "#ffffff",
+                        "surface-container": "#eaedff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f7f9ff",
+                        "surface-container-high": "#e1e4f5",
+                        "outline-variant": "#c3c6d7",
+                        "secondary": "#434655",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"],
+                        "body": ["Manrope"],
+                    },
+                    spacing: {
+                        "margin-mobile": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "container-max": "1280px",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #faf8ff;
+            font-family: 'Manrope', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .category-item {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .category-item:hover {
+            background-color: #eaedff;
+            color: #004ac6;
+        }
+        .category-item.active {
+            background-color: #004ac6;
+            color: #ffffff;
+        }
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 74, 198, 0.15);
+        }
+        .tab-btn {
+            position: relative;
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #004ac6;
+        }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium text-on-surface">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-2xl text-primary tracking-tighter font-black" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-primary underline underline-offset-8 decoration-2" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="promotions.html">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="support.html">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for academic collections..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+
+                <a href="notifications.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 space-y-12">
+        
+        <!-- Hero Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Sidebar Categories -->
+            <aside class="hidden lg:block bg-surface border border-outline-variant rounded-2xl overflow-hidden shadow-sm h-full">
+                <div class="p-4 border-b border-outline-variant">
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-on-surface-variant">Categories</h3>
+                </div>
+                <nav class="p-2">
+                    <a href="#" class="category-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <span class="material-symbols-outlined text-[20px]">devices</span>
+                        Electronics
+                    </a>
+                    <a href="#" class="category-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[20px]">apparel</span>
+                        Fashion & Apparel
+                    </a>
+                    <a href="#" class="category-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[20px]">menu_book</span>
+                        Books & Stationery
+                    </a>
+                    <a href="#" class="category-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[20px]">chair</span>
+                        Home & Furniture
+                    </a>
+                    <a href="#" class="category-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[20px]">fitness_center</span>
+                        Sports & Outdoors
+                    </a>
+                    <a href="#" class="category-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[20px]">content_cut</span>
+                        Beauty & Health
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Banner -->
+            <div class="lg:col-span-3 relative h-[450px] rounded-3xl overflow-hidden group shadow-md border border-outline-variant">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1280" alt="Hero Banner" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-r from-on-surface/60 to-transparent"></div>
+                <div class="relative h-full flex flex-col justify-center px-12 max-w-xl space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-primary px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-widest">
+                        CURATED FOR SCHOLARS
+                    </div>
+                    <h1 class="text-5xl font-extrabold text-white leading-tight">The Precision <br> Autumn Semester Edit</h1>
+                    <p class="text-white/80 text-lg">Engineered for focus. Curated for performance. Discover the intersection of sophisticated design and academic utility.</p>
+                    <div class="flex gap-4 pt-4">
+                        <a href="search.html" class="bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-primary/20">Explore the Collection</a>
+                        <a href="#" class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-3 rounded-full font-bold hover:bg-white/20 transition-colors">View Lookbook</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New: Shop by Discipline -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold tracking-tight">Shop by Discipline</h2>
+                <div class="h-[1px] flex-grow mx-8 bg-outline-variant/30 hidden md:block"></div>
+                <span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Faculty Collections</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <button class="group p-4 bg-surface border border-outline-variant rounded-2xl hover:border-primary transition-all text-center">
+                    <span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-primary transition-colors">precision_manufacturing</span>
+                    <p class="text-xs font-bold uppercase tracking-wide">Engineering</p>
+                </button>
+                <button class="group p-4 bg-surface border border-outline-variant rounded-2xl hover:border-primary transition-all text-center">
+                    <span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-primary transition-colors">architecture</span>
+                    <p class="text-xs font-bold uppercase tracking-wide">Design & Art</p>
+                </button>
+                <button class="group p-4 bg-surface border border-outline-variant rounded-2xl hover:border-primary transition-all text-center">
+                    <span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-primary transition-colors">payments</span>
+                    <p class="text-xs font-bold uppercase tracking-wide">Business</p>
+                </button>
+                <button class="group p-4 bg-surface border border-outline-variant rounded-2xl hover:border-primary transition-all text-center">
+                    <span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-primary transition-colors">biotech</span>
+                    <p class="text-xs font-bold uppercase tracking-wide">Sciences</p>
+                </button>
+                <button class="group p-4 bg-surface border border-outline-variant rounded-2xl hover:border-primary transition-all text-center">
+                    <span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-primary transition-colors">history_edu</span>
+                    <p class="text-xs font-bold uppercase tracking-wide">Humanities</p>
+                </button>
+                <button class="group p-4 bg-surface border border-outline-variant rounded-2xl hover:border-primary transition-all text-center">
+                    <span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-primary transition-colors">balance</span>
+                    <p class="text-xs font-bold uppercase tracking-wide">Law & Policy</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Flash Deals -->
+        <section class="space-y-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-red-500 fill-1 animate-pulse">bolt</span>
+                        <h2 class="text-2xl font-extrabold tracking-tight">Flash Sale: The Lab Edition</h2>
+                    </div>
+                    <div class="flex items-center gap-3 ml-4">
+                        <div class="flex flex-col items-center">
+                            <div class="bg-on-surface text-white px-3 py-1.5 rounded-lg text-sm font-bold font-mono shadow-sm">02</div>
+                            <span class="text-[8px] uppercase font-bold mt-1 opacity-50">Hrs</span>
+                        </div>
+                        <span class="font-bold mb-4">:</span>
+                        <div class="flex flex-col items-center">
+                            <div class="bg-on-surface text-white px-3 py-1.5 rounded-lg text-sm font-bold font-mono shadow-sm">45</div>
+                            <span class="text-[8px] uppercase font-bold mt-1 opacity-50">Min</span>
+                        </div>
+                        <span class="font-bold mb-4">:</span>
+                        <div class="flex flex-col items-center">
+                            <div class="bg-on-surface text-white px-3 py-1.5 rounded-lg text-sm font-bold font-mono shadow-sm">12</div>
+                            <span class="text-[8px] uppercase font-bold mt-1 opacity-50">Sec</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="text-sm font-bold text-primary hover:underline">View All Deals</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Flash Deal Card 1 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-[4/3] bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBndMnQskSz3dRztn6UfeTfN_94u1DmY1AbEv4sBBhf8J0XRb7dU-XICFvaz9KfKkxjVduD247GSTLhsya4f_O7JJgBORd3mfxftXTO8yhaJZqUs7EUFmH-O-5L6xEOfw7MjnW07KOX9IIsZvykoUH7Y651Jy42emV8Vk2KbgmIzlpsDgRRbiz3pQHIwJusz8nk6CGYdEEr5I7mcfKU2_76sP8hCbN6QqSkqIs2mngJ2cNcIb8F23gWT-hsadu4PE7hL2Xt5KUxQrA" alt="Apple Watch Series 9" class="w-full h-full object-cover p-2 group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg">-25%</div>
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold text-primary uppercase tracking-widest">Tech Essential</span>
+                            <span class="text-[10px] font-medium text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 4.9</span>
+                        </div>
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 hover:text-primary transition-colors block mb-3 min-h-[2.5rem]">Precision Series 9 | Scholar Slate Edition</a>
+                        
+                        <div class="mt-auto space-y-3">
+                            <div class="space-y-1">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="font-bold text-primary">1.450.000₫</span>
+                                    <span class="text-xs text-on-surface-variant line-through">2.120.000₫</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase">
+                                        <span>Sold 65%</span>
+                                    </div>
+                                    <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+                                        <div class="h-full bg-primary" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2.5 bg-primary text-white rounded-xl font-bold text-xs hover:bg-blue-700 transition-all active:scale-95 shadow-sm">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flash Deal Card 2 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-[4/3] bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqQnyJicB_1n6s1HS9IIfYhtS-sShBe63jP3XMG6KnN2RkErwXYbp-Y6ISvUJixCaNOuUK3X8SOYdS3r9V2Grxd1pnod4W7kdH6_4WW9OGsqHWhcIr9MKz14HQGA6uAyMfXQvaWfgTrHRwohXnb0VnX_Om9lzNmU0TgJetXY1BiDirckfQj9dDdsySgQ7j3Lmm3RdqSj0em5x8maiSLes2pL8y6FmV85XOBUK7t1q7jifx5XT11EGZ7Wlroq2putBnvKMcYAGnuVs" alt="Sony WH-1000XM5" class="w-full h-full object-cover p-2 group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg">-15%</div>
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold text-primary uppercase tracking-widest">Audio Elite</span>
+                            <span class="text-[10px] font-medium text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 4.8</span>
+                        </div>
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 hover:text-primary transition-colors block mb-3 min-h-[2.5rem]">Sony WH-1000XM5 ANC | Industry-Leading Noise Canceling</a>
+                        
+                        <div class="mt-auto space-y-3">
+                            <div class="space-y-1">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="font-bold text-primary">3.200.000₫</span>
+                                    <span class="text-xs text-on-surface-variant line-through">4.500.000₫</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase">
+                                        <span>Sold 12%</span>
+                                    </div>
+                                    <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+                                        <div class="h-full bg-primary" style="width: 12%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2.5 bg-primary text-white rounded-xl font-bold text-xs hover:bg-blue-700 transition-all active:scale-95 shadow-sm">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flash Deal Card 3 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-[4/3] bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBndMnQskSz3dRztn6UfeTfN_94u1DmY1AbEv4sBBhf8J0XRb7dU-XICFvaz9KfKkxjVduD247GSTLhsya4f_O7JJgBORd3mfxftXTO8yhaJZqUs7EUFmH-O-5L6xEOfw7MjnW07KOX9IIsZvykoUH7Y651Jy42emV8Vk2KbgmIzlpsDgRRbiz3pQHIwJusz8nk6CGYdEEr5I7mcfKU2_76sP8hCbN6QqSkqIs2mngJ2cNcIb8F23gWT-hsadu4PE7hL2Xt5KUxQrA" alt="Robotic Arm" class="w-full h-full object-cover p-2 group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg">-30%</div>
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold text-primary uppercase tracking-widest">Lab Gear</span>
+                            <span class="text-[10px] font-medium text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 4.7</span>
+                        </div>
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 hover:text-primary transition-colors block mb-3 min-h-[2.5rem]">Desktop Robotic Arm Module | Precision Lab Series</a>
+                        
+                        <div class="mt-auto space-y-3">
+                            <div class="space-y-1">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="font-bold text-primary">8.990.000₫</span>
+                                    <span class="text-xs text-on-surface-variant line-through">12.850.000₫</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase">
+                                        <span>Sold 88%</span>
+                                    </div>
+                                    <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+                                        <div class="h-full bg-primary" style="width: 88%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2.5 bg-primary text-white rounded-xl font-bold text-xs hover:bg-blue-700 transition-all active:scale-95 shadow-sm">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flash Deal Card 4 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-[4/3] bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmij0m5ZCiJQPoL_Wt2djJesGbtpIYAS_wjDzRblCvbUMI27g_GtvqI19WmSsFT5oFDc44drZut2hv0euTEFvFhY8N9JxcFjwwFv58MFeOectehEN3UdJFx49CAN8dsruSv9FeRnz8h9DQ16skeMSq4D7dXdLlSwKySuXOphE274cwSfEw3-9Yui-7O8ViqLYks4veOPMBBZC_hxUoBx-VXfvld2qtgc2VjISslT7_zc44wPPtVYhzVwPyizJndJhGXtJEf3EumKI" alt="Wool Overcoat" class="w-full h-full object-cover p-2 group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg">-50%</div>
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold text-primary uppercase tracking-widest">Fashion Edit</span>
+                            <span class="text-[10px] font-medium text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 4.6</span>
+                        </div>
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 hover:text-primary transition-colors block mb-3 min-h-[2.5rem]">Tailored Wool Overcoat | Charcoal Grey Melange</a>
+                        
+                        <div class="mt-auto space-y-3">
+                            <div class="space-y-1">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="font-bold text-primary">2.100.000₫</span>
+                                    <span class="text-xs text-on-surface-variant line-through">4.200.000₫</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase">
+                                        <span>Sold 42%</span>
+                                    </div>
+                                    <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+                                        <div class="h-full bg-primary" style="width: 42%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2.5 bg-primary text-white rounded-xl font-bold text-xs hover:bg-blue-700 transition-all active:scale-95 shadow-sm">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Exploration -->
+        <section class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-outline-variant gap-4">
+                <div class="flex gap-8">
+                    <button class="tab-btn active pb-4 text-sm font-bold text-primary">Recommended</button>
+                    <button class="tab-btn pb-4 text-sm font-bold text-on-surface-variant hover:text-primary transition-colors">Best Sellers</button>
+                    <button class="tab-btn pb-4 text-sm font-bold text-on-surface-variant hover:text-primary transition-colors">New Arrivals</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Product 1 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGek-ZuO7I4VfUYk3NB9G8fstOPqLM2PskV9NKkFUePt-CZCugpCeriaRQMFjLOgiFxIwTRxBh9tcJerqGVsVgfEim_GDsgL2PncVhGkJ3LjOmu7EKTpLHNcYZJk531gQPhnyVrLAfnBbvx9fzP6RTCoD4dJU1ndr08kdVNAYyTz13FAfoqzc7BLvoiMJOvIZSYAVt5qXd57Um5RJMk2xyEnij-3-3b4J2G8AE6jBJXyEp5SWHsEXy_uW0tqTUHO_j3dDwahhRu6w" alt="iPhone 15 Pro Max" class="w-full h-full object-cover p-2 group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-md">CAMPUS TREND</div>
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 leading-snug hover:text-primary transition-colors block mb-2 min-h-[2.5rem]">Quantum X15 Pro | Engineering Edition | Graphite</a>
+                        <div class="mt-auto space-y-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="font-bold text-primary">2.190.000₫</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-[10px] text-on-surface-variant">Lifestyle</span>
+                                    <span class="text-[10px] text-on-surface-variant ml-auto flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 4.9</span>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2 bg-primary/10 text-primary rounded-xl font-bold text-xs hover:bg-primary hover:text-white transition-all active:scale-95">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK0yk7bpEchrAupsnfxLEL5VfNa2DF4gLsAH3RbLmsgUxPzMJ1rduHk4nTVPN0WNolaPI2T7NHvWUziT6_zeA8nKEpeHMqkEqnN-oWxG8Od1dRGnJbWGvgn-MflAC0IBcrRkYp-7gi-6oP6fmSaswO73t8SHvBkCG9t_TbpqMOwgmtrIm-dvtEgKg2UzsjmFCr2QifpEFoEolywxGo_Vzwrk0Nx0-y7p15cJYmlTCme67gkCzry0dZ4M_aqIFKF_ZAtFa6O0w64YA" alt="Messenger Bag" class="w-full h-full object-cover p-2 group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 leading-snug hover:text-primary transition-colors block mb-2 min-h-[2.5rem]">Saddle Leather Messenger Bag | Classic Tan Edition</a>
+                        <div class="mt-auto space-y-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="font-bold text-primary">5.400.000₫</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-[10px] text-on-surface-variant">Interior</span>
+                                    <span class="text-[10px] text-on-surface-variant ml-auto flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 4.8</span>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2 bg-primary/10 text-primary rounded-xl font-bold text-xs hover:bg-primary hover:text-white transition-all active:scale-95">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRmABC1nIgg4cS6jSB6YKYCQrLOGUWdQ8q-7nL6EWPAM3vZL9ivz1HUNgFDIk35O8TZxmfABeKBGs0ZDhZBQQBWIHdcR4tHv4TVxeVYooGDZmbQRIZx-jYXaEZg24utnhSWxaxoZ4hm2KUa3CkraZHAInU5acw0cMhODnhPd6xm_DM12bkgCrs4fvlt7vhXAkZvuAUaqpaEqwek_YF0OACiHN0Wpw6uGpFbv-yv9hSOZCNlfRxL6-A5tcXikLE_yx0GNJ16EZwVYk" alt="iPad Pro M2" class="w-full h-full object-cover p-2 group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 leading-snug hover:text-primary transition-colors block mb-2 min-h-[2.5rem]">iPad Pro M2 11-inch WiFi | Space Gray 256GB</a>
+                        <div class="mt-auto space-y-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="font-bold text-primary">15.990.000₫</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-[10px] text-on-surface-variant">Mobile</span>
+                                    <span class="text-[10px] text-on-surface-variant ml-auto flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 5.0</span>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2 bg-primary/10 text-primary rounded-xl font-bold text-xs hover:bg-primary hover:text-white transition-all active:scale-95">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGzVa9At49WgJWv_A6XKpu1BWzQjW6ONN6XRoN8yuESObD3Io9cqSVPdtammFWPFyejpBEPMNK7eF0Cica70FEHuDsYmEfmwmAASg-okyTSC5kVeQf9lka5sSmcmwg6q1L5LINyc1pZNP7n5-vfMnEGnD9KBqCBjyYZZfScIew3wjLIWl-QhZ9eg3ul7lQqkXozlzBmlv5lkny9Gbo-KJzEInDyQckPaq8e1tc9bN3CLUBMnFRRNt98jb2g6ilAzZzNGP4MWEiQjc" alt="Fountain Pen" class="w-full h-full object-cover p-2 group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 leading-snug hover:text-primary transition-colors block mb-2 min-h-[2.5rem]">Academic Fountain Pen V.2 | Platinum Edition | Fine Nib</a>
+                        <div class="mt-auto space-y-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="font-bold text-primary">1.250.000₫</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-[10px] text-on-surface-variant">Essential</span>
+                                    <span class="text-[10px] text-on-surface-variant ml-auto flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 4.7</span>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2 bg-primary/10 text-primary rounded-xl font-bold text-xs hover:bg-primary hover:text-white transition-all active:scale-95">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer">
+                    <a href="product_detail.html" class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWOlFfmphPqbLGfaAoTkOaN8Ipfc5gtcmcx-imojv-dFXRMyEoxxmS1U8He24iMsfCbz-agnsvqnkSDOWbKAUNE9NQQml-na1QTpBhr7aYjASEvGPbpICvoU-stmBY04GGIi0majClM1tauBPNDy885AsBtDeeqjafKHE26ApAy0xIhtoBuZvYB1FUEfuCBdLWcURSIHvwFkEhQzY-lRytKNcavvE0JRBzGipy3ec6lbZOZ8tWJKvFXA9gOj2tX1uhDA7a4nbJXEY" alt="Headphones" class="w-full h-full object-cover p-2 group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 leading-snug hover:text-primary transition-colors block mb-2 min-h-[2.5rem]">Acoustic Pro ANC | High-Fidelity Scholar | Obsidian Black</a>
+                        <div class="mt-auto space-y-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="font-bold text-primary">7.150.000₫</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-[10px] text-on-surface-variant">Label</span>
+                                    <span class="text-[10px] text-on-surface-variant ml-auto flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px] fill-1 text-amber-500">star</span> 4.9</span>
+                                </div>
+                            </div>
+                            <button class="w-full flex items-center justify-center gap-2 py-2 bg-primary/10 text-primary rounded-xl font-bold text-xs hover:bg-primary hover:text-white transition-all active:scale-95">
+                                <span class="material-symbols-outlined text-sm">shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center pt-8">
+                <button class="px-12 py-3 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all duration-300">
+                    Load More Products
+                </button>
+            </div>
+        </section>
+
+        <!-- New: Student Perks & Partners -->
+        <section class="bg-surface border border-outline-variant rounded-3xl p-12 overflow-hidden relative group shadow-sm">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+            <div class="relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-extrabold tracking-tight">Verified Student Benefits</h2>
+                    <p class="text-on-surface-variant text-lg leading-relaxed">Join 15,000+ scholars getting exclusive access to academic pricing, early-release textbooks, and limited-edition faculty merchandise.</p>
+                    <button class="bg-on-surface text-white px-8 py-4 rounded-full font-bold hover:bg-primary transition-all flex items-center gap-3 shadow-lg shadow-on-surface/10">
+                        <span class="material-symbols-outlined">verified_user</span>
+                        Verify My Student ID
+                    </button>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 bg-surface-container rounded-2xl border border-outline-variant/50 text-center">
+                        <p class="text-2xl font-extrabold text-primary">15%</p>
+                        <p class="text-xs font-bold text-on-surface-variant uppercase mt-1">Tech Discount</p>
+                    </div>
+                    <div class="p-6 bg-surface-container rounded-2xl border border-outline-variant/50 text-center">
+                        <p class="text-2xl font-extrabold text-primary">Free</p>
+                        <p class="text-xs font-bold text-on-surface-variant uppercase mt-1">Campus Delivery</p>
+                    </div>
+                    <div class="p-6 bg-surface-container rounded-2xl border border-outline-variant/50 text-center">
+                        <p class="text-2xl font-extrabold text-primary">Priority</p>
+                        <p class="text-xs font-bold text-on-surface-variant uppercase mt-1">Lab Access</p>
+                    </div>
+                    <div class="p-6 bg-surface-container rounded-2xl border border-outline-variant/50 text-center">
+                        <p class="text-2xl font-extrabold text-primary">24h</p>
+                        <p class="text-xs font-bold text-on-surface-variant uppercase mt-1">Support Line</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant mt-24">
+        <div class="w-full py-12 px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-12">
+            <div class="max-w-xs space-y-6">
+                <a href="homepage.html" class="font-display text-headline-md text-primary tracking-tight font-extrabold block">Tkart</a>
+                <p class="text-sm text-on-surface-variant leading-relaxed">Elevating the multi-vendor experience with academic precision and soft aesthetics.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-12 flex-grow">
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider">Explore</h4>
+                    <ul class="space-y-3 text-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="support.html">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider">Company</h4>
+                    <ul class="space-y-3 text-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 md:col-span-1 space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider">Connect</h4>
+                    <div class="flex gap-4">
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">language</span></a>
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">alternate_email</span></a>
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">share</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-on-surface-variant">© 2024 Tkart Marketplace.</p>
+            <p class="font-bold opacity-30 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+        </div>
+    </footer>
+
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-[#ba1a1a] font-black flex items-center justify-center rounded-full border-2 border-[#ba1a1a] shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+</body>
+</html>

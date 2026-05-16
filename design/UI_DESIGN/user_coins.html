@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Coin Wallet - Tkart</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts: Manrope -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#eeefff",
+                        "primary": "#004ac6",
+                        "tertiary": "#515659",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary-container": "#edf1f5",
+                        "inverse-primary": "#b4c5ff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#131b2e",
+                        "surface-container-low": "#f2f3ff",
+                        "tertiary-fixed": "#dfe3e7",
+                        "on-tertiary-fixed": "#171c1f",
+                        "on-background": "#131b2e",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c3c7cb",
+                        "surface": "#faf8ff",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-surface-variant": "#434655",
+                        "surface-variant": "#dae2fd",
+                        "outline-variant": "#c3c6d7",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "primary-container": "#2563eb",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "outline": "#737686",
+                        "inverse-surface": "#283044",
+                        "surface-dim": "#d2d9f4",
+                        "surface-container-highest": "#dae2fd",
+                        "secondary": "#505f76",
+                        "surface-container": "#eaedff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "background": "#faf8ff",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-container-high": "#e2e7ff",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#696e71",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary-fixed-variant": "#43474b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .card-shadow { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg text-body-lg min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-2xl text-primary tracking-tighter font-black" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="promotions.html">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="support.html">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for academic collections..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+
+                <a href="notifications.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg flex flex-col md:flex-row gap-gutter">
+        <!-- SideNavBar -->
+        <aside class="hidden md:flex flex-col gap-unit sticky top-24 w-72 h-fit">
+            <!-- User Info Card -->
+            <div class="bg-surface-container-lowest rounded-3xl p-6 shadow-sm border border-outline-variant/30 mb-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xl">
+                        JD
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-on-surface">John Doe</h3>
+                        <p class="text-sm text-on-surface-variant">Silver Member</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex flex-col gap-1">
+                <a href="user_profile.html" class="flex items-center px-4 py-3 space-x-3 text-on-surface-variant hover:bg-surface-container-low transition-all font-medium rounded-xl">
+                    <span class="material-symbols-outlined">person</span>
+                    <span>Personal Profile</span>
+                </a>
+                <a href="order_history.html" class="flex items-center px-4 py-3 space-x-3 text-on-surface-variant hover:bg-surface-container-low transition-all font-medium rounded-xl">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                    <span>Order History</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 space-x-3 text-on-surface-variant hover:bg-surface-container-low transition-all font-medium rounded-xl">
+                    <span class="material-symbols-outlined">star</span>
+                    <span>My Reviews</span>
+                </a>
+                <a href="wishlist.html" class="flex items-center px-4 py-3 space-x-3 text-on-surface-variant hover:bg-surface-container-low transition-all font-medium rounded-xl">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <span>Wishlist</span>
+                </a>
+                <a href="address_book.html" class="flex items-center px-4 py-3 space-x-3 text-on-surface-variant hover:bg-surface-container-low transition-all font-medium rounded-xl">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <span>Shipping Address</span>
+                </a>
+                <!-- Active Item: My Coins -->
+                <a href="user_coins.html" class="flex items-center px-4 py-3 space-x-3 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                    <span>My Coins</span>
+                </a>
+                <a href="messages.html" class="flex items-center px-4 py-3 space-x-3 text-on-surface-variant hover:bg-surface-container-low transition-all font-medium rounded-xl">
+                    <span class="material-symbols-outlined">chat</span>
+                    <span>Messages</span>
+                </a>
+                <a href="security.html" class="flex items-center px-4 py-3 space-x-3 text-on-surface-variant hover:bg-surface-container-low transition-all font-medium rounded-xl">
+                    <span class="material-symbols-outlined">security</span>
+                    <span>Security Settings</span>
+                </a>
+            </nav>
+
+            <div class="mt-8 pt-4 border-t border-outline-variant">
+                <a href="login.html" class="flex items-center px-4 py-3 space-x-3 text-error hover:bg-error-container/10 transition-all font-label-md rounded-xl">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Content Canvas -->
+        <section class="flex-grow space-y-gutter">
+            <!-- Coin Dashboard Header -->
+            <div class="bg-surface-container-lowest p-8 rounded-3xl card-shadow border border-outline-variant/30">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div>
+                        <h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">My Coin Wallet</h1>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant">Manage and track your Tkart coin balance.</p>
+                    </div>
+                    <div class="flex items-center space-x-4 bg-primary/5 p-6 rounded-2xl border border-primary/10">
+                        <div class="bg-primary p-3 rounded-full flex items-center justify-center text-white">
+                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                        </div>
+                        <div>
+                            <span class="font-label-caps text-label-caps text-primary">Total Balance</span>
+                            <div class="font-display text-headline-lg text-primary flex items-baseline">
+                                1,250 <span class="ml-1 text-headline-md font-bold">Coins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction History Card -->
+            <div class="bg-surface-container-lowest rounded-3xl card-shadow overflow-hidden border border-outline-variant/30">
+                <div class="p-6 border-b border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
+                    <h3 class="font-headline-md text-headline-md text-on-surface">Transaction History</h3>
+                    <div class="flex bg-surface-container-low p-1 rounded-full">
+                        <button class="px-4 py-2 bg-surface-container-lowest text-primary shadow-sm font-bold text-sm rounded-full">All</button>
+                        <button class="px-4 py-2 text-on-surface-variant font-medium text-sm rounded-full hover:bg-surface-container transition-colors">Earned</button>
+                        <button class="px-4 py-2 text-on-surface-variant font-medium text-sm rounded-full hover:bg-surface-container transition-colors">Used</button>
+                    </div>
+                </div>
+                <!-- Transaction List -->
+                <div class="divide-y divide-outline-variant">
+                    <!-- Item 1 -->
+                    <div class="p-6 flex items-center hover:bg-surface-container-low transition-colors group cursor-pointer">
+                        <div class="w-12 h-12 rounded-2xl bg-secondary-container flex items-center justify-center text-primary mr-6">
+                            <span class="material-symbols-outlined">add_circle</span>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-on-surface">Order Refund #TKART-9921</h4>
+                            <p class="text-sm text-on-surface-variant">Oct 24, 2023 • 14:35</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-bold text-lg text-primary">+ 250 Coins</span>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="p-6 flex items-center hover:bg-surface-container-low transition-colors group cursor-pointer">
+                        <div class="w-12 h-12 rounded-2xl bg-error-container/30 flex items-center justify-center text-error mr-6">
+                            <span class="material-symbols-outlined">remove_circle</span>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-on-surface">Used for Order #TKART-9844</h4>
+                            <p class="text-sm text-on-surface-variant">Oct 20, 2023 • 09:12</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-bold text-lg text-error">- 150 Coins</span>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="p-6 flex items-center hover:bg-surface-container-low transition-colors group cursor-pointer">
+                        <div class="w-12 h-12 rounded-2xl bg-secondary-container flex items-center justify-center text-primary mr-6">
+                            <span class="material-symbols-outlined">workspace_premium</span>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-on-surface">Daily Login Reward</h4>
+                            <p class="text-sm text-on-surface-variant">Oct 19, 2023 • 07:05</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-bold text-lg text-primary">+ 10 Coins</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-surface-container-low text-center">
+                    <button class="text-primary font-bold text-sm hover:underline">View Full History</button>
+                </div>
+            </div>
+
+            <!-- Promotional Banner -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                <div class="bg-primary p-8 rounded-3xl text-white flex flex-col justify-between card-shadow relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-110 transition-transform"></div>
+                    <div class="relative z-10">
+                        <span class="font-label-caps text-[10px] bg-white/20 px-3 py-1 rounded-full">SPECIAL OFFER</span>
+                        <h4 class="font-headline-lg text-headline-lg mt-4 mb-4 leading-tight">Top up now, get 10% extra value</h4>
+                    </div>
+                    <button class="w-fit px-8 py-3 bg-white text-primary rounded-xl font-bold hover:shadow-xl transition-all relative z-10">Top up now</button>
+                </div>
+                <div class="bg-surface-container-high p-8 rounded-3xl border border-primary/20 flex items-center justify-center group cursor-pointer hover:bg-surface-container transition-colors">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-4xl">account_balance_wallet</span>
+                        </div>
+                        <p class="font-bold text-on-surface">Connect your bank wallet</p>
+                        <p class="text-sm text-on-surface-variant">For faster and more secure checkout</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant mt-stack-lg">
+        <div class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-8">
+            <div class="max-w-xs">
+                <a href="index.html" class="font-display text-headline-md text-secondary opacity-50 block mb-4">Tkart</a>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Elevating the multi-channel shopping experience with academic precision and soft aesthetics.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-stack-lg flex-grow">
+                <div>
+                    <h4 class="font-label-caps text-label-caps mb-4">Explore</h4>
+                    <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Boutiques</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-label-caps text-label-caps mb-4">Company</h4>
+                    <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="font-label-caps text-label-caps mb-4">Connect</h4>
+                    <div class="flex gap-4">
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">language</span></a>
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">alternate_email</span></a>
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">share</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Tkart Marketplace. Academic Modernism Precision.</p>
+            <p class="font-label-caps text-label-caps opacity-50 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+        </div>
+    </footer>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-label-md text-[10px]">Home</span>
+        </button>
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">storefront</span>
+            <span class="font-label-md text-[10px]">Products</span>
+        </button>
+        <button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="font-label-md text-[10px]">Cart</span>
+        </button>
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-label-md text-[10px]">Account</span>
+        </button>
+    </nav>
+
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+</body>
+</html>

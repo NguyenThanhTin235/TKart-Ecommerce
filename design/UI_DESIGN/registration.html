@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register - Tkart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#0053db",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#eeefff",
+                    "primary": "#004ac6",
+                    "tertiary": "#515659",
+                    "surface-bright": "#faf8ff",
+                    "on-tertiary-container": "#edf1f5",
+                    "inverse-primary": "#b4c5ff",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#131b2e",
+                    "surface-container-low": "#f2f3ff",
+                    "tertiary-fixed": "#dfe3e7",
+                    "on-tertiary-fixed": "#171c1f",
+                    "on-background": "#131b2e",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#c3c7cb",
+                    "surface": "#faf8ff",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-primary-fixed": "#00174b",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-surface-variant": "#434655",
+                    "surface-variant": "#dae2fd",
+                    "outline-variant": "#c3c6d7",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#54647a",
+                    "primary-container": "#2563eb",
+                    "on-secondary-fixed": "#0b1c30",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "outline": "#737686",
+                    "inverse-surface": "#283044",
+                    "surface-dim": "#d2d9f4",
+                    "surface-container-highest": "#dae2fd",
+                    "secondary": "#505f76",
+                    "surface-container": "#eaedff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "background": "#faf8ff",
+                    "inverse-on-surface": "#eef0ff",
+                    "surface-container-high": "#e2e7ff",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary-container": "#696e71",
+                    "secondary-container": "#d0e1fb",
+                    "on-tertiary-fixed-variant": "#43474b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "container-max": "1280px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "body-sm": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "headline-lg-mobile": ["Manrope"],
+                    "display": ["Manrope"],
+                    "label-caps": ["Manrope"],
+                    "headline-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-headline-md text-primary tracking-tight font-extrabold" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="#">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="#">Support</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">0</span>
+                </a>
+                <a href="login.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </a>
+            </div>
+        </div>
+    </header>
+<main class="flex-grow flex items-center justify-center py-stack-lg px-margin-mobile">
+<div class="w-full max-w-[1000px] grid md:grid-cols-2 bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] overflow-hidden">
+<!-- Left Side: Visual/Context -->
+<div class="hidden md:block relative overflow-hidden bg-primary-container p-margin-desktop flex flex-col justify-end text-on-primary-container">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 mix-blend-overlay" data-alt="A professional and artistic aerial view of a modern University campus marketplace during sunset. The architecture features clean lines, glass facades, and minimalist landscaping. The lighting is warm and golden, reflecting an academic modernism aesthetic with a serene and focused atmosphere. High-end digital photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMydRTsBmspK2mLaDDclXxglmNfSFiYJlOJJhhYsgX0ndssV51gbCEKZwCSF0vYf5mHHoyXyT6PqqTUAqOMTfnXplybz3mgeJR0EqLEhw4Wfnk7ttAtrlxmdAPQrAdLhbNiXc7ggbIxwEr5pOttI7I4ywnfB7hBnVLd5Y5MLv4EYk_kQOGz2fkwgQmPcd9nBwfglTaEd-aTLHa52JxdGqFwMJD41MURNeHsVd8aWqui1tdm_-4PQXa4y0CP6J0ZYI1dd-MmNBfXAo"/>
+</div>
+<div class="relative z-10 space-y-4">
+<h2 class="font-headline-lg text-headline-lg text-on-primary-container">Join the Tkart Community</h2>
+<p class="font-body-lg text-body-lg opacity-90">Connecting students and faculty through the most modern and sophisticated academic shopping experiences.</p>
+<div class="flex gap-4 pt-4">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary-container bg-surface-variant overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE-tlrqomVlDje5USwvo0JdnA17t6S8Q_zFN1RhLCAQkJDLaFqMTkf2jmdVQsqlodiDvLzCckdip04_r8xVNUaXeziloZMaxPD-Xelw_uvKdOFSxYXQ70JSvhFuQGYubbuj4PBd28-6kNbOom9T3J-V1MnOCtRcuud5DWxVh5DVxckWZtf0hPG-CTcYW8naQm-qJH3UW-gv_fhpkmtuXrYd9DXCbAbAHEIlX_RuoLKpwvM2Dq2vE0TOQWMQp4MWvvK7kNY64E4FsA"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container bg-surface-variant overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpvbjg_MrGDiK0kFfCl7JsJr_MCUq9DpXLDGiCxPMPcOWrc-l9SWWVOVp1BLf-y2nNLXf9FMnxqMsxU6KRGb7xdqyhjedG0CWiYLLPcckkhwxDbJF3J8Bskeq_NlARXdZjVrgXwNMH8DahchW8Cs8QB4JJ3cXd6JTF0zJ-Kt2zhUZwp7TwlhT-45rjDDzgu2v8wRCE0zaaIF6ShBrr5CHzj4Rja6j8c-sfApxg5zrhaLhKW2MB6_IdlLCOMPjtmLvcSREYZnrXLz8"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container bg-surface-variant overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBylUv_z5hONdbePey2rTYz4TODmXSaKXKbBv3hWXKE894pkJy8h1KTzeL9y3q0UnNEhlkJqjQbTfXm16x_K3vtnOH_xijQT45qa6jO-UXRjrgla8IgMQq-XT_-sGEJTYMIzzewUT3rH9kamyMZC7IOT7fUhpJU_z3rWJ9W3NdlJrp7ec8WiIl69gnYOibIjQmUh_K3OaH31ffrt8sf9v0kk-GH6YiU3y9A6BY0gaETQzQuy9j1BOwNr0LwT-40i7apXDoE73Ooa-g"/>
+</div>
+</div>
+<p class="text-label-md font-label-md self-center">More than 5000+ members joined</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Form -->
+<div class="p-8 md:p-12">
+<div class="mb-10">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Create Account</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Please fill in the information below to start shopping at Tkart marketplace.</p>
+</div>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary" for="fullname">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">person</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="fullname" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary" for="email">Email address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="email" placeholder="example@student.hcmute.edu.vn" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary" for="confirm-password">Confirm Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock_reset</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="confirm-password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-3 pt-2">
+<input class="mt-1 w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/20" id="terms" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="terms">
+                            I agree to the <a class="text-primary hover:underline font-medium" href="#">Terms of Service</a> and <a class="text-primary hover:underline font-medium" href="#">Privacy Policy</a>.
+                        </label>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-3.5 rounded-lg font-headline-md text-headline-md shadow-sm hover:opacity-90 active:scale-[0.98] transition-all" type="submit">
+                        Register Now
+                    </button>
+</form>
+<div class="mt-8 pt-8 border-t border-outline-variant text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Already have an account? <a class="text-primary font-bold hover:underline" href="login.html">Login</a>
+</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-outline-variant mt-stack-lg">
+    <div class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-8">
+        <div class="max-w-xs">
+            <a href="index.html" class="font-display text-headline-md text-secondary opacity-50 block mb-4">Tkart</a>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Elevating the multi-channel shopping experience with academic precision and soft aesthetics.</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-stack-lg flex-grow">
+            <div>
+                <h4 class="font-label-caps text-label-caps mb-4">Explore</h4>
+                <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                    <li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+                    <li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+                    <li><a class="hover:text-primary transition-all" href="#">Boutiques</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-label-caps text-label-caps mb-4">Company</h4>
+                <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                    <li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+                    <li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+                    <li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <h4 class="font-label-caps text-label-caps mb-4">Connect</h4>
+                <div class="flex gap-4">
+                    <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">language</span></a>
+                    <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">alternate_email</span></a>
+                    <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">share</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Tkart Marketplace. Academic Modernism Precision.</p>
+        <p class="font-label-caps text-label-caps opacity-50 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+    </div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+    <button class="flex flex-col items-center justify-center text-secondary">
+        <span class="material-symbols-outlined">home</span>
+        <span class="font-label-md text-[10px]">Home</span>
+    </button>
+    <button class="flex flex-col items-center justify-center text-secondary">
+        <span class="material-symbols-outlined">storefront</span>
+        <span class="font-label-md text-[10px]">Products</span>
+    </button>
+    <button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        <span class="font-label-md text-[10px]">Cart</span>
+    </button>
+    <button class="flex flex-col items-center justify-center text-secondary">
+        <span class="material-symbols-outlined">person</span>
+        <span class="font-label-md text-[10px]">Account</span>
+    </button>
+</nav>
+</body></html>

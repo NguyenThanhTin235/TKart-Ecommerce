@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Blog & Insights - Tkart</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#eeefff",
+                        "primary": "#004ac6",
+                        "tertiary": "#515659",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary-container": "#edf1f5",
+                        "inverse-primary": "#b4c5ff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#131b2e",
+                        "surface-container-low": "#f2f3ff",
+                        "tertiary-fixed": "#dfe3e7",
+                        "on-tertiary-fixed": "#171c1f",
+                        "on-background": "#131b2e",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c3c7cb",
+                        "surface": "#faf8ff",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-surface-variant": "#434655",
+                        "surface-variant": "#dae2fd",
+                        "outline-variant": "#c3c6d7",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "primary-container": "#2563eb",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "outline": "#737686",
+                        "inverse-surface": "#283044",
+                        "surface-dim": "#d2d9f4",
+                        "surface-container-highest": "#dae2fd",
+                        "secondary": "#505f76",
+                        "surface-container": "#eaedff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "background": "#faf8ff",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-container-high": "#e2e7ff",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#696e71",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary-fixed-variant": "#43474b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .hero-pattern {
+            background-color: #faf8ff;
+            background-image: radial-gradient(#dbe1ff 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-2xl text-primary tracking-tighter font-black" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="#">Promotions</a>
+                    <a class="text-sm font-medium text-primary underline underline-offset-8 decoration-2" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="#">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for academic collections..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+
+                <a href="notifications.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="hero-pattern border-b border-outline-variant py-20 px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-container-max mx-auto">
+                <p class="font-label-caps text-label-caps text-primary mb-stack-md uppercase tracking-widest">Fashion & Lifestyle</p>
+                <h1 class="font-display text-display text-on-surface mb-stack-md max-w-3xl">Academic Style & Modern Curation</h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                    Discover the intersection of academic style and modern fashion trends. Sharing styling tips and quality lifestyle inspiration exclusively for the Tkart community.
+                </p>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <!-- Latest Insights (Left Column) -->
+            <div class="lg:col-span-8 space-y-12">
+                <div class="flex justify-between items-center">
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface">Trends & Styling Tips</h2>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-[12px] font-bold">Trends</span>
+                        <span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-[12px] font-medium">Styling</span>
+                    </div>
+                </div>
+
+                <!-- Featured Post -->
+                <article class="group cursor-pointer">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-surface-container-lowest rounded-3xl overflow-hidden border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-500">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" alt="Academic Chic" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="p-8">
+                            <p class="font-label-md text-label-md text-primary mb-2">Style Guide • 5 min read</p>
+                            <h3 class="font-headline-lg text-headline-lg mb-4 group-hover:text-primary transition-colors">University Style 2024: The Rise of "Academic Chic"</h3>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant mb-8 line-clamp-3">
+                                From lecture halls to workshops, how can you build a wardrobe that is deeply personal yet maintains the professional edge of a young intellectual?
+                            </p>
+                            <a href="blog_detail.html" class="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+                                Read Full Article
+                                <span class="material-symbols-outlined text-[20px]">arrow_right_alt</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post Sub-grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Post Card 1 -->
+                    <article class="bg-surface-container-lowest rounded-3xl overflow-hidden border border-transparent hover:border-primary/20 hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                        <div class="aspect-video overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=600" alt="Styling Tip" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <p class="font-label-md text-label-md text-secondary mb-2">Styling Tips</p>
+                            <h4 class="font-headline-md text-headline-md mb-2 group-hover:text-primary transition-colors">5 ways to style a Blazer for engineering students</h4>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Not just for meetings, the Blazer can become more dynamic when combined with sneakers and jeans.</p>
+                        </div>
+                    </article>
+
+                    <!-- Post Card 2 -->
+                    <article class="bg-surface-container-lowest rounded-3xl overflow-hidden border border-transparent hover:border-primary/20 hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                        <div class="aspect-video overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=600" alt="Techwear Trend" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6">
+                            <p class="font-label-md text-label-md text-secondary mb-2">Trends</p>
+                            <h4 class="font-headline-md text-headline-md mb-2 group-hover:text-primary transition-colors">Techwear: When Fashion Meets Technology</h4>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Explore versatile, waterproof outfits that are perfectly suited for the lab environment.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- FAQ Section -->
+                <section class="pt-12 border-t border-outline-variant">
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-8">FAQ & Policies</h2>
+                    <div class="space-y-4">
+                        <div class="p-6 bg-surface-container-low rounded-2xl group cursor-pointer">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-headline-md text-headline-md text-on-surface">Shipping Policy for Students</h4>
+                                <span class="material-symbols-outlined group-hover:text-primary transition-colors">expand_more</span>
+                            </div>
+                            <div class="mt-4 text-sm text-on-surface-variant leading-relaxed hidden group-hover:block transition-all">
+                                Tkart supports express delivery in the inner city and free shipping for orders over 500,000₫ for verified students.
+                            </div>
+                        </div>
+                        <div class="p-6 bg-surface-container-low rounded-2xl group cursor-pointer">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-headline-md text-headline-md text-on-surface">Return & Refund Process</h4>
+                                <span class="material-symbols-outlined group-hover:text-primary transition-colors">expand_more</span>
+                            </div>
+                            <div class="mt-4 text-sm text-on-surface-variant leading-relaxed hidden group-hover:block transition-all">
+                                You can return the product within 7 days of receipt if it is still in its original tags and shows no signs of use.
+                            </div>
+                        </div>
+                        <div class="p-6 bg-surface-container-low rounded-2xl group cursor-pointer">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-headline-md text-headline-md text-on-surface">Customer Data Security</h4>
+                                <span class="material-symbols-outlined group-hover:text-primary transition-colors">expand_more</span>
+                            </div>
+                            <div class="mt-4 text-sm text-on-surface-variant leading-relaxed hidden group-hover:block transition-all">
+                                We are committed to protecting your personal data according to the highest current 256-bit SSL encryption standards.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar (Right Column) -->
+            <aside class="lg:col-span-4 space-y-8">
+                <!-- Newsletter Card -->
+                <section class="bg-primary text-on-primary rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                    <h3 class="font-headline-md text-headline-md mb-4 relative z-10">Join Our Newsletter</h3>
+                    <p class="text-sm opacity-80 mb-6 relative z-10">Subscribe to receive weekly styling tips and exclusive discount codes.</p>
+                    <div class="relative z-10 space-y-3">
+                        <input type="email" placeholder="Your email address" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm focus:bg-white/20 outline-none placeholder-white/50">
+                        <button class="w-full bg-white text-primary py-3 rounded-xl font-bold hover:bg-opacity-90 transition-all">Subscribe Now</button>
+                    </div>
+                </section>
+
+                <!-- Categories -->
+                <section class="bg-surface-container-low rounded-3xl p-8 border border-outline-variant/30">
+                    <h3 class="font-headline-md text-headline-md mb-6">Categories</h3>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center text-sm font-medium hover:text-primary cursor-pointer transition-colors">
+                            <span>Fashion Trends</span>
+                            <span class="px-2 py-0.5 bg-surface-container-high rounded text-[10px]">12</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm font-medium hover:text-primary cursor-pointer transition-colors">
+                            <span>Styling Tips</span>
+                            <span class="px-2 py-0.5 bg-surface-container-high rounded text-[10px]">08</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm font-medium hover:text-primary cursor-pointer transition-colors">
+                            <span>Minimalist Style</span>
+                            <span class="px-2 py-0.5 bg-surface-container-high rounded text-[10px]">05</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm font-medium hover:text-primary cursor-pointer transition-colors">
+                            <span>Lab-wear & Techwear</span>
+                            <span class="px-2 py-0.5 bg-surface-container-high rounded text-[10px]">03</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Help Banner -->
+                <section class="bg-surface-container-lowest rounded-3xl p-8 border border-outline-variant group cursor-pointer">
+                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">support_agent</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md mb-2">Need help?</h3>
+                    <p class="text-sm text-on-surface-variant mb-6">Our fashion advisor team is always ready to support you 24/7.</p>
+                    <button class="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all">
+                        Chat with AI Advisor
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </button>
+                </section>
+            </div>
+        </div>
+    </main>n>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant mt-stack-lg">
+        <div class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-8">
+            <div class="max-w-xs">
+                <a href="index.html" class="font-display text-headline-md text-secondary opacity-50 block mb-4">Tkart</a>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Elevating the multi-channel shopping experience with academic precision and soft aesthetics.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-stack-lg flex-grow">
+                <div>
+                    <h4 class="font-label-caps text-label-caps mb-4">Explore</h4>
+                    <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Boutiques</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-label-caps text-label-caps mb-4">Company</h4>
+                    <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="font-label-caps text-label-caps mb-4">Connect</h4>
+                    <div class="flex gap-4">
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">language</span></a>
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">alternate_email</span></a>
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">share</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Tkart Marketplace. Academic Modernism Precision.</p>
+            <p class="font-label-caps text-label-caps opacity-50 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+        </div>
+    </footer>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-label-md text-[10px]">Home</span>
+        </button>
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">storefront</span>
+            <span class="font-label-md text-[10px]">Products</span>
+        </button>
+        <button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="font-label-md text-[10px]">Cart</span>
+        </button>
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-label-md text-[10px]">Account</span>
+        </button>
+    </nav>
+
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+</body>
+</html>

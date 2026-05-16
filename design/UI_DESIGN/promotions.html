@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotions & Vouchers | Tkart Marketplace</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#004ac6",
+                        "error": "#ba1a1a",
+                        "on-surface": "#131b2e",
+                        "on-surface-variant": "#434655",
+                        "background": "#faf8ff",
+                        "surface": "#ffffff",
+                        "surface-container": "#eaedff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f7f9ff",
+                        "surface-container-high": "#e1e4f5",
+                        "outline-variant": "#c3c6d7",
+                        "secondary": "#434655",
+                        "success": "#2e7d32",
+                        "warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"],
+                        "body": ["Manrope"],
+                    },
+                    spacing: {
+                        "margin-mobile": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "container-max": "1280px",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #faf8ff;
+            font-family: 'Manrope', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .voucher-card {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+            border: 1px solid #c3c6d7;
+            overflow: hidden;
+        }
+        .voucher-card::before, .voucher-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #faf8ff;
+            border: 1px solid #c3c6d7;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .voucher-card::before { left: -10px; transform: translateY(-50%); }
+        .voucher-card::after { right: -10px; transform: translateY(-50%); }
+
+        .dashed-line {
+            background-image: linear-gradient(to bottom, #c3c6d7 50%, rgba(255,255,255,0) 0%);
+            background-position: right;
+            background-size: 1.5px 8px;
+            background-repeat: repeat-y;
+        }
+
+        .promo-gradient {
+            background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%);
+        }
+
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 74, 198, 0.15);
+        }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium text-on-surface">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-2xl text-primary tracking-tighter font-black" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-primary underline underline-offset-8 decoration-2" href="promotions.html">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="support.html">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for offers and coupons..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+
+                <a href="notifications.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 space-y-16">
+        
+        <!-- Hero Section -->
+        <section class="relative h-[400px] rounded-[2rem] overflow-hidden group shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=2000" alt="Promotion Banner" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/40 to-transparent"></div>
+            <div class="relative h-full flex flex-col justify-center px-12 max-w-2xl space-y-6">
+                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-widest">
+                    Mega Sale Event
+                </div>
+                <a href="campaign_detail.html" class="block group/link">
+                    <h1 class="text-6xl font-black text-white leading-tight tracking-tighter group-hover/link:text-secondary-container transition-colors">Grand Re-Opening <br> Scholarship Deals</h1>
+                </a>
+                <p class="text-white/90 text-lg font-medium leading-relaxed">Save up to 70% on premium electronics, fashion, and academic essentials. Exclusive benefits for verified students.</p>
+                <div class="flex gap-4 pt-2">
+                    <a href="campaign_detail.html" class="bg-white text-primary px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-surface-container-low transition-all shadow-xl flex items-center justify-center">Get Started</a>
+                    <a href="campaign_detail.html" class="bg-transparent border-2 border-white/50 text-white px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all flex items-center justify-center">View Schedule</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Voucher Collection -->
+        <section class="space-y-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight text-on-surface">Voucher Wallet</h2>
+                    <p class="text-sm text-on-surface-variant font-medium">Claim your exclusive discounts before they're gone</p>
+                </div>
+                <button class="text-sm font-bold text-primary flex items-center gap-2 group">
+                    View My Rewards
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Voucher 1 -->
+                <div class="voucher-card rounded-2xl flex shadow-sm group">
+                    <div class="w-1/3 promo-gradient p-6 flex flex-col items-center justify-center text-white relative">
+                        <span class="material-symbols-outlined text-4xl mb-2">local_shipping</span>
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-80">Shipping</p>
+                    </div>
+                    <div class="flex-1 p-6 flex flex-col justify-between border-l dashed-line">
+                        <div>
+                            <h3 class="text-xl font-black text-primary">Free Shipping</h3>
+                            <p class="text-xs text-on-surface-variant font-bold mt-1">Min. Spend ₫150k</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-4">
+                            <div class="space-y-1">
+                                <div class="h-1 w-24 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary" style="width: 85%"></div>
+                                </div>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">85% Used</p>
+                            </div>
+                            <button class="px-5 py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-lg hover:brightness-110 active:scale-95 transition-all">Claim</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voucher 2 -->
+                <div class="voucher-card rounded-2xl flex shadow-sm group border-primary/30 bg-primary/[0.02]">
+                    <div class="w-1/3 bg-on-surface p-6 flex flex-col items-center justify-center text-white relative">
+                        <span class="material-symbols-outlined text-4xl mb-2">confirmation_number</span>
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-80">Discount</p>
+                    </div>
+                    <div class="flex-1 p-6 flex flex-col justify-between border-l dashed-line">
+                        <div>
+                            <h3 class="text-xl font-black text-primary">₫50.000 OFF</h3>
+                            <p class="text-xs text-on-surface-variant font-bold mt-1">For New Students</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-4">
+                            <div class="space-y-1">
+                                <div class="h-1 w-24 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-success" style="width: 20%"></div>
+                                </div>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">20% Used</p>
+                            </div>
+                            <button class="px-5 py-2 bg-on-surface text-white text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-primary active:scale-95 transition-all">Claimed</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voucher 3 -->
+                <div class="voucher-card rounded-2xl flex shadow-sm group">
+                    <div class="w-1/3 bg-error p-6 flex flex-col items-center justify-center text-white relative">
+                        <span class="material-symbols-outlined text-4xl mb-2">sell</span>
+                        <p class="text-[10px] font-black uppercase tracking-widest opacity-80">Cashback</p>
+                    </div>
+                    <div class="flex-1 p-6 flex flex-col justify-between border-l dashed-line">
+                        <div>
+                            <h3 class="text-xl font-black text-primary">15% Cashback</h3>
+                            <p class="text-xs text-on-surface-variant font-bold mt-1">Max ₫100k • All Items</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-4">
+                            <div class="space-y-1">
+                                <div class="h-1 w-24 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary" style="width: 40%"></div>
+                                </div>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">40% Used</p>
+                            </div>
+                            <button class="px-5 py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-lg hover:brightness-110 active:scale-95 transition-all">Claim</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flash Sale -->
+        <section class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white p-8 rounded-[2rem] border border-outline-variant shadow-sm">
+                <div class="flex items-center gap-6">
+                    <div class="size-16 rounded-2xl bg-error/10 flex items-center justify-center text-error">
+                        <span class="material-symbols-outlined text-4xl fill-1 animate-pulse">bolt</span>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black tracking-tighter text-on-surface uppercase">Flash Sale</h2>
+                        <div class="flex items-center gap-4 mt-1">
+                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Ending in</p>
+                            <div class="flex gap-2">
+                                <span class="bg-on-surface text-white px-2 py-1 rounded-md text-xs font-black font-mono">02</span>
+                                <span class="font-black">:</span>
+                                <span class="bg-on-surface text-white px-2 py-1 rounded-md text-xs font-black font-mono">45</span>
+                                <span class="font-black">:</span>
+                                <span class="bg-on-surface text-white px-2 py-1 rounded-md text-xs font-black font-mono">12</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <button class="px-8 py-3 bg-error text-white text-xs font-black uppercase tracking-widest rounded-full shadow-lg shadow-error/20 hover:scale-105 transition-all">Remind Me</button>
+                    <button class="px-8 py-3 border-2 border-outline-variant text-on-surface-variant text-xs font-black uppercase tracking-widest rounded-full hover:bg-surface-container-low transition-all">Next Slot 20:00</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Flash Deal Card 1 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-error text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">-45%</div>
+                    <a href="product_detail.html" class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1546868891-d5b0ba2ad375?auto=format&fit=crop&q=80&w=500" alt="Smartwatch" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </a>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <a href="product_detail.html" class="font-bold text-sm line-clamp-2 leading-snug hover:text-primary transition-colors block mb-2 min-h-[2.5rem]">Elite Scholar Watch v4 | Blood Oxygen & GPS</a>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫850.000</span>
+                                <span class="text-[10px] text-on-surface-variant line-through font-bold">₫1.540.000</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">
+                                    <span>72 Sold</span>
+                                    <span>8 left</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-error" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2-5 placeholders -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-error text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">-30%</div>
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=500" alt="Essentials" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">Minimalist Academic Backpack | Water Resistant</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫420.000</span>
+                                <span class="text-[10px] text-on-surface-variant line-through font-bold">₫600.000</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">
+                                    <span>15 Sold</span>
+                                    <span>25 left</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-error" style="width: 35%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-error text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">-15%</div>
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=500" alt="Audio" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">Focus Wireless ANC Headphones | Obsidian</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫1.200.000</span>
+                                <span class="text-[10px] text-on-surface-variant line-through font-bold">₫1.410.000</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">
+                                    <span>5 Sold</span>
+                                    <span>15 left</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-error" style="width: 25%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-error text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">-50%</div>
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&q=80&w=500" alt="Shoes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">Scholar Step Sneakers | Breathable Tech Fabric</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫550.000</span>
+                                <span class="text-[10px] text-on-surface-variant line-through font-bold">₫1.100.000</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">
+                                    <span>120 Sold</span>
+                                    <span>Full</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-error" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-error text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">-20%</div>
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&q=80&w=500" alt="Watch" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">Analog Precision Watch | Leather Strap</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫920.000</span>
+                                <span class="text-[10px] text-on-surface-variant line-through font-bold">₫1.150.000</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">
+                                    <span>2 Sold</span>
+                                    <span>18 left</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-error" style="width: 10%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ongoing Campaigns -->
+        <section class="space-y-8">
+            <div class="flex items-end justify-between border-b border-outline-variant pb-6">
+                <div class="space-y-1">
+                    <h2 class="text-3xl font-black tracking-tighter text-on-surface">Ongoing Campaigns</h2>
+                    <p class="text-sm text-on-surface-variant font-medium">Discover the biggest events happening right now on Tkart.</p>
+                </div>
+                <a href="#" class="flex items-center gap-2 text-primary font-black uppercase tracking-widest text-[10px] hover:gap-3 transition-all">
+                    View All Events <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Campaign Card 1 -->
+                <a href="campaign_detail.html" class="group relative overflow-hidden rounded-[2rem] bg-surface-container aspect-[16/10] shadow-lg hover:shadow-2xl transition-all cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=1000" alt="Tech Week" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 space-y-3">
+                        <div class="flex items-center gap-2">
+                            <span class="flex items-center gap-1.5 px-2.5 py-1 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded">Active</span>
+                            <span class="flex items-center gap-1.5 px-2.5 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded">
+                                <span class="material-symbols-outlined text-[12px]">visibility</span> 12.4K Views
+                            </span>
+                        </div>
+                        <h3 class="text-2xl font-black text-white leading-tight">University Tech Week: Gadgets & Innovation</h3>
+                        <p class="text-white/70 text-sm font-medium line-clamp-1">Up to 40% off on premium hardware and academic tools.</p>
+                    </div>
+                </a>
+
+                <!-- Campaign Card 2 -->
+                <a href="campaign_detail.html" class="group relative overflow-hidden rounded-[2rem] bg-surface-container aspect-[16/10] shadow-lg hover:shadow-2xl transition-all cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=1000" alt="Sustainable Fashion" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 space-y-3">
+                        <div class="flex items-center gap-2">
+                            <span class="flex items-center gap-1.5 px-2.5 py-1 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded">Active</span>
+                            <span class="flex items-center gap-1.5 px-2.5 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded">
+                                <span class="material-symbols-outlined text-[12px]">visibility</span> 8.9K Views
+                            </span>
+                        </div>
+                        <h3 class="text-2xl font-black text-white leading-tight">Eco-Style Collective: Sustainable Trends</h3>
+                        <p class="text-white/70 text-sm font-medium line-clamp-1">Curated fashion from local artisans with sustainable ethics.</p>
+                    </div>
+                </a>
+
+                <!-- Campaign Card 3 -->
+                <a href="campaign_detail.html" class="group relative overflow-hidden rounded-[2rem] bg-surface-container aspect-[16/10] shadow-lg hover:shadow-2xl transition-all cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1000" alt="Back to School" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 space-y-3">
+                        <div class="flex items-center gap-2">
+                            <span class="flex items-center gap-1.5 px-2.5 py-1 bg-secondary text-white text-[10px] font-black uppercase tracking-widest rounded">Ending Soon</span>
+                            <span class="flex items-center gap-1.5 px-2.5 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded">
+                                <span class="material-symbols-outlined text-[12px]">visibility</span> 25.1K Views
+                            </span>
+                        </div>
+                        <h3 class="text-2xl font-black text-white leading-tight">Back-to-Campus Essential Bundles</h3>
+                        <p class="text-white/70 text-sm font-medium line-clamp-1">Everything you need for the new semester in one place.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Exclusive Tiers -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="promo-gradient rounded-[2.5rem] p-12 text-white relative overflow-hidden group shadow-2xl">
+                <div class="absolute -right-12 -bottom-12 size-64 bg-white/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-1000"></div>
+                <div class="relative space-y-6">
+                    <h2 class="text-4xl font-black tracking-tighter">Scholar Elite Perks</h2>
+                    <p class="text-white/80 font-medium text-lg leading-relaxed">Verified students from partner universities get an additional 15% off across all categories and early access to drops.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm font-bold"><span class="material-symbols-outlined text-success">check_circle</span> Instant .edu Verification</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><span class="material-symbols-outlined text-success">check_circle</span> Unlimited Free Shipping</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><span class="material-symbols-outlined text-success">check_circle</span> Exclusive Birthday Rewards</li>
+                    </ul>
+                    <button class="bg-white text-primary px-8 py-4 rounded-full font-black uppercase tracking-widest text-[10px] hover:scale-105 transition-all shadow-xl">Join Elite Tier</button>
+                </div>
+            </div>
+
+            <div class="bg-on-surface rounded-[2.5rem] p-12 text-white relative overflow-hidden group shadow-2xl">
+                <div class="absolute -right-12 -bottom-12 size-64 bg-primary/20 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-1000"></div>
+                <div class="relative space-y-6">
+                    <h2 class="text-4xl font-black tracking-tighter">New Vendor Launch</h2>
+                    <p class="text-white/80 font-medium text-lg leading-relaxed">Discover 50+ new boutiques joining Tkart this month. Enjoy introductory pricing on unique artisanal collections.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm font-bold"><span class="material-symbols-outlined text-primary">verified</span> Authentic Local Crafts</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><span class="material-symbols-outlined text-primary">verified</span> Direct-to-Consumer Prices</li>
+                        <li class="flex items-center gap-3 text-sm font-bold"><span class="material-symbols-outlined text-primary">verified</span> Sustainable Packaging</li>
+                    </ul>
+                    <button class="bg-primary text-white px-8 py-4 rounded-full font-black uppercase tracking-widest text-[10px] hover:scale-105 transition-all shadow-xl shadow-primary/30">Browse New Stores</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant mt-24">
+        <div class="w-full py-12 px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-12">
+            <div class="max-w-xs space-y-6">
+                <a href="homepage.html" class="font-display text-headline-md text-secondary opacity-50 tracking-tight font-extrabold block">Tkart</a>
+                <p class="text-sm text-on-surface-variant leading-relaxed">Elevating the multi-vendor experience with academic precision and soft aesthetics.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-12 flex-grow">
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-on-surface">Explore</h4>
+                    <ul class="space-y-3 text-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="support.html">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-on-surface">Company</h4>
+                    <ul class="space-y-3 text-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 md:col-span-1 space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-on-surface">Connect</h4>
+                    <div class="flex gap-4">
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">language</span></a>
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">alternate_email</span></a>
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">share</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-on-surface-variant">© 2024 Tkart Marketplace.</p>
+            <p class="font-bold opacity-30 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+        </div>
+    </footer>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+        <a href="homepage.html" class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">home</span>
+            <span class="text-[10px] font-bold">Home</span>
+        </a>
+        <a href="search.html" class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">storefront</span>
+            <span class="text-[10px] font-bold">Shop</span>
+        </a>
+        <a href="shopping_cart.html" class="flex flex-col items-center justify-center bg-primary text-white rounded-full px-4 py-1">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="text-[10px] font-bold">Cart</span>
+        </a>
+        <a href="user_profile.html" class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">person</span>
+            <span class="text-[10px] font-bold">Account</span>
+        </a>
+    </nav>
+
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50 pb-20 md:pb-0">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+</body>
+</html>

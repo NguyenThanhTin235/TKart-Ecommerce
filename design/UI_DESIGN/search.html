@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Search Results - Tkart</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#eeefff",
+                        "primary": "#004ac6",
+                        "tertiary": "#515659",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary-container": "#edf1f5",
+                        "inverse-primary": "#b4c5ff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#131b2e",
+                        "surface-container-low": "#f2f3ff",
+                        "tertiary-fixed": "#dfe3e7",
+                        "on-tertiary-fixed": "#171c1f",
+                        "on-background": "#131b2e",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c3c7cb",
+                        "surface": "#faf8ff",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-surface-variant": "#434655",
+                        "surface-variant": "#dae2fd",
+                        "outline-variant": "#c3c6d7",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "primary-container": "#2563eb",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "outline": "#737686",
+                        "inverse-surface": "#283044",
+                        "surface-dim": "#d2d9f4",
+                        "surface-container-highest": "#dae2fd",
+                        "secondary": "#505f76",
+                        "surface-container": "#eaedff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "background": "#faf8ff",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-container-high": "#e2e7ff",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#696e71",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary-fixed-variant": "#43474b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .filter-section:not(:last-child) { border-bottom: 1px solid #c3c6d7; padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium text-on-surface">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-2xl text-primary tracking-tighter font-black" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-primary underline underline-offset-8 decoration-2" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="promotions.html">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="support.html">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for academic collections..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all" value="White Shirt">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+
+                <a href="notifications.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-stack-lg">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+            
+            <!-- Left Sidebar: Filters -->
+            <aside class="lg:col-span-3 space-y-stack-lg">
+                <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-6 sticky top-24">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-headline-md text-headline-md">Filters</h2>
+                        <button class="text-xs font-bold text-primary hover:underline uppercase tracking-tighter">Clear All</button>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="filter-section">
+                        <h3 class="font-label-caps text-label-caps text-secondary mb-4">Categories</h3>
+                        <div class="space-y-3">
+                            <details open class="group">
+                                <summary class="flex justify-between items-center cursor-pointer list-none text-sm font-semibold text-on-surface">
+                                    Academic Essentials
+                                    <span class="material-symbols-outlined text-sm group-open:rotate-180 transition-transform">expand_more</span>
+                                </summary>
+                                <div class="pl-4 mt-2 space-y-2 text-sm text-on-surface-variant">
+                                    <p class="hover:text-primary cursor-pointer transition-colors">Digital Stationery</p>
+                                    <p class="text-primary font-bold cursor-pointer">Research Materials</p>
+                                    <p class="hover:text-primary cursor-pointer transition-colors">Archival Supplies</p>
+                                </div>
+                            </details>
+                            <div class="flex justify-between items-center text-sm font-semibold text-on-surface cursor-pointer hover:text-primary transition-colors">
+                                Apparel & Lab
+                                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm font-semibold text-on-surface cursor-pointer hover:text-primary transition-colors">
+                                Precision Tools
+                                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="filter-section">
+                        <h3 class="font-label-caps text-label-caps text-secondary mb-4">Price Range (VND)</h3>
+                        <div class="flex gap-2 mb-4">
+                            <div class="flex-1">
+                                <input type="number" placeholder="Min" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2 text-xs outline-none focus:border-primary transition-colors">
+                            </div>
+                            <div class="flex-1">
+                                <input type="number" placeholder="Max" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2 text-xs outline-none focus:border-primary transition-colors">
+                            </div>
+                        </div>
+                        <div class="relative h-1 bg-surface-container-high rounded-full overflow-hidden">
+                            <div class="absolute left-0 right-1/4 h-full bg-primary"></div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences -->
+                    <div class="filter-section">
+                        <h3 class="font-label-caps text-label-caps text-secondary mb-4">Preferences</h3>
+                        <div class="space-y-4">
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" checked class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary/20 transition-all">
+                                <span class="text-sm font-medium group-hover:text-primary transition-colors">4.0+ <span class="material-symbols-outlined text-[14px] fill-current text-primary">star</span></span>
+                            </label>
+                            
+                            <div>
+                                <p class="text-xs font-bold text-on-surface-variant mb-2">Available Colors</p>
+                                <div class="flex gap-2">
+                                    <button class="w-6 h-6 rounded-full bg-[#131b2e] ring-2 ring-primary ring-offset-2 transition-all"></button>
+                                    <button class="w-6 h-6 rounded-full bg-white border border-outline-variant hover:scale-110 transition-all"></button>
+                                    <button class="w-6 h-6 rounded-full bg-primary hover:scale-110 transition-all"></button>
+                                    <button class="w-6 h-6 rounded-full bg-secondary hover:scale-110 transition-all"></button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="text-xs font-bold text-on-surface-variant mb-2">Dimensions</p>
+                                <div class="flex gap-2">
+                                    <button class="px-3 py-1.5 rounded-lg border border-outline-variant text-xs font-bold hover:bg-surface-container-low transition-all">Compact</button>
+                                    <button class="px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold shadow-md">Standard</button>
+                                    <button class="px-3 py-1.5 rounded-lg border border-outline-variant text-xs font-bold hover:bg-surface-container-low transition-all">Large</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Content: Results -->
+            <div class="lg:col-span-9 space-y-stack-lg">
+                
+                <!-- Results Header -->
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+                    <div>
+                        <h1 class="font-headline-lg text-headline-lg text-on-surface">Curated Research Goods</h1>
+                        <p class="text-sm text-on-surface-variant mt-1">Showing 1-24 of 1,200 products</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs font-bold text-secondary uppercase tracking-widest">Sort By</span>
+                        <select class="bg-surface-container-lowest border border-outline-variant rounded-xl py-2 px-4 text-sm font-semibold outline-none focus:border-primary transition-all cursor-pointer shadow-sm">
+                            <option>Newest Arrivals</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Top Rated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                    
+                    <!-- Product Card 1 -->
+                    <div class="group bg-surface-container-lowest rounded-2xl border border-transparent hover:border-outline-variant hover:shadow-xl transition-all duration-500 overflow-hidden relative flex flex-col h-full">
+                        <button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-secondary hover:text-error hover:bg-white transition-all shadow-sm">
+                            <span class="material-symbols-outlined text-[20px]">favorite</span>
+                        </button>
+                        <div class="aspect-square bg-surface-container-low relative overflow-hidden">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGzVa9At49WgJWv_A6XKpu1BWzQjW6ONN6XRoN8yuESObD3Io9cqSVPdtammFWPFyejpBEPMNK7eF0Cica70FEHuDsYmEfmwmAASg-okyTSC5kVeQf9lka5sSmcmwg6q1L5LINyc1pZNP7n5-vfMnEGnD9KBqCBjyYZZfScIew3wjLIWl-QhZ9eg3ul7lQqkXozlzBmlv5lkny9Gbo-KJzEInDyQckPaq8e1tc9bN3CLUBMnFRRNt98jb2g6ilAzZzNGP4MWEiQjc" alt="Pen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-primary text-white text-[10px] font-extrabold px-3 py-1 rounded-full shadow-lg uppercase tracking-widest">Best Seller</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <p class="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">Stationery & Tools</p>
+                            <h3 class="font-headline-md text-headline-md group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">Academic Fountain Pen V.2</h3>
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="flex items-center text-primary">
+                                    <span class="material-symbols-outlined text-[14px] fill-current">star</span>
+                                    <span class="text-xs font-bold ml-1">4.9</span>
+                                </div>
+                                <span class="text-xs text-on-surface-variant">(128 reviews)</span>
+                            </div>
+                            <div class="flex items-center justify-between pt-4 border-t border-outline-variant/30 mt-auto">
+                                <span class="font-headline-md text-headline-md text-primary">1.250.000₫</span>
+                                <button class="w-10 h-10 bg-surface-container-high text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="group bg-surface-container-lowest rounded-2xl border border-transparent hover:border-outline-variant hover:shadow-xl transition-all duration-500 overflow-hidden relative flex flex-col h-full">
+                        <button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-secondary hover:text-error hover:bg-white transition-all shadow-sm">
+                            <span class="material-symbols-outlined text-[20px]">favorite</span>
+                        </button>
+                        <div class="aspect-square bg-surface-container-low relative overflow-hidden">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBndMnQskSz3dRztn6UfeTfN_94u1DmY1AbEv4sBBhf8J0XRb7dU-XICFvaz9KfKkxjVduD247GSTLhsya4f_O7JJgBORd3mfxftXTO8yhaJZqUs7EUFmH-O-5L6xEOfw7MjnW07KOX9IIsZvykoUH7Y651Jy42emV8Vk2KbgmIzlpsDgRRbiz3pQHIwJusz8nk6CGYdEEr5I7mcfKU2_76sP8hCbN6QqSkqIs2mngJ2cNcIb8F23gWT-hsadu4PE7hL2Xt5KUxQrA" alt="Robot" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <p class="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">Precision Lab</p>
+                            <h3 class="font-headline-md text-headline-md group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">Desktop Robotic Arm Module</h3>
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="flex items-center text-primary">
+                                    <span class="material-symbols-outlined text-[14px] fill-current">star</span>
+                                    <span class="text-xs font-bold ml-1">4.7</span>
+                                </div>
+                                <span class="text-xs text-on-surface-variant">(45 reviews)</span>
+                            </div>
+                            <div class="flex items-center justify-between pt-4 border-t border-outline-variant/30 mt-auto">
+                                <span class="font-headline-md text-headline-md text-primary">8.990.000₫</span>
+                                <button class="w-10 h-10 bg-surface-container-high text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="group bg-surface-container-lowest rounded-2xl border border-transparent hover:border-outline-variant hover:shadow-xl transition-all duration-500 overflow-hidden relative flex flex-col h-full">
+                        <button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-secondary hover:text-error hover:bg-white transition-all shadow-sm">
+                            <span class="material-symbols-outlined text-[20px]">favorite</span>
+                        </button>
+                        <div class="aspect-square bg-surface-container-low relative overflow-hidden">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmij0m5ZCiJQPoL_Wt2djJesGbtpIYAS_wjDzRblCvbUMI27g_GtvqI19WmSsFT5oFDc44drZut2hv0euTEFvFhY8N9JxcFjwwFv58MFeOectehEN3UdJFx49CAN8dsruSv9FeRnz8h9DQ16skeMSq4D7dXdLlSwKySuXOphE274cwSfEw3-9Yui-7O8ViqLYks4veOPMBBZC_hxUoBx-VXfvld2qtgc2VjISslT7_zc44wPPtVYhzVwPyizJndJhGXtJEf3EumKI" alt="Coat" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-4 left-4">
+                                <span class="bg-[#131b2e] text-white text-[10px] font-extrabold px-3 py-1 rounded-full shadow-lg uppercase tracking-widest">New Release</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <p class="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">Apparel</p>
+                            <h3 class="font-headline-md text-headline-md group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">Tailored Research Coat</h3>
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="flex items-center text-primary">
+                                    <span class="material-symbols-outlined text-[14px] fill-current">star</span>
+                                    <span class="text-xs font-bold ml-1">5.0</span>
+                                </div>
+                                <span class="text-xs text-on-surface-variant">(12 reviews)</span>
+                            </div>
+                            <div class="flex items-center justify-between pt-4 border-t border-outline-variant/30 mt-auto">
+                                <span class="font-headline-md text-headline-md text-primary">2.450.000₫</span>
+                                <button class="w-10 h-10 bg-surface-container-high text-primary rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Membership Banner -->
+                <section class="bg-surface-container-low rounded-3xl overflow-hidden relative border border-outline-variant/30 group">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-8 md:p-12">
+                        <div class="md:col-span-7 space-y-6">
+                            <span class="bg-primary text-white text-[10px] font-extrabold px-3 py-1 rounded-full shadow-lg uppercase tracking-widest">Membership Offer</span>
+                            <h2 class="font-display text-headline-lg text-primary">Academic Premium Membership</h2>
+                            <p class="text-on-surface-variant text-sm leading-relaxed max-w-md">
+                                Unlock wholesale pricing, early access to rare archival collections, and priority lab equipment calibration services.
+                            </p>
+                            <button class="bg-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-primary-container transition-all shadow-xl">
+                                Join the Institute
+                            </button>
+                        </div>
+                        <div class="md:col-span-5 relative hidden md:block">
+                            <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+                                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=600" alt="Office" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pagination -->
+                <div class="flex justify-center items-center gap-2 pt-8">
+                    <button class="w-10 h-10 rounded-xl border border-outline-variant flex items-center justify-center hover:bg-surface-container-low transition-all">
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </button>
+                    <button class="w-10 h-10 rounded-xl bg-primary text-white font-bold flex items-center justify-center shadow-md">1</button>
+                    <button class="w-10 h-10 rounded-xl border border-outline-variant font-bold flex items-center justify-center hover:bg-surface-container-low transition-all">2</button>
+                    <button class="w-10 h-10 rounded-xl border border-outline-variant font-bold flex items-center justify-center hover:bg-surface-container-low transition-all">3</button>
+                    <span class="px-2 opacity-50">...</span>
+                    <button class="w-10 h-10 rounded-xl border border-outline-variant font-bold flex items-center justify-center hover:bg-surface-container-low transition-all">12</button>
+                    <button class="w-10 h-10 rounded-xl border border-outline-variant flex items-center justify-center hover:bg-surface-container-low transition-all">
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant mt-stack-lg">
+        <div class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-8">
+            <div class="max-w-xs">
+                <a href="index.html" class="font-display text-headline-md text-secondary opacity-50 block mb-4">Tkart</a>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Elevating the multi-channel shopping experience with academic precision and soft aesthetics.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-stack-lg flex-grow">
+                <div>
+                    <h4 class="font-label-caps text-label-caps mb-4">Explore</h4>
+                    <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Boutiques</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-label-caps text-label-caps mb-4">Company</h4>
+                    <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="font-label-caps text-label-caps mb-4">Connect</h4>
+                    <div class="flex gap-4">
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">language</span></a>
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">alternate_email</span></a>
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">share</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Tkart Marketplace. Academic Modernism Precision.</p>
+            <p class="font-label-caps text-label-caps opacity-50 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+        </div>
+    </footer>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-label-md text-[10px]">Home</span>
+        </button>
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">storefront</span>
+            <span class="font-label-md text-[10px]">Products</span>
+        </button>
+        <button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="font-label-md text-[10px]">Cart</span>
+        </button>
+        <button class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-label-md text-[10px]">Account</span>
+        </button>
+    </nav>
+
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+</body>
+</html>

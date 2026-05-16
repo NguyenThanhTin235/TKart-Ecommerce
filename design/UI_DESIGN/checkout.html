@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout - Tkart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#eeefff",
+                        "primary": "#004ac6",
+                        "tertiary": "#515659",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary-container": "#edf1f5",
+                        "inverse-primary": "#b4c5ff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#131b2e",
+                        "surface-container-low": "#f2f3ff",
+                        "tertiary-fixed": "#dfe3e7",
+                        "on-tertiary-fixed": "#171c1f",
+                        "on-background": "#131b2e",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c3c7cb",
+                        "surface": "#faf8ff",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-surface-variant": "#434655",
+                        "surface-variant": "#dae2fd",
+                        "outline-variant": "#c3c6d7",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "primary-container": "#2563eb",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "outline": "#737686",
+                        "inverse-surface": "#283044",
+                        "surface-dim": "#d2d9f4",
+                        "surface-container-highest": "#dae2fd",
+                        "secondary": "#505f76",
+                        "surface-container": "#eaedff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "background": "#faf8ff",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-container-high": "#e2e7ff",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#696e71",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary-fixed-variant": "#43474b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-2xl text-primary tracking-tighter font-black" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="#">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="#">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for academic collections..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+
+                <a href="notifications.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-stack-lg">
+<h1 class="font-headline-lg text-headline-lg mb-stack-lg">Checkout</h1>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Checkout Details -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Shipping Address Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-stack-lg border border-transparent hover:border-outline-variant transition-colors">
+<div class="flex items-center justify-between mb-stack-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<h2 class="font-headline-md text-headline-md">Shipping Address</h2>
+</div>
+<button class="text-primary font-label-md text-label-md hover:underline">Change</button>
+</div>
+<div class="space-y-1">
+                    <p class="font-headline-md text-headline-md">John Doe | 0987 654 321</p>
+<p class="text-on-surface-variant font-body-sm text-body-sm">No. 1, Vo Van Ngan Street, Linh Chieu Ward, Thu Duc City, Ho Chi Minh City</p>
+<span class="inline-block mt-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md">Default</span>
+</div>
+</section>
+<!-- Order Review Grouped by Shop -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] overflow-hidden">
+<div class="p-stack-md border-b border-outline-variant flex items-center gap-2 bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary" data-icon="store">store</span>
+<h3 class="font-headline-md text-headline-md">TechZone Official Store</h3>
+</div>
+<div class="p-stack-lg space-y-stack-md">
+<div class="flex gap-4">
+<img alt="Smart Watch" class="w-24 h-24 object-cover rounded-lg border border-outline-variant" data-alt="A premium, sleek silver smartwatch with a black silicone band resting on a polished white marble surface. The lighting is soft and diffused, highlighting the elegant metallic finish and high-resolution digital display. The overall aesthetic is minimalist, modern, and high-end, fitting a professional academic modernist UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBndMnQskSz3dRztn6UfeTfN_94u1DmY1AbEv4sBBhf8J0XRb7dU-XICFvaz9KfKkxjVduD247GSTLhsya4f_O7JJgBORd3mfxftXTO8yhaJZqUs7EUFmH-O-5L6xEOfw7MjnW07KOX9IIsZvykoUH7Y651Jy42emV8Vk2KbgmIzlpsDgRRbiz3pQHIwJusz8nk6CGYdEEr5I7mcfKU2_76sP8hCbN6QqSkqIs2mngJ2cNcIb8F23gWT-hsadu4PE7hL2Xt5KUxQrA"/>
+<div class="flex-grow">
+<h4 class="font-headline-md text-headline-md mb-1">Apple Watch Series 9 GPS 45mm</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-2">Color: Midnight, Size: 45mm</p>
+<div class="flex justify-between items-center">
+<p class="font-headline-md text-headline-md text-primary">10.490.000đ</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">x1</p>
+</div>
+</div>
+</div>
+<div class="flex gap-4 border-t border-outline-variant pt-stack-md">
+<img alt="Headphones" class="w-24 h-24 object-cover rounded-lg border border-outline-variant" data-alt="Modern studio headphones with a deep blue metallic finish and plush grey ear cushions. The product is photographed in a high-key studio setting with subtle ambient shadows and a crisp, clean background. The aesthetic is professional and technologically advanced, emphasizing industrial design precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqQnyJicB_1n6s1HS9IIfYhtS-sShBe63jP3XMG6KnN2RkErwXYbp-Y6ISvUJixCaNOuUK3X8SOYdS3r9V2Grxd1pnod4W7kdH6_4WW9OGsqHWhcIr9MKz14HQGA6uAyMfXQvaWfgTrHRwohXnb0VnX_Om9lzNmU0TgJetXY1BiDirckfQj9dDdsySgQ7j3Lmm3RdqSj0em5x8maiSLes2pL8y6FmV85XOBUK7t1q7jifx5XT11EGZ7Wlroq2putBnvKMcYAGnuVs"/>
+<div class="flex-grow">
+<h4 class="font-headline-md text-headline-md mb-1">Sony WH-1000XM5 Headphones</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-2">Color: Silver</p>
+<div class="flex justify-between items-center">
+<p class="font-headline-md text-headline-md text-primary">8.290.000đ</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">x1</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-stack-md bg-surface-container-low flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Shipping: Express</span>
+<span class="font-headline-md text-headline-md">35.000đ</span>
+</div>
+</section>
+<!-- Payment Methods -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-stack-lg">
+<h2 class="font-headline-md text-headline-md mb-stack-md">Payment Method</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md">
+<label class="relative flex flex-col items-center justify-center p-stack-md border-2 border-primary bg-surface-container-low rounded-xl cursor-pointer group transition-all">
+<input checked="" class="sr-only" name="payment" type="radio"/>
+<span class="material-symbols-outlined text-primary mb-2" data-icon="account_balance">account_balance</span>
+<span class="font-label-md text-label-md text-primary">VnPay</span>
+<div class="absolute top-2 right-2">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</label>
+<label class="relative flex flex-col items-center justify-center p-stack-md border-2 border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-low group transition-all">
+<input class="sr-only" name="payment" type="radio"/>
+<span class="material-symbols-outlined text-on-surface-variant mb-2" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-md text-label-md text-on-surface-variant">MoMo Wallet</span>
+</label>
+<label class="relative flex flex-col items-center justify-center p-stack-md border-2 border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-low group transition-all">
+<input class="sr-only" name="payment" type="radio"/>
+<span class="material-symbols-outlined text-on-surface-variant mb-2" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md text-on-surface-variant">COD</span>
+</label>
+</div>
+</section>
+</div>
+<!-- Right Column: Summary -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Voucher & Coins Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-stack-lg">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="confirmation_number">confirmation_number</span>
+<h2 class="font-headline-md text-headline-md">Promotion</h2>
+</div>
+<div class="flex gap-2 mb-stack-lg">
+<input class="flex-grow bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Enter voucher code" type="text"/>
+<button class="bg-primary text-white px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-colors">Apply</button>
+</div>
+<div class="flex items-center justify-between pt-stack-md border-t border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="monetization_on">monetization_on</span>
+<span class="font-body-sm text-body-sm">Use 5,000 Coins</span>
+</div>
+<label class="inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="relative w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</section>
+<!-- Order Calculation Breakdown -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-stack-lg">
+<h2 class="font-headline-md text-headline-md mb-stack-md">Order Summary</h2>
+<div class="space-y-stack-sm mb-stack-lg">
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Subtotal (2 items)</span>
+<span>18.780.000đ</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Shipping Fee</span>
+<span>35.000đ</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Voucher Discount</span>
+<span class="text-error">-100.000đ</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Coins Used</span>
+<span class="text-error">-5.000đ</span>
+</div>
+<div class="flex justify-between items-center pt-stack-md border-t border-outline-variant mt-2">
+<span class="font-headline-md text-headline-md">Total</span>
+<span class="font-headline-lg text-headline-lg text-primary">18.710.000đ</span>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-headline-md text-headline-md hover:opacity-90 transition-all active:scale-[0.98]">
+                        Place Order Now
+                    </button>
+<p class="text-center font-label-md text-label-md text-on-surface-variant mt-stack-md">By clicking "Place Order", you agree to the Tkart Terms of Service</p>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-outline-variant mt-stack-lg">
+<div class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-8">
+<div class="max-w-xs">
+<a href="index.html" class="font-display text-headline-md text-secondary opacity-50 block mb-4">Tkart</a>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Elevating the multi-channel shopping experience with academic precision and soft aesthetics.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-stack-lg flex-grow">
+<div>
+<h4 class="font-label-caps text-label-caps mb-4">Explore</h4>
+<ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+<li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+<li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+<li><a class="hover:text-primary transition-all" href="#">Boutiques</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps mb-4">Company</h4>
+<ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+<li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+<li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="col-span-2 md:col-span-1">
+<h4 class="font-label-caps text-label-caps mb-4">Connect</h4>
+<div class="flex gap-4">
+<a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">language</span></a>
+<a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">alternate_email</span></a>
+<a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">share</span></a>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Tkart Marketplace. Academic Modernism Precision.</p>
+<p class="font-label-caps text-label-caps opacity-50 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+<button class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-md text-[10px]">Products</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-md text-[10px]">Cart</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-[10px]">Account</span>
+</button>
+</nav>
+
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+</body></html>

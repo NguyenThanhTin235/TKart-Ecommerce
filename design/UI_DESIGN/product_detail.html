@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Precision Timepiece V.1 - Tkart</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#eeefff",
+                        "primary": "#004ac6",
+                        "tertiary": "#515659",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary-container": "#edf1f5",
+                        "inverse-primary": "#b4c5ff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#131b2e",
+                        "surface-container-low": "#f2f3ff",
+                        "tertiary-fixed": "#dfe3e7",
+                        "on-tertiary-fixed": "#171c1f",
+                        "on-background": "#131b2e",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c3c7cb",
+                        "surface": "#faf8ff",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-surface-variant": "#434655",
+                        "surface-variant": "#dae2fd",
+                        "outline-variant": "#c3c6d7",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#54647a",
+                        "primary-container": "#2563eb",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "outline": "#737686",
+                        "inverse-surface": "#283044",
+                        "surface-dim": "#d2d9f4",
+                        "surface-container-highest": "#dae2fd",
+                        "secondary": "#505f76",
+                        "surface-container": "#eaedff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "background": "#faf8ff",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-container-high": "#e2e7ff",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#696e71",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary-fixed-variant": "#43474b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        html { scroll-behavior: smooth; scroll-padding-top: 150px; }
+        
+        .nav-link-active {
+            color: var(--primary) !important;
+            border-bottom: 2px solid var(--primary);
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .image-zoom:hover img { transform: scale(1.5); cursor: zoom-in; }
+        .tab-active { border-bottom: 2px solid #004ac6; color: #004ac6; font-weight: 700; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium text-on-surface">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-2xl text-primary tracking-tighter font-black" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-primary underline underline-offset-8 decoration-2" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="#">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="#">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for academic collections..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+
+                <a href="notifications.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-stack-lg">
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-sm text-on-surface-variant mb-8 overflow-x-auto whitespace-nowrap pb-2">
+            <a href="index.html" class="hover:text-primary">Home</a>
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            <a href="search.html" class="hover:text-primary">Precision Lab</a>
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            <span class="text-on-surface font-semibold">Precision Timepiece V.1</span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+            <!-- Left: Gallery -->
+            <div class="lg:col-span-7 space-y-4">
+                <div class="image-zoom relative aspect-square bg-surface-container-lowest rounded-3xl overflow-hidden border border-outline-variant/30 group">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGzVa9At49WgJWv_A6XKpu1BWzQjW6ONN6XRoN8yuESObD3Io9cqSVPdtammFWPFyejpBEPMNK7eF0Cica70FEHuDsYmEfmwmAASg-okyTSC5kVeQf9lka5sSmcmwg6q1L5LINyc1pZNP7n5-vfMnEGnD9KBqCBjyYZZfScIew3wjLIWl-QhZ9eg3ul7lQqkXozlzBmlv5lkny9Gbo-KJzEInDyQckPaq8e1tc9bN3CLUBMnFRRNt98jb2g6ilAzZzNGP4MWEiQjc" alt="Main Product" class="w-full h-full object-cover transition-transform duration-500">
+                    <div class="absolute top-6 left-6 flex flex-col gap-2">
+                        <span class="bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg uppercase tracking-widest">In Stock</span>
+                        <span class="bg-[#131b2e] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg uppercase tracking-widest">Authentic</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-4">
+                    <button class="aspect-square rounded-2xl overflow-hidden border-2 border-primary">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGzVa9At49WgJWv_A6XKpu1BWzQjW6ONN6XRoN8yuESObD3Io9cqSVPdtammFWPFyejpBEPMNK7eF0Cica70FEHuDsYmEfmwmAASg-okyTSC5kVeQf9lka5sSmcmwg6q1L5LINyc1pZNP7n5-vfMnEGnD9KBqCBjyYZZfScIew3wjLIWl-QhZ9eg3ul7lQqkXozlzBmlv5lkny9Gbo-KJzEInDyQckPaq8e1tc9bN3CLUBMnFRRNt98jb2g6ilAzZzNGP4MWEiQjc" class="w-full h-full object-cover">
+                    </button>
+                    <button class="aspect-square rounded-2xl overflow-hidden border border-outline-variant hover:border-primary transition-colors opacity-60 hover:opacity-100">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBndMnQskSz3dRztn6UfeTfN_94u1DmY1AbEv4sBBhf8J0XRb7dU-XICFvaz9KfKkxjVduD247GSTLhsya4f_O7JJgBORd3mfxftXTO8yhaJZqUs7EUFmH-O-5L6xEOfw7MjnW07KOX9IIsZvykoUH7Y651Jy42emV8Vk2KbgmIzlpsDgRRbiz3pQHIwJusz8nk6CGYdEEr5I7mcfKU2_76sP8hCbN6QqSkqIs2mngJ2cNcIb8F23gWT-hsadu4PE7hL2Xt5KUxQrA" class="w-full h-full object-cover">
+                    </button>
+                    <button class="aspect-square rounded-2xl overflow-hidden border border-outline-variant hover:border-primary transition-colors opacity-60 hover:opacity-100">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqQnyJicB_1n6s1HS9IIfYhtS-sShBe63jP3XMG6KnN2RkErwXYbp-Y6ISvUJixCaNOuUK3X8SOYdS3r9V2Grxd1pnod4W7kdH6_4WW9OGsqHWhcIr9MKz14HQGA6uAyMfXQvaWfgTrHRwohXnb0VnX_Om9lzNmU0TgJetXY1BiDirckfQj9dDdsySgQ7j3Lmm3RdqSj0em5x8maiSLes2pL8y6FmV85XOBUK7t1q7jifx5XT11EGZ7Wlroq2putBnvKMcYAGnuVs" class="w-full h-full object-cover">
+                    </button>
+                    <div class="aspect-square rounded-2xl overflow-hidden border border-outline-variant bg-surface-container-low flex items-center justify-center text-on-surface-variant">
+                        <span class="material-symbols-outlined">more_horiz</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Info -->
+            <div class="lg:col-span-5 space-y-8">
+                <div class="space-y-2">
+                    <p class="font-label-caps text-label-caps text-primary tracking-widest uppercase">TechZone Official Store</p>
+                    <h1 class="font-display text-headline-lg text-on-surface leading-tight">Precision Timepiece V.1 - Silver Edition</h1>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1 text-secondary">
+                            <span class="material-symbols-outlined text-[18px] fill-current" style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="font-bold">4.9</span>
+                        </div>
+                        <span class="text-outline">|</span>
+                        <span class="text-body-sm text-on-surface-variant underline cursor-pointer">128 Reviews</span>
+                        <span class="text-outline">|</span>
+                        <span class="text-body-sm text-on-surface-variant">2.4k Sold</span>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-low p-6 rounded-2xl space-y-3">
+                    <div class="flex items-baseline flex-wrap gap-x-4 gap-y-2">
+                        <p class="font-display text-4xl text-primary font-extrabold">12.500.000₫</p>
+                        <div class="flex items-center gap-3">
+                            <p class="font-body-sm text-on-surface-variant line-through">15.000.000₫</p>
+                            <span class="bg-error text-white text-[10px] font-bold px-2 py-1 rounded-full">-20%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-primary text-sm font-semibold">
+                        <span class="material-symbols-outlined text-[18px]">electric_bolt</span>
+                        Flash Sale ends in 02:45:12
+                    </div>
+                </div>
+
+                <!-- Variations -->
+                <div class="space-y-6">
+                    <div class="space-y-3">
+                        <p class="text-sm font-bold uppercase tracking-wider text-secondary">Color: <span class="text-on-surface">Brushed Silver</span></p>
+                        <div class="flex gap-3">
+                            <button class="w-12 h-12 rounded-full border-2 border-primary p-0.5 bg-white shadow-md">
+                                <div class="w-full h-full rounded-full bg-[#E5E7EB]"></div>
+                            </button>
+                            <button class="w-12 h-12 rounded-full border border-outline-variant p-0.5 bg-white hover:border-primary transition-colors">
+                                <div class="w-full h-full rounded-full bg-[#131B2E]"></div>
+                            </button>
+                            <button class="w-12 h-12 rounded-full border border-outline-variant p-0.5 bg-white hover:border-primary transition-colors">
+                                <div class="w-full h-full rounded-full bg-[#3B82F6]"></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <p class="text-sm font-bold uppercase tracking-wider text-secondary">Size: <span class="text-on-surface">42mm</span></p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-6 py-2 rounded-xl border border-outline-variant hover:border-primary hover:text-primary transition-all font-bold text-sm">38mm</button>
+                            <button class="px-6 py-2 rounded-xl border-2 border-primary text-primary bg-primary/5 transition-all font-bold text-sm">42mm</button>
+                            <button class="px-6 py-2 rounded-xl border border-outline-variant hover:border-primary hover:text-primary transition-all font-bold text-sm">45mm</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <p class="text-sm font-bold uppercase tracking-wider text-secondary">Quantity</p>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center bg-surface-container-low rounded-xl p-1 border border-outline-variant/30">
+                                <button class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high rounded-lg transition-colors">
+                                    <span class="material-symbols-outlined">remove</span>
+                                </button>
+                                <input type="text" value="1" class="w-12 text-center bg-transparent border-none focus:ring-0 font-bold">
+                                <button class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high rounded-lg transition-colors">
+                                    <span class="material-symbols-outlined">add</span>
+                                </button>
+                            </div>
+                            <p class="text-xs text-on-surface-variant">158 pieces available</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="grid grid-cols-2 gap-4 pt-4">
+                    <button class="flex items-center justify-center gap-2 border-2 border-primary text-primary py-4 rounded-2xl font-bold hover:bg-primary/5 transition-all active:scale-95">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+                    <button class="bg-primary text-white py-4 rounded-2xl font-bold hover:bg-on-primary-fixed-variant transition-all shadow-xl shadow-primary/20 active:scale-95">
+                        Buy It Now
+                    </button>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="grid grid-cols-3 gap-4 py-6 border-y border-outline-variant">
+                    <div class="flex flex-col items-center text-center gap-1">
+                        <span class="material-symbols-outlined text-primary">verified</span>
+                        <span class="text-[10px] font-bold uppercase tracking-tighter">Genuine</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center gap-1">
+                        <span class="material-symbols-outlined text-primary">local_shipping</span>
+                        <span class="text-[10px] font-bold uppercase tracking-tighter">Free Delivery</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center gap-1">
+                        <span class="material-symbols-outlined text-primary">restart_alt</span>
+                        <span class="text-[10px] font-bold uppercase tracking-tighter">15-Day Return</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Shop Section -->
+        <section class="mt-12 bg-surface-container-low rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 border border-outline-variant/30">
+            <!-- Shop Profile -->
+            <div class="flex items-center gap-4 w-full md:w-1/3 border-b md:border-b-0 md:border-r border-outline-variant/30 pb-6 md:pb-0">
+                <div class="relative">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBndMnQskSz3dRztn6UfeTfN_94u1DmY1AbEv4sBBhf8J0XRb7dU-XICFvaz9KfKkxjVduD247GSTLhsya4f_O7JJgBORd3mfxftXTO8yhaJZqUs7EUFmH-O-5L6xEOfw7MjnW07KOX9IIsZvykoUH7Y651Jy42emV8Vk2KbgmIzlpsDgRRbiz3pQHIwJusz8nk6CGYdEEr5I7mcfKU2_76sP8hCbN6QqSkqIs2mngJ2cNcIb8F23gWT-hsadu4PE7hL2Xt5KUxQrA" alt="Shop Avatar" class="w-20 h-20 rounded-full object-cover border-2 border-primary ring-4 ring-primary/10">
+                    <span class="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-surface-container-low rounded-full"></span>
+                </div>
+                <div>
+                    <h3 class="font-headline-md text-headline-md text-on-surface">TechZone Official</h3>
+                    <p class="text-xs text-on-surface-variant mb-3 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">location_on</span>
+                        Ho Chi Minh City, Vietnam
+                    </p>
+                    <div class="flex gap-2">
+                        <button class="px-4 py-2 bg-primary/10 text-primary rounded-xl text-xs font-bold hover:bg-primary/20 transition-all flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">chat</span>
+                            Chat Now
+                        </button>
+                        <a href="shop_profile.html" class="px-4 py-2 border border-outline-variant rounded-xl text-xs font-bold hover:bg-surface-container-high transition-all flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">storefront</span>
+                            View Shop
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shop Stats -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 w-full md:w-2/3">
+                <div class="flex flex-col">
+                    <span class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Ratings</span>
+                    <span class="text-primary font-extrabold text-lg">4.9 / 5.0</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Products</span>
+                    <span class="text-primary font-extrabold text-lg">1.2k+</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Response Rate</span>
+                    <span class="text-primary font-extrabold text-lg">98%</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Joined</span>
+                    <span class="text-primary font-extrabold text-lg">3 Years Ago</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Followers</span>
+                    <span class="text-primary font-extrabold text-lg">85.4k</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs text-on-surface-variant uppercase tracking-wider font-bold">Response Time</span>
+                    <span class="text-primary font-extrabold text-lg">within hours</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Navigation Bar (Sticky) -->
+        <div class="sticky top-[80px] z-30 bg-surface/80 backdrop-blur-md border-b border-outline-variant -mx-4 px-4 md:-mx-8 md:px-8 mb-12">
+            <div class="flex gap-8 overflow-x-auto no-scrollbar py-4 max-w-7xl mx-auto">
+                <a href="#specifications" class="text-sm font-bold uppercase tracking-widest text-primary border-b-2 border-primary pb-1 whitespace-nowrap">Specifications</a>
+                <a href="#reviews" class="text-sm font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors pb-1 whitespace-nowrap">Reviews (128)</a>
+                <a href="#shipping" class="text-sm font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors pb-1 whitespace-nowrap">Shipping & Returns</a>
+            </div>
+        </div>
+
+        <!-- Consolidated Product Information Stack -->
+        <div class="space-y-24">
+            
+            <!-- Section 1: Specifications & Description -->
+            <section id="specifications" class="space-y-12">
+                <div class="flex items-center gap-4">
+                    <h2 class="font-display text-headline-lg text-on-surface">Product Specifications</h2>
+                    <div class="flex-grow h-px bg-outline-variant/30"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <h3 class="font-headline-md text-headline-md">Overview</h3>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed">
+                            The Precision Timepiece V.1 is an institutional-grade watch designed for the modern academic and professional. Balancing minimalist aesthetics with extreme durability, this timepiece is a testament to functional precision.
+                        </p>
+                        <ul class="space-y-3 text-body-sm text-on-surface-variant">
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                                316L Surgical Grade Stainless Steel Case
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                                Scratch-resistant Sapphire Crystal
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                                5ATM Water Resistance
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-surface-container-low rounded-3xl p-8">
+                        <h3 class="font-headline-md text-headline-md mb-6">Technical Details</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-2">
+                                <span class="text-sm text-on-surface-variant">Movement</span>
+                                <span class="text-sm font-bold text-on-surface">Automatic Caliber 8</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-2">
+                                <span class="text-sm text-on-surface-variant">Power Reserve</span>
+                                <span class="text-sm font-bold text-on-surface">48 Hours</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-2">
+                                <span class="text-sm text-on-surface-variant">Strap Material</span>
+                                <span class="text-sm font-bold text-on-surface">Italian Leather</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-2">
+                                <span class="text-sm text-on-surface-variant">Warranty</span>
+                                <span class="text-sm font-bold text-on-surface">2 Years Global</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Reviews -->
+            <section id="reviews" class="space-y-12">
+                <div class="flex items-center gap-4">
+                    <h2 class="font-display text-headline-lg text-on-surface">Customer Reviews</h2>
+                    <div class="flex-grow h-px bg-outline-variant/30"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Rating Summary -->
+                    <div class="lg:col-span-4 space-y-6">
+                        <div class="bg-surface-container-low rounded-3xl p-8 text-center space-y-2">
+                            <p class="text-5xl font-extrabold text-primary">4.9</p>
+                            <div class="flex justify-center gap-1 text-primary">
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                                <span class="material-symbols-outlined fill-current">star</span>
+                            </div>
+                            <p class="text-sm text-on-surface-variant">Based on 128 verified reviews</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-bold w-12 text-on-surface-variant">5 Stars</span>
+                                <div class="flex-grow h-2 bg-surface-container-low rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary w-[92%]"></div>
+                                </div>
+                                <span class="text-xs font-bold w-8 text-on-surface">92%</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-bold w-12 text-on-surface-variant">4 Stars</span>
+                                <div class="flex-grow h-2 bg-surface-container-low rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary w-[6%]"></div>
+                                </div>
+                                <span class="text-xs font-bold w-8 text-on-surface">6%</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-outline">
+                                <span class="text-xs font-bold w-12">3 Stars</span>
+                                <div class="flex-grow h-2 bg-surface-container-low rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary w-[2%]"></div>
+                                </div>
+                                <span class="text-xs font-bold w-8">2%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review List -->
+                    <div class="lg:col-span-8 space-y-8">
+                        <!-- Review Card 1 -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-start">
+                                <div class="flex gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary">JD</div>
+                                    <div>
+                                        <h4 class="font-bold text-on-surface">John Doe</h4>
+                                        <div class="flex text-primary text-[14px]">
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-on-surface-variant">2 days ago</span>
+                            </div>
+                            <p class="text-sm text-on-surface-variant leading-relaxed">
+                                Absolutely stunning timepiece. The brushed finish is even better in person. The automatic movement is smooth and keeps time perfectly. Highly recommended for any professional!
+                            </p>
+                        </div>
+
+                        <!-- Review Card 2 -->
+                        <div class="space-y-4 pt-6 border-t border-outline-variant/30">
+                            <div class="flex justify-between items-start">
+                                <div class="flex gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-primary">AS</div>
+                                    <div>
+                                        <h4 class="font-bold text-on-surface">Alice Smith</h4>
+                                        <div class="flex text-primary text-[14px]">
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                            <span class="material-symbols-outlined text-[16px]">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-on-surface-variant">1 week ago</span>
+                            </div>
+                            <p class="text-sm text-on-surface-variant leading-relaxed">
+                                Great watch, very durable. I wear it daily to the office and it hasn't scratched yet. Only minor issue is the leather strap took a few days to break in.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Shipping & Returns -->
+            <section id="shipping" class="space-y-12">
+                <div class="flex items-center gap-4">
+                    <h2 class="font-display text-headline-lg text-on-surface">Shipping & Returns</h2>
+                    <div class="flex-grow h-px bg-outline-variant/30"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <div class="space-y-4">
+                            <h3 class="font-headline-md text-headline-md flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">local_shipping</span>
+                                Delivery Options
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl border border-primary/20">
+                                    <div>
+                                        <p class="font-bold">Standard Delivery</p>
+                                        <p class="text-xs text-on-surface-variant">Estimated arrival: 3-5 business days</p>
+                                    </div>
+                                    <span class="font-extrabold text-primary">FREE</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl border border-outline-variant/30">
+                                    <div>
+                                        <p class="font-bold">Express Shipping</p>
+                                        <p class="text-xs text-on-surface-variant">Estimated arrival: 1-2 business days</p>
+                                    </div>
+                                    <span class="font-extrabold">50.000 VNĐ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface-container-low rounded-3xl p-8 space-y-6">
+                        <h3 class="font-headline-md text-headline-md flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">assignment_return</span>
+                            Return Policy
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+                                <p class="text-sm text-on-surface-variant"><span class="font-bold text-on-surface">15-Day</span> Money Back Guarantee</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+                                <p class="text-sm text-on-surface-variant"><span class="font-bold text-on-surface">Free</span> Return Shipping on eligible items</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Related Products -->
+        <section class="mt-24 space-y-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <p class="font-label-caps text-label-caps text-primary mb-2 uppercase tracking-widest">Recommended</p>
+                    <h2 class="font-headline-lg text-headline-lg">You May Also Like</h2>
+                </div>
+                <button class="text-primary font-bold hover:underline">View All</button>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+                <!-- Card 1 -->
+                <div class="group bg-surface-container-lowest rounded-3xl overflow-hidden border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-500 flex flex-col h-full">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK0yk7bpEchrAupsnfxLEL5VfNa2DF4gLsAH3RbLmsgUxPzMJ1rduHk4nTVPN0WNolaPI2T7NHvWUziT6_zeA8nKEpeHMqkEqnN-oWxG8Od1dRGnJbWGvgn-MflAC0IBcrRkYp-7gi-6oP6fmSaswO73t8SHvBkCG9t_TbpqMOwgmtrIm-dvtEgKg2UzsjmFCr2QifpEFoEolywxGo_Vzwrk0Nx0-y7p15cJYmlTCme67gkCzry0dZ4M_aqIFKF_ZAtFa6O0w64YA" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Leather Goods</p>
+                        <h4 class="font-bold text-sm mb-2 line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors">Artisanal Saddle Leather Bag | Tan Edition</h4>
+                        <div class="mt-auto flex items-center justify-between">
+                            <p class="text-primary font-extrabold">2.450.000 VNĐ</p>
+                            <button class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="group bg-surface-container-lowest rounded-3xl overflow-hidden border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-500 flex flex-col h-full">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBndMnQskSz3dRztn6UfeTfN_94u1DmY1AbEv4sBBhf8J0XRb7dU-XICFvaz9KfKkxjVduD247GSTLhsya4f_O7JJgBORd3mfxftXTO8yhaJZqUs7EUFmH-O-5L6xEOfw7MjnW07KOX9IIsZvykoUH7Y651Jy42emV8Vk2KbgmIzlpsDgRRbiz3pQHIwJusz8nk6CGYdEEr5I7mcfKU2_76sP8hCbN6QqSkqIs2mngJ2cNcIb8F23gWT-hsadu4PE7hL2Xt5KUxQrA" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Precision Lab</p>
+                        <h4 class="font-bold text-sm mb-2 line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors">Smart Watch Pro | Scholar Series Edition</h4>
+                        <div class="mt-auto flex items-center justify-between">
+                            <p class="text-primary font-extrabold">8.990.000 VNĐ</p>
+                            <button class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="group bg-surface-container-lowest rounded-3xl overflow-hidden border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-500 flex flex-col h-full">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqQnyJicB_1n6s1HS9IIfYhtS-sShBe63jP3XMG6KnN2RkErwXYbp-Y6ISvUJixCaNOuUK3X8SOYdS3r9V2Grxd1pnod4W7kdH6_4WW9OGsqHWhcIr9MKz14HQGA6uAyMfXQvaWfgTrHRwohXnb0VnX_Om9lzNmU0TgJetXY1BiDirckfQj9dDdsySgQ7j3Lmm3RdqSj0em5x8maiSLes2pL8y6FmV85XOBUK7t1q7jifx5XT11EGZ7Wlroq2putBnvKMcYAGnuVs" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Audio Elite</p>
+                        <h4 class="font-bold text-sm mb-2 line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors">Studio Headphones | ANC Professional Edition</h4>
+                        <div class="mt-auto flex items-center justify-between">
+                            <p class="text-primary font-extrabold">5.200.000 VNĐ</p>
+                            <button class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="group bg-surface-container-lowest rounded-3xl overflow-hidden border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-500 flex flex-col h-full">
+                    <div class="aspect-square relative overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmij0m5ZCiJQPoL_Wt2djJesGbtpIYAS_wjDzRblCvbUMI27g_GtvqI19WmSsFT5oFDc44drZut2hv0euTEFvFhY8N9JxcFjwwFv58MFeOectehEN3UdJFx49CAN8dsruSv9FeRnz8h9DQ16skeMSq4D7dXdLlSwKySuXOphE274cwSfEw3-9Yui-7O8ViqLYks4veOPMBBZC_hxUoBx-VXfvld2qtgc2VjISslT7_zc44wPPtVYhzVwPyizJndJhGXtJEf3EumKI" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Apparel</p>
+                        <h4 class="font-bold text-sm mb-2 line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors">Tailored Wool Overcoat | Charcoal Grey Melange</h4>
+                        <div class="mt-auto flex items-center justify-between">
+                            <p class="text-primary font-extrabold">4.200.000 VNĐ</p>
+                            <button class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant mt-stack-lg">
+        <div class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-8">
+            <div class="max-w-xs">
+                <a href="index.html" class="font-display text-headline-md text-secondary opacity-50 block mb-4">Tkart</a>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Elevating the multi-channel shopping experience with academic precision and soft aesthetics.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-stack-lg flex-grow">
+                <div>
+                    <h4 class="font-label-caps text-label-caps mb-4">Explore</h4>
+                    <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Boutiques</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-label-caps text-label-caps mb-4">Company</h4>
+                    <ul class="space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="font-label-caps text-label-caps mb-4">Connect</h4>
+                    <div class="flex gap-4">
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">language</span></a>
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">alternate_email</span></a>
+                        <a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-sm">share</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Tkart Marketplace. Academic Modernism Precision.</p>
+            <p class="font-label-caps text-label-caps opacity-50 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // ScrollSpy logic
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sticky nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                // Skip the Home link if we're at the top
+                if (window.scrollY < 100) {
+                    return;
+                }
+                
+                link.classList.remove('nav-link-active', 'text-primary', 'border-b-2', 'border-primary');
+                link.classList.add('text-on-surface-variant');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('nav-link-active');
+                    link.classList.remove('text-on-surface-variant');
+                }
+            });
+        });
+    </script>
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+</body>
+</html>

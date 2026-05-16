@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tkart UI Dashboard | Academic Modernism</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#004ac6",
+                        "on-surface": "#131b2e",
+                        "on-surface-variant": "#434655",
+                        "background": "#faf8ff",
+                        "surface": "#ffffff",
+                        "surface-container": "#eaedff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f7f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary": "#434655",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"],
+                        "body": ["Manrope"],
+                    },
+                    spacing: {
+                        "margin-mobile": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "container-max": "1280px",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #faf8ff;
+            font-family: 'Manrope', sans-serif;
+        }
+        .screen-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #c3c6d7;
+        }
+        .screen-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 74, 198, 0.15);
+            border-color: #004ac6;
+        }
+        .section-tag {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium text-on-surface">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-headline-md text-primary tracking-tight font-extrabold" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="promotions.html">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="support.html">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for academic collections..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+                <button class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </button>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 space-y-16">
+        
+        <!-- Header Section -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-outline-variant pb-8">
+            <div class="max-w-2xl">
+                <h2 class="text-3xl font-black text-on-surface tracking-tighter">49 Platform Modules</h2>
+                <p class="text-on-surface-variant text-xl leading-relaxed">Systematic overview of all high-fidelity prototypes developed for the Tkart e-commerce platform. Built with Academic Modernism design principles.</p>
+            </div>
+            <div class="flex gap-3">
+                <div class="bg-surface-container px-4 py-2 rounded-xl border border-outline-variant">
+                    <span class="block text-[10px] uppercase font-bold text-on-surface-variant">Total Screens</span>
+                    <span class="text-2xl font-black text-primary">49</span>
+                </div>
+                <div class="bg-surface-container px-4 py-2 rounded-xl border border-outline-variant">
+                    <span class="block text-[10px] uppercase font-bold text-on-surface-variant">Design System</span>
+                    <span class="text-2xl font-black text-primary">v1.0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. Storefront Section -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">storefront</span>
+                <h2 class="text-2xl font-bold tracking-tight uppercase tracking-widest text-on-surface-variant">Core Storefront</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Homepage -->
+                <a href="homepage.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group ring-2 ring-primary/20">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1280" alt="Homepage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="bg-white text-primary px-4 py-2 rounded-full font-bold text-sm shadow-xl">Launch Experience</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-lg">Homepage</h3>
+                            <span class="section-tag bg-primary text-white">Main</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant">Primary marketplace landing with curated collections.</p>
+                    </div>
+                </a>
+
+                <!-- Product Detail -->
+                <a href="product_detail.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden">
+                        <img src="academic_headphones_main_1778726733064.png" alt="Detail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="bg-white text-primary px-4 py-2 rounded-full font-bold text-sm">View Prototype</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-lg">Product Detail</h3>
+                            <span class="section-tag bg-surface-container-high text-on-surface-variant">PDP</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant">Advanced product view with variants and reviews.</p>
+                    </div>
+                </a>
+
+                <!-- Search -->
+                <a href="search.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl group-hover:scale-110 transition-transform duration-500">search</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-lg">Search & Filters</h3>
+                            <span class="section-tag bg-surface-container-high text-on-surface-variant">Listing</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant">Discovery interface with sidebar faceted filtering.</p>
+                    </div>
+                </a>
+
+                <!-- Blog -->
+                <a href="blog.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl group-hover:scale-110 transition-transform duration-500">article</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-lg">Blog & Support</h3>
+                            <span class="section-tag bg-surface-container-high text-on-surface-variant">Content</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant">Knowledge base and editorial content hub.</p>
+                    </div>
+                </a>
+
+                <!-- Blog Detail -->
+                <a href="blog_detail.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl group-hover:scale-110 transition-transform duration-500">description</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-lg">Blog Detail</h3>
+                            <span class="section-tag bg-surface-container-high text-on-surface-variant">Content</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant">Full editorial article view with rich text.</p>
+                    </div>
+                </a>
+
+                <!-- Promotions -->
+                <a href="promotions.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-primary/5 relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl group-hover:scale-110 transition-transform duration-500">confirmation_number</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-lg">Promotions</h3>
+                            <span class="section-tag bg-primary text-white">New</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant">Vouchers, flash sales, and student exclusive deals.</p>
+                    </div>
+                </a>
+
+                <!-- Campaign Detail -->
+                <a href="campaign_detail.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-primary/5 relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl group-hover:scale-110 transition-transform duration-500">campaign</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-lg">Campaign Detail</h3>
+                            <span class="section-tag bg-primary text-white">New</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant">Dedicated campaign view with countdown and deals.</p>
+                    </div>
+                </a>
+
+                <!-- Support Center -->
+                <a href="support.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl group-hover:scale-110 transition-transform duration-500">contact_support</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-lg">Support Center</h3>
+                            <span class="section-tag bg-surface-container-high text-on-surface-variant">Help</span>
+                        </div>
+                        <p class="text-sm text-on-surface-variant">Customer help, FAQs, and ticket submission.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. Transaction Flow -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">shopping_bag</span>
+                <h2 class="text-2xl font-bold tracking-tight uppercase tracking-widest text-on-surface-variant">Checkout Experience</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Cart -->
+                <a href="shopping_cart.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">shopping_cart</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Shopping Cart</h3>
+                        <p class="text-sm text-on-surface-variant">Item management and preliminary subtotal.</p>
+                    </div>
+                </a>
+
+                <!-- Checkout -->
+                <a href="checkout.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">credit_card</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Checkout</h3>
+                        <p class="text-sm text-on-surface-variant">Shipping details, payment, and order summary.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 3. Account & Social -->
+        <section class="space-y-6">
+                <div class="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full">
+                    <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                    <span class="text-primary text-xs font-black uppercase tracking-wider">44 Screens Documented</span>
+                </div>
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">person</span>
+                <h2 class="text-2xl font-bold tracking-tight uppercase tracking-widest text-on-surface-variant">User Account</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Profile -->
+                <a href="user_profile.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">badge</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">User Profile</h3>
+                        <p class="text-sm text-on-surface-variant">Personal info management and dashboard.</p>
+                    </div>
+                </a>
+
+                <!-- Address Book -->
+                <a href="address_book.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">map</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Address Book</h3>
+                        <p class="text-sm text-on-surface-variant">Multiple shipping address management.</p>
+                    </div>
+                </a>
+
+                <!-- Wishlist -->
+                <a href="wishlist.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl text-red-500/20">favorite</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Wishlist</h3>
+                        <p class="text-sm text-on-surface-variant">Collection of saved items for future purchase.</p>
+                    </div>
+                </a>
+
+                <!-- Order History -->
+                <a href="order_history.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">list_alt</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Order History</h3>
+                        <p class="text-sm text-on-surface-variant">Track and manage past purchases.</p>
+                    </div>
+                </a>
+
+                <!-- Order Detail -->
+                <a href="order_detail.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/5">
+                    <div class="aspect-video bg-primary/5 relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-7xl">receipt_long</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Order Detail</h3>
+                        <p class="text-sm text-primary font-bold">Deep tracking and invoice view.</p>
+                    </div>
+                </a>
+
+                <!-- Cancel Order -->
+                <a href="cancel_order.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-error/5">
+                    <div class="aspect-video bg-error/5 relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-error text-7xl">cancel_presentation</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Cancel Order</h3>
+                        <p class="text-sm text-error font-bold">Order cancellation workflow.</p>
+                    </div>
+                </a>
+
+                <!-- User Coins -->
+                <a href="user_coins.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl text-yellow-500/20">monetization_on</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">User Coins</h3>
+                        <p class="text-sm text-on-surface-variant">Reward points and transaction history.</p>
+                    </div>
+                </a>
+
+                <!-- Notifications -->
+                <a href="notifications.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">notifications_active</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Notifications</h3>
+                        <p class="text-sm text-on-surface-variant">System and order updates inbox.</p>
+                    </div>
+                </a>
+
+                <!-- Security -->
+                <a href="security.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">verified_user</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Security</h3>
+                        <p class="text-sm text-on-surface-variant">Password updates and 2FA settings.</p>
+                    </div>
+                </a>
+
+                <!-- Message Center -->
+                <a href="messages.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">chat_bubble</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Message Center</h3>
+                        <p class="text-sm text-on-surface-variant">Real-time communication with sellers and support.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 4. Authentication Flow -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">key</span>
+                <h2 class="text-2xl font-bold tracking-tight uppercase tracking-widest text-on-surface-variant">Authentication</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Login -->
+                <a href="login.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">login</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Sign In</h3>
+                        <p class="text-sm text-on-surface-variant">Main user entry with social auth options.</p>
+                    </div>
+                </a>
+
+                <!-- Registration -->
+                <a href="registration.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">person_add</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Sign Up</h3>
+                        <p class="text-sm text-on-surface-variant">Onboarding and new account creation.</p>
+                    </div>
+                </a>
+
+                <!-- OTP -->
+                <a href="otp_verification.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">password</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">OTP Verification</h3>
+                        <p class="text-sm text-on-surface-variant">Secure code validation for account protection.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 5. Password Recovery -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">lock_reset</span>
+                <h2 class="text-2xl font-bold tracking-tight uppercase tracking-widest text-on-surface-variant">Recovery Flow</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <a href="forgot_password_step_1.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="text-4xl font-black text-primary/20">Step 1</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Email Request</h3>
+                        <p class="text-sm text-on-surface-variant">Initial password reset initiation.</p>
+                    </div>
+                </a>
+
+                <!-- Step 2 -->
+                <a href="forgot_password_step_2.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="text-4xl font-black text-primary/20">Step 2</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Verification</h3>
+                        <p class="text-sm text-on-surface-variant">Validating identity via secure token.</p>
+                    </div>
+                </a>
+
+                <!-- Step 3 -->
+                <a href="forgot_password_step_3.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="text-4xl font-black text-primary/20">Step 3</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">New Password</h3>
+                        <p class="text-sm text-on-surface-variant">Finalizing account access credentials.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 6. Seller Center -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">store</span>
+                <h2 class="text-2xl font-bold tracking-tight uppercase tracking-widest text-on-surface-variant">Seller Center</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Seller Dashboard -->
+                <a href="seller_dashboard.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/10">
+                    <div class="aspect-video bg-primary/5 relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-7xl">dashboard_customize</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1 text-primary">Seller Dashboard</h3>
+                        <p class="text-sm text-on-surface-variant">Comprehensive merchant overview and analytics.</p>
+                    </div>
+                </a>
+
+                <!-- Product Management -->
+                <a href="seller_products.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">inventory_2</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Product Management</h3>
+                        <p class="text-sm text-on-surface-variant">Inventory control and SKU management.</p>
+                    </div>
+                </a>
+
+                <!-- Add Product -->
+                <a href="seller_add_product.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">add_box</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Add New Product</h3>
+                        <p class="text-sm text-on-surface-variant">Advanced listing creation with rich attributes.</p>
+                    </div>
+                </a>
+
+                <!-- Seller Orders -->
+                <a href="seller_orders.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">local_shipping</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Order Fulfillment</h3>
+                        <p class="text-sm text-on-surface-variant">Manage shipments and order processing queue.</p>
+                    </div>
+                </a>
+
+                <!-- Seller Order Detail -->
+                <a href="seller_order_detail.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">quick_reference_all</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Order Details (Seller)</h3>
+                        <p class="text-sm text-on-surface-variant">Merchant-side view of specific order transactions.</p>
+                    </div>
+                </a>
+
+                <!-- Seller Wallet -->
+                <a href="seller_wallet.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl text-green-500/20">account_balance_wallet</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Seller Wallet</h3>
+                        <p class="text-sm text-on-surface-variant">Financial management, earnings, and withdrawals.</p>
+                    </div>
+                </a>
+
+                <!-- Seller Analytics -->
+                <a href="seller_analytics.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl text-blue-500/20">monitoring</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Business Analytics</h3>
+                        <p class="text-sm text-on-surface-variant">Deep insights into sales, traffic, and growth.</p>
+                    </div>
+                </a>
+
+                <!-- Seller Reviews -->
+                <a href="seller_reviews.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">reviews</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Store Reviews</h3>
+                        <p class="text-sm text-on-surface-variant">Customer feedback management and shop reputation.</p>
+                    </div>
+                </a>
+
+                <!-- Seller Cancellations -->
+                <a href="seller_cancellations.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-error/20 text-7xl">cancel_schedule_send</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Cancellations</h3>
+                        <p class="text-sm text-on-surface-variant">Process return requests and order voids.</p>
+                    </div>
+                </a>
+
+                <!-- Seller Messages -->
+                <a href="seller_messages.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">forum</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Seller Messages</h3>
+                        <p class="text-sm text-on-surface-variant">Direct chat with customers and platform support.</p>
+                    </div>
+                </a>
+
+                <!-- Seller Settings -->
+                <a href="seller_settings.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl">settings_applications</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Shop Settings</h3>
+                        <p class="text-sm text-on-surface-variant">Shop profile, shipping rates, and preferences.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+ 
+         <!-- 7. Manager Operations -->
+         <section class="space-y-6">
+             <div class="flex items-center gap-3">
+                 <span class="material-symbols-outlined text-primary">engineering</span>
+                 <h2 class="text-2xl font-bold tracking-tight uppercase tracking-widest text-on-surface-variant">Manager Operations</h2>
+             </div>
+             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <!-- Manager Dashboard -->
+                 <a href="manager_dashboard.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                     <div class="aspect-video bg-blue-50 relative overflow-hidden flex items-center justify-center">
+                         <span class="material-symbols-outlined text-primary text-7xl">dashboard_customize</span>
+                     </div>
+                     <div class="p-5">
+                         <h3 class="font-bold text-lg mb-1">Manager Dashboard</h3>
+                         <p class="text-sm text-on-surface-variant">Overview of operational metrics and platform health.</p>
+                     </div>
+                 </a>
+ 
+                 <!-- Shop Approval -->
+                 <a href="manager_shop_approval.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                     <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                         <span class="material-symbols-outlined text-primary/20 text-7xl">storefront</span>
+                     </div>
+                     <div class="p-5">
+                         <h3 class="font-bold text-lg mb-1">Shop Approval</h3>
+                         <p class="text-sm text-on-surface-variant">Verify and approve new seller registrations and Tax IDs.</p>
+                     </div>
+                 </a>
+
+                 <!-- Product Approval -->
+                 <a href="manager_product_approval.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                     <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                         <span class="material-symbols-outlined text-primary/20 text-7xl">inventory_2</span>
+                     </div>
+                     <div class="p-5">
+                         <h3 class="font-bold text-lg mb-1">Product Approval</h3>
+                         <p class="text-sm text-on-surface-variant">Moderate new product submissions for quality and compliance.</p>
+                     </div>
+                 </a>
+
+                 <!-- Violations -->
+                 <a href="manager_violations.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                     <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                         <span class="material-symbols-outlined text-error/20 text-7xl">report_problem</span>
+                     </div>
+                     <div class="p-5">
+                         <h3 class="font-bold text-lg mb-1">Violations Management</h3>
+                         <p class="text-sm text-on-surface-variant">Track reported products and manage shop penalties.</p>
+                     </div>
+                 </a>
+
+                 <!-- Statistics -->
+                 <a href="manager_statistics.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                     <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                         <span class="material-symbols-outlined text-primary/20 text-7xl">bar_chart</span>
+                     </div>
+                     <div class="p-5">
+                         <h3 class="font-bold text-lg mb-1">Ops Statistics</h3>
+                         <p class="text-sm text-on-surface-variant">Detailed performance data for operational monitoring.</p>
+                     </div>
+                 </a>
+             </div>
+         </section>
+
+         <!-- 8. Admin Intelligence -->
+         <section class="space-y-6">
+             <div class="flex items-center gap-3">
+                 <span class="material-symbols-outlined text-primary">admin_panel_settings</span>
+                 <h2 class="text-2xl font-bold tracking-tight uppercase tracking-widest text-on-surface-variant">Admin Intelligence</h2>
+             </div>
+             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <!-- Admin Dashboard -->
+                 <a href="admin_dashboard.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                     <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                         <span class="material-symbols-outlined text-white text-7xl">monitoring</span>
+                         <div class="absolute inset-0 bg-primary/20"></div>
+                     </div>
+                     <div class="p-5">
+                         <h3 class="font-bold text-lg mb-1">Admin Dashboard</h3>
+                         <p class="text-sm text-on-surface-variant">Platform-wide health, GMV tracking, and moderation queue.</p>
+                     </div>
+                 </a>
+ 
+                <!-- RBAC Management -->
+                <a href="admin_rbac.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">shield_person</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">RBAC Management</h3>
+                        <p class="text-sm text-on-surface-variant">Role-based access control, permission matrix, and security roles.</p>
+                    </div>
+                </a>
+
+                <!-- Financial Configuration -->
+                <a href="admin_finance_config.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="aspect-video bg-surface-container relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary/20 text-7xl" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Finance Settings</h3>
+                        <p class="text-sm text-on-surface-variant">Manage platform fees, coins, and withdrawal limits.</p>
+                    </div>
+                </a>
+
+                <!-- Logistics Management -->
+                <!-- Logistics Management -->
+                <a href="admin_logistics_config.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">local_shipping</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Logistics Partners</h3>
+                        <p class="text-sm text-on-surface-variant">Configure API keys and status for GHTK, GHN, Grab...</p>
+                    </div>
+                </a>
+
+                <!-- UI/UX Configuration -->
+                <a href="admin_ui_config.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">palette</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">UI/UX Configuration</h3>
+                        <p class="text-sm text-on-surface-variant">Manage banners, homepage sections, and brand themes.</p>
+                    </div>
+                </a>
+
+                <!-- Support Center (User) -->
+                <a href="support.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">help</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">User Support Center</h3>
+                        <p class="text-sm text-on-surface-variant">Customer-facing help center with FAQs and contact options.</p>
+                    </div>
+                </a>
+
+                <!-- Admin Support Management -->
+                <a href="admin_support.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">support_agent</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Support Management</h3>
+                        <p class="text-sm text-on-surface-variant">Admin dashboard for managing support tickets and agent activity.</p>
+                    </div>
+                </a>
+
+                <!-- Platform Settings -->
+                <a href="admin_platform_settings.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">settings</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Platform Settings</h3>
+                        <p class="text-sm text-on-surface-variant">Manage category tree, global policies, and system parameters.</p>
+                    </div>
+                </a>
+
+                <!-- Campaigns & Promotions -->
+                <a href="admin_promotions.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">campaign</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Campaigns & Promotions</h3>
+                        <p class="text-sm text-on-surface-variant">Create global coupons and mass discount programs.</p>
+                    </div>
+                </a>
+
+                <!-- Withdrawal Approval -->
+                <a href="admin_finance_withdrawals.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">account_balance_wallet</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Withdrawal Approval</h3>
+                        <p class="text-sm text-on-surface-variant">Approve seller payout requests and record bank references.</p>
+                    </div>
+                </a>
+
+                <!-- Coupon Editor -->
+                <a href="admin_promotion_coupon_editor.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">confirmation_number</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Coupon Editor</h3>
+                        <p class="text-sm text-on-surface-variant">Configurable form for creating platform-wide discount codes.</p>
+                    </div>
+                </a>
+
+                <!-- Campaign Editor -->
+                <a href="admin_promotion_campaign_editor.html" class="screen-card bg-white rounded-2xl overflow-hidden flex flex-col group border-2 border-primary/20">
+                    <div class="aspect-video bg-on-surface relative overflow-hidden flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-7xl">edit_calendar</span>
+                        <div class="absolute inset-0 bg-primary/20"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-1">Campaign Editor</h3>
+                        <p class="text-sm text-on-surface-variant">Mass discount program manager with product selection logic.</p>
+                    </div>
+                </a>
+             </div>
+         </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant mt-24">
+        <div class="w-full py-12 px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-8">
+            <div class="max-w-xs">
+                <a href="index.html" class="font-display text-headline-md text-secondary opacity-50 block mb-4">Tkart Hub</a>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Dedicated UI documentation portal for internal review and quality assurance.</p>
+            </div>
+        </div>
+        <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-on-surface-variant">© 2024 Tkart Internal Development Console.</p>
+            <p class="font-bold opacity-50 uppercase tracking-widest text-[10px]">Academic Modernism v1.0.0-PROD</p>
+        </div>
+    </footer>
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-error font-black flex items-center justify-center rounded-full border-2 border-error shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+</body>
+</html>

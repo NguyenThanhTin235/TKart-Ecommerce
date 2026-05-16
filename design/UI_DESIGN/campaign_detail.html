@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Tech Week | Tkart Campaigns</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#004ac6",
+                        "error": "#ba1a1a",
+                        "on-surface": "#131b2e",
+                        "on-surface-variant": "#434655",
+                        "background": "#faf8ff",
+                        "surface": "#ffffff",
+                        "surface-container": "#eaedff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f7f9ff",
+                        "surface-container-high": "#e1e4f5",
+                        "outline-variant": "#c3c6d7",
+                        "secondary": "#434655",
+                        "success": "#2e7d32",
+                        "warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"],
+                        "body": ["Manrope"],
+                    },
+                    spacing: {
+                        "margin-mobile": "1rem",
+                        "margin-desktop": "2.5rem",
+                        "container-max": "1280px",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #faf8ff;
+            font-family: 'Manrope', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .voucher-card {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+            border: 1px solid #c3c6d7;
+            overflow: hidden;
+        }
+        .voucher-card::before, .voucher-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #faf8ff;
+            border: 1px solid #c3c6d7;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .voucher-card::before { left: -10px; transform: translateY(-50%); }
+        .voucher-card::after { right: -10px; transform: translateY(-50%); }
+
+        .dashed-line {
+            background-image: linear-gradient(to bottom, #c3c6d7 50%, rgba(255,255,255,0) 0%);
+            background-position: right;
+            background-size: 1.5px 8px;
+            background-repeat: repeat-y;
+        }
+
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 74, 198, 0.15);
+        }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen">
+    <!-- Header -->
+    <header class="bg-surface-container-lowest shadow-[0px_4px_20px_rgba(15,23,42,0.05)] sticky top-0 z-50 font-medium text-on-surface">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-8">
+            <div class="flex items-center gap-8">
+                <a class="font-display text-2xl text-primary tracking-tighter font-black" href="homepage.html">Tkart</a>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="homepage.html">Home</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="search.html">Shop</a>
+                    <a class="text-sm font-medium text-primary underline underline-offset-8 decoration-2" href="promotions.html">Promotions</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="blog.html">Blog</a>
+                    <a class="text-sm font-medium text-secondary hover:text-primary transition-colors" href="support.html">Support</a>
+                </nav>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+                <input type="text" placeholder="Search for offers and coupons..." class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-all duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                </button>
+                <a href="shopping_cart.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 relative text-on-surface-variant">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] text-white flex items-center justify-center rounded-full">3</span>
+                </a>
+
+                <a href="notifications.html" class="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="user_profile.html" class="flex items-center gap-2 p-1 pr-3 hover:bg-surface-container-low rounded-full transition-all duration-200 border border-outline-variant/30">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-sm font-bold text-on-surface hidden md:block tracking-tight">John Doe</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6">
+        <nav class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">
+            <a href="homepage.html" class="hover:text-primary transition-colors">Home</a>
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <a href="promotions.html" class="hover:text-primary transition-colors">Promotions</a>
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <span class="text-primary">Campaign Detail</span>
+        </nav>
+    </div>
+
+    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-24 space-y-16">
+        
+        <!-- Campaign Hero -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-8">
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="px-3 py-1 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full">Active Event</span>
+                        <span class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-black uppercase tracking-widest rounded-full">
+                            <span class="material-symbols-outlined text-sm">visibility</span> 12,482 Views
+                        </span>
+                        <span class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-black uppercase tracking-widest rounded-full">
+                            <span class="material-symbols-outlined text-sm">schedule</span> Oct 15 - Oct 22
+                        </span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-black text-on-surface leading-tight tracking-tighter">University Tech Week: <br><span class="text-primary">Gadgets & Innovation</span></h1>
+                    <p class="text-lg text-on-surface-variant font-medium leading-relaxed max-w-2xl">Elevate your academic performance with the latest innovation in tech. From high-performance laptops to artisanal precision peripherals, discover the tools that power the next generation of scholars.</p>
+                </div>
+                
+                <!-- Stats & Share -->
+                <div class="flex flex-wrap items-center gap-8 pt-4">
+                    <div class="flex items-center gap-3">
+                        <div class="flex -space-x-3">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" class="size-10 rounded-full border-2 border-surface object-cover">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" class="size-10 rounded-full border-2 border-surface object-cover">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" class="size-10 rounded-full border-2 border-surface object-cover">
+                            <div class="size-10 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-[10px] font-black text-on-surface-variant">+800</div>
+                        </div>
+                        <span class="text-sm font-bold text-on-surface-variant">Attending this campaign</span>
+                    </div>
+                    <div class="h-8 w-px bg-outline-variant"></div>
+                    <div class="flex gap-4">
+                        <button class="flex items-center gap-2 px-4 py-2 hover:bg-surface-container-low rounded-full transition-all text-sm font-bold">
+                            <span class="material-symbols-outlined text-primary">favorite</span> 2.4K
+                        </button>
+                        <button class="flex items-center gap-2 px-4 py-2 hover:bg-surface-container-low rounded-full transition-all text-sm font-bold">
+                            <span class="material-symbols-outlined text-primary">share</span> Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-5 relative">
+                <div class="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative group">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+                    <!-- Countdown Badge -->
+                    <div class="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-white/20">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-3 text-center">Campaign Ends In</p>
+                        <div class="flex justify-between items-center px-4">
+                            <div class="text-center">
+                                <span class="text-2xl font-black text-on-surface">04</span>
+                                <span class="block text-[8px] font-bold uppercase tracking-widest text-on-surface-variant">Days</span>
+                            </div>
+                            <span class="text-2xl font-black text-on-surface-variant/30">:</span>
+                            <div class="text-center">
+                                <span class="text-2xl font-black text-on-surface">12</span>
+                                <span class="block text-[8px] font-bold uppercase tracking-widest text-on-surface-variant">Hours</span>
+                            </div>
+                            <span class="text-2xl font-black text-on-surface-variant/30">:</span>
+                            <div class="text-center">
+                                <span class="text-2xl font-black text-on-surface">45</span>
+                                <span class="block text-[8px] font-bold uppercase tracking-widest text-on-surface-variant">Mins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exclusive Vouchers -->
+        <section class="space-y-10">
+            <div class="flex items-end justify-between border-b border-outline-variant pb-6">
+                <div class="space-y-1">
+                    <h2 class="text-3xl font-black tracking-tighter text-on-surface">Campaign Vouchers</h2>
+                    <p class="text-sm text-on-surface-variant font-medium">Claim these limited-time coupons exclusively for Tech Week.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Voucher 1 -->
+                <div class="voucher-card rounded-2xl flex shadow-sm group hover:shadow-xl hover:border-primary/30">
+                    <div class="w-32 bg-primary flex flex-col items-center justify-center text-white p-4 relative">
+                        <span class="text-3xl font-black tracking-tighter">15%</span>
+                        <span class="text-[8px] font-bold uppercase tracking-widest opacity-80">Discount</span>
+                        <div class="absolute inset-y-4 right-0 w-px dashed-line"></div>
+                    </div>
+                    <div class="flex-grow p-5 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm text-on-surface">Tech Accessories</h3>
+                            <p class="text-[10px] text-on-surface-variant font-medium mt-1">Min. spend ₫500.000</p>
+                        </div>
+                        <div class="flex justify-between items-end mt-4">
+                            <div class="space-y-1">
+                                <p class="text-[9px] font-bold text-primary uppercase">Ends in 2 days</p>
+                                <div class="h-1 w-24 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            <button class="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Claim</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voucher 2 -->
+                <div class="voucher-card rounded-2xl flex shadow-sm group hover:shadow-xl hover:border-primary/30">
+                    <div class="w-32 bg-on-surface flex flex-col items-center justify-center text-white p-4 relative">
+                        <span class="text-3xl font-black tracking-tighter">₫200k</span>
+                        <span class="text-[8px] font-bold uppercase tracking-widest opacity-80">Cashback</span>
+                        <div class="absolute inset-y-4 right-0 w-px dashed-line"></div>
+                    </div>
+                    <div class="flex-grow p-5 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm text-on-surface">Computing Category</h3>
+                            <p class="text-[10px] text-on-surface-variant font-medium mt-1">Min. spend ₫2.000.000</p>
+                        </div>
+                        <div class="flex justify-between items-end mt-4">
+                            <div class="space-y-1">
+                                <p class="text-[9px] font-bold text-primary uppercase">Limited Quantity</p>
+                                <div class="h-1 w-24 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <button class="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Claim</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voucher 3 -->
+                <div class="voucher-card rounded-2xl flex shadow-sm group hover:shadow-xl hover:border-primary/30">
+                    <div class="w-32 bg-secondary flex flex-col items-center justify-center text-white p-4 relative">
+                        <span class="material-symbols-outlined text-4xl">local_shipping</span>
+                        <span class="text-[8px] font-bold uppercase tracking-widest opacity-80">Free Shipping</span>
+                        <div class="absolute inset-y-4 right-0 w-px dashed-line"></div>
+                    </div>
+                    <div class="flex-grow p-5 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-sm text-on-surface">Nationwide Delivery</h3>
+                            <p class="text-[10px] text-on-surface-variant font-medium mt-1">For all tech items</p>
+                        </div>
+                        <div class="flex justify-between items-end mt-4">
+                            <div class="space-y-1">
+                                <p class="text-[9px] font-bold text-secondary uppercase">Academic Use Only</p>
+                            </div>
+                            <button class="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Claim</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="space-y-10">
+            <div class="flex items-end justify-between border-b border-outline-variant pb-6">
+                <div class="space-y-1">
+                    <h2 class="text-3xl font-black tracking-tighter text-on-surface">Campaign Deals</h2>
+                    <p class="text-sm text-on-surface-variant font-medium">Selected products with maximum discounts during this event.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                <!-- Product Card 1 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-error text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">-35%</div>
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&q=80&w=500" alt="Keyboard" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">Mechanical Wireless Keyboard | Tactile Silent</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫1.450.000</span>
+                                <span class="text-[10px] text-on-surface-variant line-through font-bold">₫2.230.000</span>
+                            </div>
+                            <button class="w-full py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-error text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">-15%</div>
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=500" alt="Headphones" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">Active Noise Cancelling Headphones</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫4.150.000</span>
+                                <span class="text-[10px] text-on-surface-variant line-through font-bold">₫4.880.000</span>
+                            </div>
+                            <button class="w-full py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More products (placeholders) -->
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-primary text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">HOT</div>
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=500" alt="Monitor" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">4K Ergonomic Designer Monitor</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫8.200.000</span>
+                                <span class="text-[10px] text-on-surface-variant font-bold">Best Price</span>
+                            </div>
+                            <button class="w-full py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&q=80&w=500" alt="Mouse" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">Multi-Device Precision Wireless Mouse</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫1.200.000</span>
+                                <span class="text-[10px] text-on-surface-variant font-bold">Free Shipping</span>
+                            </div>
+                            <button class="w-full py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bg-surface border border-outline-variant rounded-2xl overflow-hidden flex flex-col group cursor-pointer relative">
+                    <div class="absolute top-4 left-4 z-10 bg-error text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">-50%</div>
+                    <div class="aspect-square bg-surface-container relative block overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1510212330253-be44c7e59b17?auto=format&fit=crop&q=80&w=500" alt="Speaker" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <h3 class="font-bold text-sm line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">Portable Waterproof Bluetooth Speaker</h3>
+                        <div class="mt-auto space-y-4">
+                            <div class="flex flex-col">
+                                <span class="font-black text-lg text-primary tracking-tighter">₫850.000</span>
+                                <span class="text-[10px] text-on-surface-variant line-through font-bold">₫1.700.000</span>
+                            </div>
+                            <button class="w-full py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campaign Rules -->
+        <section class="bg-surface-container-low rounded-[2.5rem] p-12 space-y-8">
+            <h2 class="text-3xl font-black tracking-tighter text-on-surface">Participation Rules</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="size-8 rounded-full bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">1</div>
+                        <p class="text-sm font-medium text-on-surface-variant leading-relaxed">Each user can claim a maximum of one (1) voucher per category during the campaign period.</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="size-8 rounded-full bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">2</div>
+                        <p class="text-sm font-medium text-on-surface-variant leading-relaxed">Discounts apply only to participating products listed on this page.</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="size-8 rounded-full bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">3</div>
+                        <p class="text-sm font-medium text-on-surface-variant leading-relaxed">Vouchers have limited quantities and are served on a first-come, first-served basis.</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="size-8 rounded-full bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">4</div>
+                        <p class="text-sm font-medium text-on-surface-variant leading-relaxed">Tkart reserves the right to cancel orders that violate campaign policies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant mt-24">
+        <div class="w-full py-12 px-margin-mobile md:px-margin-desktop mt-auto flex flex-col md:flex-row justify-between items-start max-w-container-max mx-auto gap-12">
+            <div class="max-w-xs space-y-6">
+                <a href="homepage.html" class="font-display text-headline-md text-secondary opacity-50 tracking-tight font-extrabold block">Tkart</a>
+                <p class="text-sm text-on-surface-variant leading-relaxed">Elevating the multi-vendor experience with academic precision and soft aesthetics.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-12 flex-grow">
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-on-surface">Explore</h4>
+                    <ul class="space-y-3 text-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">New Arrivals</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Featured Designers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="support.html">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-on-surface">Company</h4>
+                    <ul class="space-y-3 text-sm text-on-surface-variant">
+                        <li><a class="hover:text-primary transition-all" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary transition-all" href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 md:col-span-1 space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-on-surface">Connect</h4>
+                    <div class="flex gap-4">
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">language</span></a>
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">alternate_email</span></a>
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined text-[20px]">share</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full px-margin-mobile md:px-margin-desktop py-6 border-t border-outline-variant max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-on-surface-variant">© 2024 Tkart Marketplace.</p>
+            <p class="font-bold opacity-30 uppercase tracking-widest text-[10px]">Academic Modernism Framework v1.0</p>
+        </div>
+    </footer>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+        <a href="homepage.html" class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">home</span>
+            <span class="text-[10px] font-bold">Home</span>
+        </a>
+        <a href="search.html" class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">storefront</span>
+            <span class="text-[10px] font-bold">Shop</span>
+        </a>
+        <a href="shopping_cart.html" class="flex flex-col items-center justify-center bg-primary text-white rounded-full px-4 py-1">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="text-[10px] font-bold">Cart</span>
+        </a>
+        <a href="user_profile.html" class="flex flex-col items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">person</span>
+            <span class="text-[10px] font-bold">Account</span>
+        </a>
+    </nav>
+
+    <!-- FABs -->
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-50 pb-20 md:pb-0">
+        <!-- Message FAB -->
+        <a href="messages.html" class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">chat</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-primary font-black flex items-center justify-center rounded-full border-2 border-primary shadow-lg text-[12px]">2</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Messages</span>
+        </a>
+        <!-- AI Chatbot FAB -->
+        <button class="size-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-primary/10">
+            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+            <div class="absolute -top-1 -right-1 size-7 bg-white text-[#ba1a1a] font-black flex items-center justify-center rounded-full border-2 border-[#ba1a1a] shadow-lg text-[12px]">1</div>
+            <span class="absolute right-full mr-4 px-3 py-1.5 bg-on-surface text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Assistant</span>
+        </button>
+    </div>
+
+</body>
+</html>
