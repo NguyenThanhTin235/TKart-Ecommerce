@@ -3,6 +3,8 @@ package com.tkart.ecommerce.models.entities;
 import com.tkart.ecommerce.models.embedded.OrderItem;
 import com.tkart.ecommerce.models.embedded.TrackingEvent;
 import com.tkart.ecommerce.models.enums.OrderStatus;
+import com.tkart.ecommerce.models.enums.PaymentMethod;
+import com.tkart.ecommerce.models.enums.PaymentStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -29,9 +31,14 @@ public class Order extends BaseDocument {
     
     // Using Address directly as embedded document for snapshot
     private Address deliveryAddress;
+    private Address shippingAddress;
 
     private Long totalSellingPrice;
+    private Long totalAmount;
     private Long shippingFee;
+
+    private PaymentMethod paymentMethod = PaymentMethod.COD;
+    private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
     @Indexed
     private String trackingId;
@@ -40,6 +47,8 @@ public class Order extends BaseDocument {
 
     @Indexed
     private OrderStatus status = OrderStatus.PLACED;
+    @Indexed
+    private OrderStatus orderStatus = OrderStatus.PENDING;
 
     private LocalDateTime deliveredAt;
     private LocalDateTime refundedAt;

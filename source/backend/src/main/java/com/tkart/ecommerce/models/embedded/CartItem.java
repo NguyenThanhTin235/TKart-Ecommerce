@@ -10,6 +10,8 @@ public class CartItem {
     private String image;
     private Long price;
     private Integer qty;
+    private Integer quantity;
     private Map<String, String> attributes;
+    private Map<String, String> selectedAttributes;
     private String sellerId;
 }
