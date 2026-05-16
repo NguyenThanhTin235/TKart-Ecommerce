@@ -7,10 +7,10 @@ Tài liệu này cung cấp danh sách kiểm tra (TODO Checklist) cực kỳ ch
 ## ⚙️ PHẦN 1: BACKEND APIs & SECURITY (SPRING BOOT)
 
 ### 1.1. Cấu hình Bảo mật & Core Security (`com.tkart.ecommerce.config`)
-- [ ] Cấu hình `SecurityConfig`: Phân quyền các endpoint (Mở public cho `/api/v1/auth/**`, `/api/v1/public/**`; Yêu cầu xác thực JWT cho `/api/v1/cart/**`, `/api/v1/orders/**`, `/api/v1/seller/**`, `/api/v1/admin/**`, `/api/v1/profile/**`).
-- [ ] Triển khai `JwtTokenProvider` / `JwtService`: Sinh token, xác thực token, trích xuất thông tin `username` và `roles` từ token.
-- [ ] Triển khai `JwtAuthenticationFilter`: Bộ lọc chặn các request, trích xuất Bearer token từ header, thiết lập `SecurityContextHolder`.
-- [ ] Triển khai `CustomAuthenticationEntryPoint` (xử lý lỗi 401 Unauthorized) và `CustomAccessDeniedHandler` (xử lý lỗi 403 Forbidden).
+- [x] Cấu hình `SecurityConfig`: Phân quyền các endpoint (Mở public cho `/api/v1/auth/**`, `/api/v1/public/**`; Yêu cầu xác thực JWT cho `/api/v1/cart/**`, `/api/v1/orders/**`, `/api/v1/seller/**`, `/api/v1/admin/**`, `/api/v1/profile/**`).
+- [x] Triển khai `JwtTokenProvider` / `JwtService`: Sinh token, xác thực token, trích xuất thông tin `username` và `roles` từ token.
+- [x] Triển khai `JwtAuthenticationFilter`: Bộ lọc chặn các request, trích xuất Bearer token từ header, thiết lập `SecurityContextHolder`.
+- [x] Triển khai `CustomAuthenticationEntryPoint` (xử lý lỗi 401 Unauthorized) và `CustomAccessDeniedHandler` (xử lý lỗi 403 Forbidden).
 
 ### 1.2. Module Xác thực & Tài khoản (`AuthController` & `AuthService`)
 - [ ] `POST /api/v1/auth/register`: Đăng ký tài khoản Customer/Seller, kiểm tra email trùng, băm mật khẩu bằng BCrypt, sinh mã OTP 6 số ngẫu nhiên lưu vào Redis (TTL 5 phút), gửi email OTP qua `MailService`.
