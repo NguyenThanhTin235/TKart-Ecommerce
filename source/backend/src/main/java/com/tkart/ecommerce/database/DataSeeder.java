@@ -358,7 +358,6 @@ public class DataSeeder implements CommandLineRunner {
         cart.setUserId(user.getId());
         CartItem item = new CartItem();
         item.setProductId(product.getId());
-        item.setQty(2);
         item.setQuantity(2);
         item.setPrice(product.getSellingPrice());
         cart.setCartItems(Arrays.asList(item));
@@ -389,7 +388,6 @@ public class DataSeeder implements CommandLineRunner {
         order.setUserId(user.getId());
         order.setSellerId(seller.getId());
         order.setStatus(OrderStatus.DELIVERED);
-        order.setOrderStatus(OrderStatus.DELIVERED);
         order.setPaymentMethod(PaymentMethod.COD);
         order.setPaymentStatus(PaymentStatus.COLLECTED);
         
@@ -397,7 +395,7 @@ public class DataSeeder implements CommandLineRunner {
         item.setProductId(product.getId());
         item.setTitle(product.getTitle());
         item.setPrice(product.getSellingPrice());
-        item.setQty(1);
+        item.setQuantity(1);
         order.setOrderItems(Arrays.asList(item));
         order.setTotalSellingPrice(product.getSellingPrice());
         order.setTotalAmount(product.getSellingPrice());

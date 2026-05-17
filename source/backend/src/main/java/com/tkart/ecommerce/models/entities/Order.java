@@ -46,9 +46,7 @@ public class Order extends BaseDocument {
     private List<TrackingEvent> trackingEvents;
 
     @Indexed
-    private OrderStatus status = OrderStatus.PLACED;
-    @Indexed
-    private OrderStatus orderStatus = OrderStatus.PENDING;
+    private OrderStatus status = OrderStatus.PENDING;
 
     private LocalDateTime deliveredAt;
     private LocalDateTime refundedAt;

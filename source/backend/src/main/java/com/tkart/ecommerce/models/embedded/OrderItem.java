@@ -12,8 +12,8 @@ public class OrderItem {
     
     // Snapshot price at the time of order
     private Long price;
-    private Integer qty;
+    private Integer quantity;
     
     // Snapshot attributes
-    private Map<String, String> attributes;
+    private Map<String, String> selectedAttributes;
 }

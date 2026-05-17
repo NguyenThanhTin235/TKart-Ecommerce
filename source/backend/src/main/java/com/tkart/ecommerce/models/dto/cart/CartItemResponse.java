@@ -1,10 +1,13 @@
-package com.tkart.ecommerce.models.embedded;
+package com.tkart.ecommerce.models.dto.cart;
 
+import lombok.Builder;
 import lombok.Data;
+
 import java.util.Map;
 
 @Data
-public class CartItem {
+@Builder
+public class CartItemResponse {
     private String productId;
     private String title;
     private String image;
