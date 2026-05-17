@@ -1,9 +1,5 @@
 # FRD — Functional Requirements Document
 
-> Tài liệu này được tách ra từ `design/Agile/Scrum/O.md` (phiên bản 3.0, cập nhật 08/05/2026) để dễ quản lý.
->
-> **Lưu ý:** File nguồn `O.md` **được giữ nguyên**.
-
 ---
 
 ## 1) Yêu cầu chức năng (Functional Requirements)

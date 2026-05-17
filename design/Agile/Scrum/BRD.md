@@ -1,9 +1,5 @@
 # BRD — Business Requirements Document
 
-> Tài liệu này được tách ra từ `design/Agile/Scrum/O.md` (phiên bản 3.0, cập nhật 08/05/2026) để dễ quản lý.
->
-> **Lưu ý:** File nguồn `O.md` **được giữ nguyên**.
-
 ---
 
 ## 1. Tổng quan
@@ -80,12 +76,23 @@ Hệ thống cho phép nhiều **Seller** đăng ký gian hàng và bán hàng t
 
 ---
 
-## 4. Bối cảnh & nhu cầu nghiệp vụ (Current state)
+## 4. As-Is / Current state (Hiện trạng)
 
 ### 4.1. Bài toán thị trường
-Xu hướng chuyển dịch từ mô hình “một cửa hàng” sang **sàn đa nhà cung cấp**.
+Trong bối cảnh thương mại điện tử phát triển mạnh mẽ, việc xây dựng một nền tảng bán hàng không chỉ dừng lại ở mô hình “một cửa hàng” mà đang chuyển dịch sang **mô hình sàn giao dịch thương mại điện tử đa nhà cung cấp** (multi-vendor marketplace). Mô hình này giúp tập trung nguồn cung, tăng lựa chọn cho người mua và tạo ra hệ sinh thái vận hành (thanh toán, vận chuyển, hậu mãi) ở quy mô lớn.
 
-### 4.2. Nhu cầu theo nhóm người dùng
+### 4.2. Hiện trạng (As-Is) — tóm tắt
+> Mục đích: mô tả bối cảnh hiện tại và nhu cầu chưa được đáp ứng để làm rõ “vì sao cần xây TKart”.
+
+Hiện tại, khi chuyển từ mô hình bán hàng đơn lẻ sang mô hình “sàn”, các nhóm người dùng thường gặp các nhu cầu/chưa đáp ứng sau:
+
+- **Đối với người tiêu dùng (Customer)**: cần một nền tảng tích hợp nơi họ có thể **tìm kiếm/lọc/sắp xếp** sản phẩm từ **nhiều nhà bán**, quản lý giỏ hàng mượt mà, **thanh toán online an toàn** và có kênh hỗ trợ/tư vấn nhanh (ví dụ **Chatbot AI**).
+- **Đối với người bán (Seller)**: thiếu một công cụ tập trung để **đăng bán & quản lý sản phẩm**, theo dõi và xử lý đơn hàng, cập nhật kho, và theo dõi **doanh thu/thống kê** một cách trực quan.
+- **Đối với quản trị viên (Admin)**: cần một hệ thống toàn diện để **kiểm duyệt người bán & sản phẩm**, quản lý mã giảm giá/chương trình khuyến mãi, và **tùy biến trang chủ** để phục vụ vận hành và tăng trưởng.
+
+Từ góc nhìn nền tảng, các luồng vận hành cốt lõi (checkout đa seller, tách đơn, đối soát, vận chuyển qua webhook, hoàn tiền tự động, xử lý tranh chấp) cần được **chuẩn hoá** thành quy trình end-to-end với phân quyền & kiểm soát rủi ro rõ ràng.
+
+### 4.3. Nhu cầu theo nhóm người dùng
 
 #### Người tiêu dùng (Customer)
 - Tìm kiếm/lọc/sắp xếp từ nhiều seller.
@@ -105,7 +112,16 @@ Xu hướng chuyển dịch từ mô hình “một cửa hàng” sang **sàn �
 
 ---
 
-## 5. Định hướng giải pháp (Proposed solution)
-Xây dựng TKart như một nền tảng marketplace end-to-end, tự động hóa giao dịch và vận hành qua tích hợp thanh toán/vận chuyển.
+## 5. To-Be / Proposed solution (Định hướng giải pháp)
 
-> Chi tiết yêu cầu chức năng, business rules, NFR, ràng buộc và quy trình tác nghiệp được mô tả trong `design/Agile/Scrum/FRD.md`.
+### 5.1. To-Be (mục tiêu mong muốn)
+Xây dựng TKart như một nền tảng marketplace end-to-end cho mô hình đa nhà cung cấp, với mục tiêu:
+- **Tự động hóa** quy trình giao dịch (đặt hàng → thanh toán → vận chuyển → hậu mãi).
+- **Quản lý tài chính minh bạch** thông qua tích hợp cổng thanh toán và quy tắc đối soát.
+- **Nâng cao trải nghiệm người dùng** (mua sắm mượt, theo dõi đơn, hỗ trợ nhanh; có thể mở rộng thêm real-time/AI sau khi lõi giao dịch ổn định).
+
+### 5.2. Phạm vi To-Be (được bàn giao theo Agile/Scrum)
+- Yêu cầu được phân rã theo **User Story** và triển khai theo **vertical slice** (mỗi release đều demo được).
+- Ưu tiên giảm rủi ro sớm: Auth/RBAC, mô hình Order–Payment, split order multi-vendor; sau đó mới tới payment online/webhook và shipping.
+
+
