@@ -327,6 +327,8 @@ public class DataSeeder implements CommandLineRunner {
         p.setMrp(mrp);
         p.setSellingPrice(selling);
         p.setMinSellingPrice(selling);
+        int discount = (mrp == null || mrp == 0 || selling == null) ? 0 : (int) Math.round((mrp - selling) * 100.0 / mrp);
+        p.setMaxDiscountPercent(discount);
         p.setStock(stock);
         p.setTotalQuantity(stock);
         p.setAttributes(attrs);

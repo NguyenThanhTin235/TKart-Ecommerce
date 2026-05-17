@@ -25,7 +25,7 @@ function App() {
           </div>
         </div>
       </div>
-      
+
       <footer className="mt-8 text-sm font-black uppercase tracking-widest">
         Powered by Antigravity AI
       </footer>
