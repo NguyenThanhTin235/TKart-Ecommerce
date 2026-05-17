@@ -13,10 +13,10 @@ Tài liệu này cung cấp danh sách kiểm tra (TODO Checklist) cực kỳ ch
 - [x] Triển khai `CustomAuthenticationEntryPoint` (xử lý lỗi 401 Unauthorized) và `CustomAccessDeniedHandler` (xử lý lỗi 403 Forbidden).
 
 ### 1.2. Module Xác thực & Tài khoản (`AuthController` & `AuthService`)
-- [ ] `POST /api/v1/auth/register`: Đăng ký tài khoản Customer/Seller, kiểm tra email trùng, băm mật khẩu bằng BCrypt, sinh mã OTP 6 số ngẫu nhiên lưu vào Redis (TTL 5 phút), gửi email OTP qua `MailService`.
-- [ ] `POST /api/v1/auth/verify-otp`: Xác thực mã OTP trong Redis, cập nhật `isVerified = true`, kích hoạt tài khoản thành công.
-- [ ] `POST /api/v1/auth/login`: Xác thực email/password, kiểm tra điều kiện `isVerified`, cấp phát JWT Token (Access Token).
-- [ ] `POST /api/v1/auth/logout`: Xử lý đăng xuất.
+- [x] `POST /api/v1/auth/register`: Đăng ký tài khoản Customer, kiểm tra email trùng, băm mật khẩu bằng BCrypt, sinh mã OTP 6 số ngẫu nhiên lưu vào Redis (TTL 5 phút), gửi email OTP qua `MailService`.
+- [x] `POST /api/v1/auth/verify-otp`: Xác thực mã OTP trong Redis, cập nhật `isVerified = true`, kích hoạt tài khoản thành công.
+- [x] `POST /api/v1/auth/login`: Xác thực email/password, kiểm tra điều kiện `isVerified`, cấp phát JWT Token (Access Token).
+- [x] `POST /api/v1/auth/logout`: Xử lý đăng xuất.
 
 ### 1.3. Module Khám phá, Tìm kiếm & Lọc (`ProductPublicController` & `ProductService`)
 - [ ] Triển khai `ProductCustomRepositoryImpl`: Sử dụng `MongoTemplate` và `Criteria API` xây dựng truy vấn lọc động (Dynamic Query) kết hợp các điều kiện: `keyword` (regex matching), `categoryId`, `minPrice`, `maxPrice`, `minDiscount`, `color`, `size`, `minRating`, `status = PUBLISHED`.
@@ -48,9 +48,9 @@ Tài liệu này cung cấp danh sách kiểm tra (TODO Checklist) cực kỳ ch
 - [ ] `POST /api/v1/seller/products`: Seller đăng tải sản phẩm mới (mặc định khởi tạo ở trạng thái `PENDING`).
 
 ### 1.7. Module Quản lý Hồ sơ & Sổ địa chỉ (`UserProfileController` & `UserService`)
-- [ ] `GET /api/v1/profile`: Lấy thông tin chi tiết hồ sơ của user đang đăng nhập (Họ tên, SĐT, ngày sinh, avatar, isVerified, roles).
-- [ ] `PUT /api/v1/profile`: Cập nhật thông tin cá nhân cơ bản (Họ tên, SĐT, ngày sinh, avatar).
-- [ ] `PUT /api/v1/profile/password`: Thay đổi mật khẩu (kiểm tra mật khẩu cũ, băm mật khẩu mới bằng BCrypt).
+- [x] `GET /api/v1/profile`: Lấy thông tin chi tiết hồ sơ của user đang đăng nhập (Họ tên, SĐT, ngày sinh, avatar, isVerified, roles).
+- [x] `PUT /api/v1/profile`: Cập nhật thông tin cá nhân cơ bản (Họ tên, SĐT, ngày sinh, avatar).
+- [x] `PUT /api/v1/profile/password`: Thay đổi mật khẩu (kiểm tra mật khẩu cũ, băm mật khẩu mới bằng BCrypt).
 - [ ] `GET /api/v1/profile/addresses`: Lấy danh sách sổ địa chỉ (Address Book) của Khách hàng.
 - [ ] `POST /api/v1/profile/addresses`: Thêm địa chỉ mới vào sổ địa chỉ (hỗ trợ cờ `isDefault`).
 - [ ] `PUT /api/v1/profile/addresses/{id}`: Cập nhật thông tin địa chỉ hoặc đặt làm địa chỉ mặc định.

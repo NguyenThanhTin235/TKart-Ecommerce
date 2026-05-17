@@ -19,4 +19,13 @@ public class MailService {
         message.setText("Your OTP code is: " + otp + ". This code will expire in 5 minutes.");
         mailSender.send(message);
     }
+
+    public void sendResetPasswordEmail(String to, String otp) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("tkart-support@ecommerce.com");
+        message.setTo(to);
+        message.setSubject("TKart - Password Reset Verification Code");
+        message.setText("Your password reset OTP code is: " + otp + ". This code will expire in 10 minutes.");
+        mailSender.send(message);
+    }
 }

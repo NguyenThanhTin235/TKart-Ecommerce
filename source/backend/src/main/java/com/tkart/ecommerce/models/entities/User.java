@@ -39,4 +39,6 @@ public class User extends BaseDocument {
     private AuthProvider authProvider = AuthProvider.LOCAL;
 
     private String avatar;
+    private String dob;
+    private String gender;
 }
