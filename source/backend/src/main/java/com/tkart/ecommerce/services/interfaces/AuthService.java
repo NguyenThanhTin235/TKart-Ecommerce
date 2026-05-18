@@ -8,6 +8,7 @@ public interface AuthService {
     AuthResponse registerUser(RegisterRequest request);
     AuthResponse verifyRegistrationOtp(String email, String otp);
     void forgotPassword(ForgotPasswordRequest request);
+    void verifyForgotPasswordOtp(String email, String otp);
     void resetPassword(ResetPasswordRequest request);
     AuthResponse googleLogin(GoogleLoginRequest request);
     UserDTO updateProfile(String userId, UpdateProfileRequest request);

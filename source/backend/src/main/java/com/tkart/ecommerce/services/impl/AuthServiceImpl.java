@@ -147,6 +147,17 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public void verifyForgotPasswordOtp(String email, String otp) {
+        OtpToken otpToken = otpTokenRepository.findByEmailAndCodeAndTypeAndUsedFalse(
+                email, otp, OtpType.RESET_PASSWORD)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid or expired OTP code"));
+
+        if (otpToken.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Invalid or expired OTP code");
+        }
+    }
+
+    @Override
     public void resetPassword(ResetPasswordRequest request) {
         OtpToken otpToken = otpTokenRepository.findByEmailAndCodeAndTypeAndUsedFalse(
                 request.getEmail(), request.getOtp(), OtpType.RESET_PASSWORD)
