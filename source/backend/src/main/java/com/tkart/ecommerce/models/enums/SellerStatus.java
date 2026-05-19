@@ -4,5 +4,6 @@ public enum SellerStatus {
     PENDING_VERIFICATION,
     ACTIVE,
     SUSPENDED,
-    BANNED
+    BANNED,
+    REJECTED
 }

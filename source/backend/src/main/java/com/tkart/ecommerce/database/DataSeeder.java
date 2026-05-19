@@ -29,7 +29,7 @@ public class DataSeeder implements CommandLineRunner {
     private final WishlistRepository wishlistRepository;
     private final CoinWalletRepository coinWalletRepository;
     private final ArticleRepository articleRepository;
-    private final DealRepository dealRepository;
+
     private final ReviewRepository reviewRepository;
     private final AddressRepository addressRepository;
     private final AuditLogRepository auditLogRepository;
@@ -69,7 +69,7 @@ public class DataSeeder implements CommandLineRunner {
         Map<String, Category> categories = seedCategories();
 
         // 3. Users (Admin, 2 Sellers, Customer)
-        User adminUser = seedUser("System Admin", "admin@tkart.com", "Admin@123", Role.ROLE_ADMIN, true, null);
+        seedUser("System Admin", "admin@tkart.com", "Admin@123", Role.ROLE_ADMIN, true, null);
         User sellerUser1 = seedUser("Fashion Seller", "seller1@tkart.com", "password123", Role.ROLE_SELLER, true, "TKart Fashion Store");
         User sellerUser2 = seedUser("Electronics Seller", "seller2@tkart.com", "password123", Role.ROLE_SELLER, true, "TKart Electronics Store");
         User customerUser = seedUser("John Customer", "customer@tkart.com", "password123", Role.ROLE_CUSTOMER, true, null);

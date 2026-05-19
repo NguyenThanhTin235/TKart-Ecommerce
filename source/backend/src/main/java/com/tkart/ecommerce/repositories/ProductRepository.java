@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ProductRepository extends MongoRepository<Product, String> {
     List<Product> findBySellerId(String sellerId);
+    List<Product> findByStatus(com.tkart.ecommerce.models.enums.ProductStatus status);
 }
