@@ -62,6 +62,7 @@ public class CartServiceImpl implements CartService {
             newItem.setTitle(product.getName());
             newItem.setImage(product.getImages() != null && !product.getImages().isEmpty() ? product.getImages().get(0) : "");
             newItem.setPrice(product.getSellingPrice());
+            newItem.setMrp(product.getMrp() != null ? product.getMrp() : product.getSellingPrice());
             newItem.setQuantity(request.getQuantity());
             newItem.setSelectedAttributes(request.getSelectedAttributes());
             newItem.setSellerId(product.getSellerId());
@@ -92,6 +93,11 @@ public class CartServiceImpl implements CartService {
         }
 
         cartItem.setQuantity(request.getQuantity());
+        
+        // Hỗ trợ cập nhật phân loại (US-03.2 AC2)
+        if (request.getSelectedAttributes() != null) {
+            cartItem.setSelectedAttributes(request.getSelectedAttributes());
+        }
         updateCartTotals(cart);
         cartRepository.save(cart);
 
@@ -128,6 +134,7 @@ public class CartServiceImpl implements CartService {
             newCart.setCartItems(new ArrayList<>());
             newCart.setTotalItems(0);
             newCart.setTotalSellingPrice(0L);
+            newCart.setTotalMrp(0L);
             return cartRepository.save(newCart);
         });
     }
@@ -135,14 +142,18 @@ public class CartServiceImpl implements CartService {
     private void updateCartTotals(Cart cart) {
         int totalItems = 0;
         long totalPrice = 0L;
+        long totalMrp = 0L;
 
         for (CartItem item : cart.getCartItems()) {
             totalItems += item.getQuantity();
             totalPrice += item.getPrice() * item.getQuantity();
+            long itemMrp = (item.getMrp() != null) ? item.getMrp() : item.getPrice();
+            totalMrp += itemMrp * item.getQuantity();
         }
 
         cart.setTotalItems(totalItems);
         cart.setTotalSellingPrice(totalPrice);
+        cart.setTotalMrp(totalMrp);
     }
 
     private CartResponse mapToResponse(Cart cart) {
@@ -152,6 +163,7 @@ public class CartServiceImpl implements CartService {
                         .title(item.getTitle())
                         .image(item.getImage())
                         .price(item.getPrice())
+                        .mrp(item.getMrp())
                         .quantity(item.getQuantity())
                         .selectedAttributes(item.getSelectedAttributes())
                         .sellerId(item.getSellerId())
@@ -163,6 +175,7 @@ public class CartServiceImpl implements CartService {
                 .userId(cart.getUserId())
                 .cartItems(items)
                 .totalSellingPrice(cart.getTotalSellingPrice())
+                .totalMrp(cart.getTotalMrp())
                 .totalItems(cart.getTotalItems())
                 .build();
     }

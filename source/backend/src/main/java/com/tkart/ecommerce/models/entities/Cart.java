@@ -19,5 +19,6 @@ public class Cart extends BaseDocument {
     private List<CartItem> cartItems;
 
     private Long totalSellingPrice;
+    private Long totalMrp;
     private Integer totalItems;
 }

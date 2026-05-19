@@ -12,5 +12,6 @@ public class CartResponse {
     private String userId;
     private List<CartItemResponse> cartItems;
     private Long totalSellingPrice;
+    private Long totalMrp;
     private Integer totalItems;
 }

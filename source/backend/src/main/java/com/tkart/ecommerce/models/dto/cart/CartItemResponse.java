@@ -12,6 +12,7 @@ public class CartItemResponse {
     private String title;
     private String image;
     private Long price;
+    private Long mrp;
     private Integer quantity;
     private Map<String, String> selectedAttributes;
     private String sellerId;
